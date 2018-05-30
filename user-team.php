@@ -8,9 +8,9 @@ $SETID = 1;
  * Time: 11:30
  */
 $m_nev = '';
-$m_li = 'project';
+$m_li = 'team';
 $user_id = isset($_SESSION['id'])?$_SESSION['id']:'';
-require_once __DIR__.'/controller/userProject.php';
+require_once __DIR__.'/controller/userTeam.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +49,8 @@ require_once __DIR__.'/controller/userProject.php';
                     endif; ?>
 
                     <div class="form-inline">
-                        <label><h3>จัดการโปรเจค</h3></label>
+                        <label><h3> ทีม / โครงการ </h3></label>
+                        <a href="user-team-create.php" class="btn btn-success"><i class="fa fa-plus"></i> สร้างทีม/โครงการ</a>
                     </div>
                     <hr>
                     <div>
@@ -71,7 +72,7 @@ require_once __DIR__.'/controller/userProject.php';
                                 <td><?=$item['schoolname']; ?></td>
                                 <td><?=$item['schoolregion']; ?></td>
                                 <td class="text-center">
-                                    <a href="user-project-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i> จัดการโปรเจค </a>
+                                    <a href="user-team-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i> จัดการทีม/โครงการ </a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
