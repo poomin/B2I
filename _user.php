@@ -14,11 +14,8 @@ $role = $_SESSION['role'];
         <a href="user-profile.php"><i class="fa fa-user fa-fw"></i> แก้ไขข้อมูลส่วนตัว</a>
     </li>
     <?php if ($role != 'admin'): ?>
-        <li>
-            <a href="#"><i class="fa fa-group fa-fw"></i> ทีม</a>
-        </li>
-        <li>
-            <a href="#"><i class="fa fa-edit fa-fw"></i> โครงการ</a>
+        <li class="<?= $m_li=='project'?'active':'';?>">
+            <a href="user-project.php"><i class="fa fa-edit fa-fw"></i> โครงการ</a>
         </li>
     <?php else: ?>
         <li>
