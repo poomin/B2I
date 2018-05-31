@@ -7,6 +7,7 @@ session_start();
  * Time: 11:30
  */
 $m_nev = 'home';
+require_once __DIR__.'/controller/index.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,19 +41,20 @@ $m_nev = 'home';
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <?php for ($i=0;$i<count($IMAGE);$i++):?>
+                <li data-target="#carousel-example-generic" data-slide-to="<?=$i;?>" class="<?= $i==0?'active':'';?>"></li>
+                <?php endfor; ?>
             </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img src="images/science1.jpg" alt="...">
+
+                <?php foreach ($IMAGE as $key=>$item): ?>
+                <div class="item <?= $key==0?'active':'';?>">
+                    <img src="<?=$item['path'];?>" alt="<?=$item['namefile'];?>">
                 </div>
-                <div class="item">
-                    <img src="images/science2.jpg" alt="...">
-                </div>
+                <?php endforeach; ?>
+
             </div>
 
             <!-- Controls -->

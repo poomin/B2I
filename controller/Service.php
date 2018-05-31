@@ -56,10 +56,22 @@ elseif($fn=='getProjectById'){
         exit;
     }
 }
-elseif($fn=='mail'){
 
 
+//delete image projectSetup
+elseif($fn=='deleteImageProjectSetup'){
+    require_once __DIR__.'/ModelUpload.php';
+    $MUP = new ModelUpload();
+    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+    $result = $MUP->deleteImageProjectSetup($id);
+    echo json_encode([
+        'status'=> true,
+        'message'=>'success',
+        'data'=>$result
+    ]);
+    exit;
 }
+
 
 else{
     echo json_encode([
