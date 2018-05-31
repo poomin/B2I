@@ -72,6 +72,102 @@ elseif($fn=='deleteImageProjectSetup'){
     exit;
 }
 
+//post
+elseif($fn=='addPost'){
+    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
+    $title = isset($_REQUEST['title'])?$_REQUEST['title']:'';
+    $detail = isset($_REQUEST['detail'])?$_REQUEST['detail']:'';
+    $type = isset($_REQUEST['type'])?$_REQUEST['type']:'';
+    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $input= [
+        'user_id'=> $user_id,
+        'title'=> $title,
+        'detail'=> $detail,
+        'type'=> $type,
+        'path'=> $path
+    ];
+
+    include_once __DIR__.'/ModelPost.php';
+    $MPS = new ModelPost();
+    $result = $MPS->addPost($input);
+
+    if($result>0){
+        echo json_encode([
+            'status'=> true,
+            'message'=>'success',
+            'data'=>$result
+        ]);
+        exit;
+    }else{
+        echo json_encode([
+            'status'=> false,
+            'message'=>'Not Function Service',
+            'data'=>[]
+        ]);
+        exit;
+    }
+
+}
+elseif($fn=='editPost'){
+    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
+    $title = isset($_REQUEST['title'])?$_REQUEST['title']:'';
+    $detail = isset($_REQUEST['detail'])?$_REQUEST['detail']:'';
+    $type = isset($_REQUEST['type'])?$_REQUEST['type']:'';
+    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+    $input= [
+        'user_id'=> $user_id,
+        'title'=> $title,
+        'detail'=> $detail,
+        'type'=> $type,
+        'path'=> $path,
+        'id'=> $id
+    ];
+
+    include_once __DIR__.'/ModelPost.php';
+    $MPS = new ModelPost();
+    $result = $MPS->editPost($input);
+
+    if($result>0){
+        echo json_encode([
+            'status'=> true,
+            'message'=>'success',
+            'data'=>$result
+        ]);
+        exit;
+    }else{
+        echo json_encode([
+            'status'=> false,
+            'message'=>'Not Function Service',
+            'data'=>[]
+        ]);
+        exit;
+    }
+
+}
+elseif ($fn=='getPostById'){
+
+    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+    include_once __DIR__.'/ModelPost.php';
+    $MPS = new ModelPost();
+    $result = $MPS->getPostById($id);
+
+    if($result>0){
+        echo json_encode([
+            'status'=> true,
+            'message'=>'success',
+            'data'=>$result
+        ]);
+        exit;
+    }else{
+        echo json_encode([
+            'status'=> false,
+            'message'=>'Not Function Service',
+            'data'=>[]
+        ]);
+        exit;
+    }
+}
 
 else{
     echo json_encode([

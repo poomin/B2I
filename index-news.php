@@ -8,6 +8,9 @@ session_start();
  */
 $m_nev = 'news';
 
+$page= isset($_REQUEST['page'])?$_REQUEST['page']:1;
+include_once __DIR__.'/controller/news.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,72 +30,29 @@ $m_nev = 'news';
 
             <!-- Blocks of Posts -->
             <div class="col-xs-12 col-sm-8 row">
-                <div class="col-xs-12 col-sm-12">
+                <?php foreach ($NEWS as $item): ?>
+                    <div class="col-xs-12 col-sm-12">
                     <div class="post">
                         <div class="post-heading">
-                            <span>6 เมษายน 2561</span>
-                            <img class="img-responsive" src="images/science1.jpg" alt="post's picture">
+                            <span><?=$item['createat'];?></span>
+                            <img class="img-responsive" src="<?=$item['path'];?>" alt="image" style="height: 400px;">
                         </div>
                         <div class="post-body">
-                            <h3><a href="single_post.html"><strong>doloremque illum</strong></a></h3>
+                            <h3><a href="index-news-detail.php?id=<?=$item['id'];?>"><strong><?=$item['type'];?></strong></a></h3>
                             <hr>
-                            <p>Duis ultrices tortor non felis convallis bibendum.
-                                Maecenas diam velit, sollicitudin at imperdiet ac,
-                                consectetur non nibh. Etiam eget dapibus nulla.
-                            </p>
+                            <p> <?=$item['title'];?> </p>
                         </div>
                         <div class="post-footer">
-                            <a class="btn" href="single_post.html">READ MORE...</a>
+                            <a class="btn" href="index-news-detail.php?id=<?=$item['id'];?>">READ MORE...</a>
                             <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
-                 </span>
+                                 <i class="fa fa-eye sr-icons"></i> <?=$item['view'];?>
+                                 <i class="fa fa-comments sr-icons"></i> <?=$item['comment'];?>
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12">
-                    <div class="post">
-                        <div class="post-heading">
-                            <span>7 FEBRUARY</span>
-                            <img class="img-responsive" src="images/science2.jpg" alt="post's picture">
-                        </div>
-                        <div class="post-body">
-                            <h3><a href="single_post.html"><strong>Lorem ipsum</strong></a></h3>
-                            <hr>
-                            <p>Nunc sit amet dapibus est, sit amet varius risus. Donec luctus lacinia mauris, at feugiat ligula
-                                facilisis ac. Class aptent taciti sociosqu ad litora torquent per conubia.
-                            </p>
-                        </div>
-                        <div class="post-footer">
-                            <a class="btn" href="single_post.html">READ MORE...</a>
-                            <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
-                 </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12">
-                    <div class="post">
-                        <div class="post-heading">
-                            <span>8 MARCH</span>
-                            <img class="img-responsive" src="images/science1.jpg" alt="post's picture">
-                        </div>
-                        <div class="post-body">
-                            <h3><a href="single_post.html"><strong>Aliquam soluta</strong></a></h3>
-                            <hr>
-                            <p>In felis ante, aliquet sit amet venenatis at, feugiat sed leo. Fusce pretium, velit in luctus ornare, elit lorem ultrices tortor, sed consectetur orci risus mollis ante.
-                            </p>
-                        </div>
-                        <div class="post-footer">
-                            <a class="btn" href="single_post.html">READ MORE...</a>
-                            <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
-                 </span>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach;?>
+
                 <nav class="text-left">
                     <ul class="pagination">
                         <li class="active"><a href="#">1</a></li>
@@ -103,6 +63,7 @@ $m_nev = 'news';
                             </a></li>
                     </ul>
                 </nav>
+
             </div>
             <!-- End of Blog Post -->
 

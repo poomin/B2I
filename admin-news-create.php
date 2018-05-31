@@ -87,8 +87,6 @@ $m_li = 'news';
                             </button>
                         </div>
                         <div id="image">
-                            <input id="path_image" class="hide" type="text" name="path_image" value="<?= $path_image; ?>">
-                            <input id="name_image" class="hide" type="text" name="name_image" value="<?= $name_image; ?>">
                             <div class="box-img-ready">
                                 <label style="cursor: pointer;" for="file_image">
                                     <h3 id="upload_image"><span class="label label-info"><i class="fa fa-upload"></i> Upload</span></h3>
@@ -108,6 +106,7 @@ $m_li = 'news';
                     </div>
 
                     <div class="text-center" style="padding-top: 20px;">
+                        <input class="hidden" id="inputUserId" value="<?=$_SESSION['id'];?>">
                         <button type="submit" class="btn btn-lg sr-button btn-success" onclick="saveText()">SAVE</button>
                     </div>
 
@@ -130,55 +129,39 @@ $m_li = 'news';
         $('#edit').froalaEditor({
             heightMin: 250,
         });
-        getText();
     });
-
-    function getText() {
-        var id = $('#card').attr('attr');
-        var req = $.ajax({
-            type: 'POST',
-            url: './controller/Service.php',
-            data: {
-                fn: 'getProjectById',
-                id: id,
-            },
-            dataType: 'JSON'
-        });
-        req.done(function (res) {
-            if(res.status){
-                var text = res.data.objective;
-                $('#edit').froalaEditor('html.set',text);
-            }else{
-                alert('get data false!!!!');
-            }
-        });
-
-    }
-
     function saveText() {
-        var text = $('#edit').froalaEditor('html.get');
-        var id = $('#card').attr('attr');
-        var req = $.ajax({
-            type: 'POST',
-            url: './controller/Service.php',
-            data: {
-                fn: 'addDetailProject',
-                detail: 'objective',
-                text: text,
-                id: id,
-            },
-            dataType: 'JSON'
-        });
-        req.done(function (res) {
-            if(res.status){
-                alert('save data complete...');
-            }else{
-                alert('save data false!!!!');
-            }
-        });
+        var user_id = $('#inputUserId').val();
+        var title = $('#inputTitle').val();
+        var type = $('#selectType').val();
+        var path = $('#imageShow').attr('src');
+        if(title==''){
+            alert('กรุณากรอกข้อมูลให้ครบด่วน');
+        }else{
+            var text = $('#edit').froalaEditor('html.get');
+            var req = $.ajax({
+                type: 'POST',
+                url: './controller/Service.php',
+                data: {
+                    fn: 'addPost',
+                    user_id: user_id,
+                    title: title,
+                    type: type,
+                    detail: text,
+                    path: path,
+                },
+                dataType: 'JSON'
+            });
+            req.done(function (res) {
+                if(res.status){
+                    alert('save data complete...');
+                    window.location.href = '/admin-news.php';
+                }else{
+                    alert('save data false!!!!');
+                }
+            });
+        }
     }
-
-
 
 
     var ajax_image;
@@ -223,9 +206,7 @@ $m_li = 'news';
                     if (data_return['status'] == 'ok') {
                         var src = '/upload/image/'+data_return['new_name'];
 
-                        $('#nameImage').val(data_return['file_name']);
                         $('#imageShow').attr('src',src);
-                        $('#inputPate').attr('value',src);
 
                         $('#show_progressBar_' + set_type).addClass('hide');
                         $("#" + progressBar).css('width', "0%");

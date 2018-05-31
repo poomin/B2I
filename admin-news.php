@@ -8,9 +8,10 @@ session_start();
  */
 $m_nev = '';
 $m_li = 'news';
-$id=1;
+
+
 $user_id = isset($_SESSION['id'])?$_SESSION['id']:'';
-require_once __DIR__.'/controller/userTeam.php';
+require_once __DIR__.'/controller/adminPost.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,14 +41,6 @@ require_once __DIR__.'/controller/userTeam.php';
             <div class="col-xs-12 col-sm-9">
                 <div class="box-card">
 
-                    <?php if(isset($_SESSION['success'])): ?>
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong>Success. </strong> <?php echo $_SESSION['success']; ?>
-                        </div>
-                        <?php unset($_SESSION['success']);
-                    endif; ?>
-
                     <div class="form-inline">
                         <label><h3> ข่าว / ประกาศ </h3></label>
                         <a href="admin-news-create.php" class="btn btn-success"><i class="fa fa-plus"></i> สร้างข่าว/ประกาศ</a>
@@ -59,20 +52,22 @@ require_once __DIR__.'/controller/userTeam.php';
                         <table id="thisdatatable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                             <tr>
-                                <th>โปรเจค</th>
-                                <th>โรงเรียน</th>
-                                <th>ภาค</th>
+                                <th>ภาพ</th>
+                                <th>หัวข้อ</th>
+                                <th>ประเภท</th>
                                 <th>จัดการ</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($PROJECT as $item): ?>
+                            <?php foreach ($POSTS as $item): ?>
                                 <tr>
-                                    <td><?=$item['name']; ?></td>
-                                    <td><?=$item['schoolname']; ?></td>
-                                    <td><?=$item['schoolregion']; ?></td>
                                     <td class="text-center">
-                                        <a href="admin-news-edit.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i> จัดการทีม/โครงการ </a>
+                                        <img src="<?=$item['path']; ?>" alt="image" class="img-thumbnail" style="height: 100px;">
+                                    </td>
+                                    <td><?=$item['title']; ?></td>
+                                    <td><?=$item['type']; ?></td>
+                                    <td class="text-center">
+                                        <a href="admin-news-edit.php?id=<?=$item['id'];?>" class="btn btn-warning btn-sm"><i class="fa fa-pencil-square-o"></i> แก้ไข </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
