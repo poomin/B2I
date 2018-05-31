@@ -12,7 +12,7 @@ class ModelUser extends  _PDO
 
     function login($username , $password){
         $this->connect();
-        $sql = "SELECT id,username,name,surname,schoolname,schoolregion,role FROM b2i_user WHERE username=:username AND password=:password";
+        $sql = "SELECT id,username,name,email,surname,schoolname,schoolregion,role FROM b2i_user WHERE username=:username AND password=:password";
         $params= array(':username'=> $username , ':password'=>$password);
         $result = $this->query($sql,$params);
         $this->close();
@@ -52,6 +52,36 @@ class ModelUser extends  _PDO
 
     }
 
+    function editUser($input){
+        $email = isset($input['email'])?$input['email']:'';
+        $name = isset($input['name'])?$input['name']:'';
+        $surname = isset($input['surname'])?$input['surname']:'';
+        $schoolname = isset($input['schoolname'])?$input['schoolname']:'';
+        $schoolregion = isset($input['schoolregion'])?$input['schoolregion']:'';
+        $id = isset($input['id'])?$input['id']:'';
+
+
+        //connect DB
+        $this->connect();
+        $sql = "UPDATE b2i_user SET email=:email,name=:name,surname=:surname,schoolname=:schoolname,schoolregion=:schoolregion WHERE id=:id";
+        $params= array(
+            ':email'=> $email,
+            ':name'=> $name,
+            ':surname'=> $surname,
+            ':schoolname'=> $schoolname,
+            ':schoolregion'=> $schoolregion,
+            ':id'=>$id
+        );
+        $lastId = $this->update($sql,$params);
+        //close DB
+        $this->close();
+
+
+        return $lastId;
+
+    }
+
+
     function getUserByProjectId($project_id){
         $this->connect();
         $sql = "select b2i_user.* , membertype from (select * from b2i_project_member where project_id=:project_id )as member 
@@ -71,5 +101,22 @@ class ModelUser extends  _PDO
         return $result;
     }
 
+    function getUserAll(){
+        $this->connect();
+        $sql = "select * from b2i_user WHERE role!='admin'";
+        $params= array();
+        $result = $this->queryAll($sql,$params);
+        $this->close();
+        return $result;
+    }
+
+    function getUserById($id){
+        $this->connect();
+        $sql = "select * from b2i_user WHERE id=:id";
+        $params= array(':id'=> $id);
+        $result = $this->query($sql,$params);
+        $this->close();
+        return $result;
+    }
 
 }

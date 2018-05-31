@@ -44,11 +44,11 @@ include_once __DIR__.'/controller/register.php';
             <div class="form-group">
                 <div class="col-xs-6">
                     <label class="label-control">Password</label>
-                    <input class="form-control" type="password" name="password" required>
+                    <input id="inputPassword" class="form-control" type="password" name="password" required>
                 </div>
                 <div class="col-xs-6">
                     <label class="label-control">Confirm password</label>
-                    <input class="form-control" type="password" name="confirm" required>
+                    <input id="inputConfirm" class="form-control" type="password" name="confirm" onchange="confirmPassword();" required>
                 </div>
             </div>
 
@@ -113,6 +113,18 @@ include_once __DIR__.'/controller/register.php';
     <?php include '_footer.php'; ?>
 </footer>
 <?php include '_script.php';?>
+
+<script>
+    function confirmPassword() {
+        var password = $('#inputPassword').val();
+        var confirm  = $('#inputConfirm').val();
+        if(password != confirm){
+            alert("ตรวจสอบ Password และ Confirm password !!!!!");
+            $('#inputPassword').val('');
+            $('#inputConfirm').val('');
+        }
+    }
+</script>
 
 </body>
 </html>

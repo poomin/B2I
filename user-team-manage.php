@@ -16,7 +16,7 @@ require_once __DIR__ . '/controller/userTeamManage.php';
 <html lang="en">
 <head>
     <?php include '_header.php'; ?>
-
+    <?php include '_datatablecss.php' ;?>
 </head>
 
 <body id="page-top">

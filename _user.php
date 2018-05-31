@@ -21,11 +21,11 @@ $role = $_SESSION['role'];
             <a href="user-project.php"><i class="fa fa-edit fa-fw"></i> โครงการ</a>
         </li>
     <?php else: ?>
-        <li>
-            <a href="#"><i class="fa fa-group fa-fw"></i> จัดการสมาชิก</a>
+        <li class="<?= $m_li=='user'?'active':'';?>">
+            <a href="admin-user.php"><i class="fa fa-group fa-fw"></i> จัดการสมาชิก</a>
         </li>
-        <li>
-            <a href="#"><i class="fa fa-edit fa-fw"></i>ประกาศ/ข่าว</a>
+        <li class="<?= $m_li=='news'?'active':'';?>">
+            <a href="admin-news.php"><i class="fa fa-bullhorn fa-fw"></i>ประกาศ/ข่าว</a>
         </li>
         <li>
             <a href="#"><i class="fa fa-edit fa-fw"></i> จัดการโครงการ</a>
@@ -33,6 +33,9 @@ $role = $_SESSION['role'];
         <li>
             <hr>
             <i class="fa fa-bookmark fa-fw"></i> ระเบียบโครงการ
+        </li>
+        <li class="<?= $m_li=='image'?'active':'';?>">
+            <a href="admin-project-image.php"><i class="fa fa-image fa-fw"></i> ภาพ</a>
         </li>
         <li class="<?= $m_li=='project'?'active':'';?>">
             <a href="admin-project.php"><i class="fa fa-newspaper-o fa-fw"></i> โครงการ</a>

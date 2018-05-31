@@ -7,9 +7,9 @@ session_start();
  * Time: 11:30
  */
 $m_nev = '';
-$m_li = 'profile';
+$m_li = 'user';
 
-require_once __DIR__.'/controller/userProfile.php'
+require_once __DIR__.'/controller/adminUserEdit.php'
 
 ?>
 <!DOCTYPE html>
@@ -56,7 +56,7 @@ require_once __DIR__.'/controller/userProfile.php'
 
 
                     <div class="text-center">
-                        <h3>ข้อมูลสมาชิก</h3>
+                        <h3>แก้ไขข้อมูลสมาชิก</h3>
                     </div>
                     <hr>
                     <form class="form-horizontal">
@@ -64,7 +64,7 @@ require_once __DIR__.'/controller/userProfile.php'
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <label class="label-control">Username</label>
-                                <input class="form-control" type="text" value="<?=$_SESSION['username'];?>" disabled>
+                                <input class="form-control" type="text" value="<?=$USER['username'];?>" disabled>
                             </div>
                         </div>
 
@@ -82,33 +82,33 @@ require_once __DIR__.'/controller/userProfile.php'
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label class="label-control">First Name</label>
-                                <input class="form-control" type="text" name="name" value="<?=$_SESSION['name'];?>" required>
+                                <input class="form-control" type="text" name="name" value="<?=$USER['name'];?>" required>
                             </div>
                             <div class="col-xs-6">
                                 <label class="label-control">Last Name</label>
-                                <input class="form-control" type="text" name="surname" value="<?=$_SESSION['surname'];?>" required>
+                                <input class="form-control" type="text" name="surname" value="<?=$USER['surname'];?>" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <label class="label-control">Email</label>
-                                <input class="form-control" type="email" name="email" value="<?=$_SESSION['email'];?>" required>
+                                <input class="form-control" type="email" name="email" value="<?=$USER['email'];?>" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <label class="label-control">สถานะ</label> <br>
-                                <input name="role" type="radio" value="student" <?=$_SESSION['role']=='student'?'checked':''?> disabled> นักเรียน / นักศึกษา <br>
-                                <input name="role" type="radio" value="teacher" <?=$_SESSION['role']=='teacher'?'checked':''?> disabled> ครู / อาจารย์
+                                <input name="role" type="radio" value="student" <?=$USER['role']=='student'?'checked':''?> disabled> นักเรียน / นักศึกษา <br>
+                                <input name="role" type="radio" value="teacher" <?=$USER['role']=='teacher'?'checked':''?> disabled> ครู / อาจารย์
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <label class="label-control">โรงเรียน / สถานศึกษา</label>
-                                <input class="form-control" type="text" name="schoolname" value="<?=$_SESSION['schoolname'];?>">
+                                <input class="form-control" type="text" name="schoolname" value="<?=$USER['schoolname'];?>">
                             </div>
                         </div>
 
@@ -116,16 +116,16 @@ require_once __DIR__.'/controller/userProfile.php'
                             <div class="col-xs-12">
                                 <label class="label-control">ภาค</label>
                                 <select class="form-control" name="schoolregion">
-                                    <option value="กลาง" <?=$_SESSION['schoolregion']=='กลาง'?'selected':'';?> >กลาง</option>
-                                    <option value="เหนือ" <?=$_SESSION['schoolregion']=='เหนือ'?'selected':'';?> >เหนือ</option>
-                                    <option value="ตะวันออก" <?=$_SESSION['schoolregion']=='ตะวันออก'?'selected':'';?> >ตะวันออก</option>
-                                    <option value="ตะวันตก" <?=$_SESSION['schoolregion']=='ตะวันตก'?'selected':'';?> >ตะวันตก</option>
-                                    <option value="ตะวันออกเฉียงเหนือ" <?=$_SESSION['schoolregion']=='ตะวันออกเฉียงเหนือ'?'selected':'';?> >ตะวันออกเฉียงเหนือ</option>
+                                    <option value="กลาง" <?=$USER['schoolregion']=='กลาง'?'selected':'';?> >กลาง</option>
+                                    <option value="เหนือ" <?=$USER['schoolregion']=='เหนือ'?'selected':'';?> >เหนือ</option>
+                                    <option value="ตะวันออก" <?=$USER['schoolregion']=='ตะวันออก'?'selected':'';?> >ตะวันออก</option>
+                                    <option value="ตะวันตก" <?=$USER['schoolregion']=='ตะวันตก'?'selected':'';?> >ตะวันตก</option>
+                                    <option value="ตะวันออกเฉียงเหนือ" <?=$USER['schoolregion']=='ตะวันออกเฉียงเหนือ'?'selected':'';?> >ตะวันออกเฉียงเหนือ</option>
                                 </select>
                             </div>
                         </div>
                         <div class="text-center">
-                            <input class="hidden" name="id" value="<?=$_SESSION['id'];?>">
+                            <input class="hidden" name="id" value="<?=$USER['id'];?>">
                             <input class="hidden" name="fn" value="editUser">
                             <button type="submit" class="btn btn-lg sr-button btn-success">SEND</button>
                         </div>
