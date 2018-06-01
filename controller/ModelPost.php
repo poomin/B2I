@@ -104,4 +104,57 @@ class ModelPost extends _PDO
         return $result;
     }
 
+    function countAddViewPost($id){
+        //connect DB
+        $this->connect();
+        $sql = "UPDATE b2i_post SET `view` = (`view` + 1) WHERE id=:id";
+        $params= array(':id'=> $id );
+        $lastId = $this->update($sql,$params);
+
+        //close DB
+        $this->close();
+
+
+        return $lastId;
+    }
+    function countSubViewPost($id){
+        //connect DB
+        $this->connect();
+        $sql = "UPDATE b2i_post SET `view` = (`view` - 1) WHERE id=:id";
+        $params= array(':id'=> $id );
+        $lastId = $this->update($sql,$params);
+
+        //close DB
+        $this->close();
+
+
+        return $lastId;
+    }
+    function countAddCommentPost($id){
+        //connect DB
+        $this->connect();
+        $sql = "UPDATE b2i_post SET `comment` = (`comment` + 1) WHERE id=:id";
+        $params= array(':id'=> $id );
+        $lastId = $this->update($sql,$params);
+
+        //close DB
+        $this->close();
+
+
+        return $lastId;
+    }
+    function countSubCommentPost($id){
+        //connect DB
+        $this->connect();
+        $sql = "UPDATE b2i_post SET `comment` = (`comment` - 1) WHERE id=:id";
+        $params= array(':id'=> $id );
+        $lastId = $this->update($sql,$params);
+
+        //close DB
+        $this->close();
+
+
+        return $lastId;
+    }
+
 }
