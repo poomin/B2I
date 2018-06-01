@@ -29,10 +29,11 @@ if($fn=='phase1'){
     $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $result = $MPP->addPhase($id,1);
     if($result > 0){
-        header("Location: /user-project-manage.php?id=".$id);
+        $l = $MU->link('user-project-manage.php?id='.$id);
         exit;
     }else{
         header("Location: /user-project.php");
+        $l = $MU->link('user-project.php');
         exit;
     }
 }

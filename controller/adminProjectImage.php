@@ -19,11 +19,11 @@ if($fn=='saveImage'){
     $result =$MUP->addImageProjectSetup($name,$path);
     if($result > 0){
         $_SESSION['success']=" Save Image Success.";
-        header("Location: /admin-project-image.php");
+        $l = $MU->link('admin-project-image.php');
         exit;
     }else{
         $_SESSION['error']=" Can't Save Image !!!!";
-        header("Location: /admin-project-image.php");
+        $l = $MU->link('admin-project-image.php');
         exit;
     }
 }

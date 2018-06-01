@@ -36,11 +36,11 @@ if($fn=='addProject'){
     $result = $MP->addProject($input);
     if($result >0){
         $_SESSION['success']=" Create Project Success.";
-        header("Location: /user-team.php");
+        $l = $MU->link('user-team.php');
         exit;
     }else{
         $_SESSION['error']=" Can't Create Project !!!!";
-        header("Location: /user-team-create.php");
+        $l = $MU->link('user-team-create.php');
         exit;
     }
 }

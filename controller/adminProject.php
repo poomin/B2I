@@ -19,7 +19,7 @@ if($fn=='cmp'){
     $detail =  isset($_REQUEST['detail'])?$_REQUEST['detail']:'';
     $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $MPS->updateProject($name,$title,$detail,$id);
-    header("Location: /admin-project.php");
+    $l = $MU->link('admin-project.php');
     exit;
 
 }

@@ -34,11 +34,11 @@ if($fn=='editUser'){
     if($result > 0 ){
 
         $_SESSION['success']="Edit User Success.";
-        header("Location: /admin-user-edit.php?id=".$id);
+        $l = $MU->link('admin-user-edit.php?id='.$id);
         exit;
     }else{
         $_SESSION['error']="Edit User Fail !!!!!";
-        header("Location: /admin-user-edit.php?id=".$id);
+        $l = $MU->link('admin-user-edit.php?id='.$id);
         exit;
     }
 

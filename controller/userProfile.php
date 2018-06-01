@@ -33,11 +33,11 @@ if($fn=='editUser'){
         $_SESSION['schoolregion']= $schoolregion;
 
         $_SESSION['success']="Edit User Success.";
-        header("Location: /user-profile.php");
+        $l = $MU->link('user-profile.php');
         exit;
     }else{
         $_SESSION['error']="Edit User Fail !!!!!";
-        header("Location: /user-profile.php");
+        $l = $MU->link('user-profile.php');
         exit;
     }
 

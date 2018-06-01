@@ -42,11 +42,11 @@ if($fn=='editProject'){
     $result = $MP->editProject($input);
     if($result > 0){
         $_SESSION['success']=" Edit Project Success.";
-        header("Location: /user-team.php");
+        $l = $MU->link('user-team.php');
         exit;
     }else{
         $_SESSION['error']=" Can't Edit Project !!!!";
-        header("Location: /user-team-manage.php?id=".$id);
+        $l = $MU->link('user-team-manage.php?id='.$id);
         exit;
     }
 }

@@ -16,11 +16,11 @@ if($fn=='login'){
     $result = $MU->login($username,$password);
     if(count($result) > 0 && isset($result['id'])){
         $_SESSION = $result;
-        header("Location: /user-profile.php");
+        $l = $MU->link('user-profile.php');
         exit;
     }else{
         $_SESSION['error']="กรุณาตรวจสอบ Username , Password !!!!!";
-        header("Location: /index-login.php");
+        $l = $MU->link('index-login.php');
         exit;
     }
 }
