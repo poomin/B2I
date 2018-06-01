@@ -8,10 +8,18 @@
  */
 class _PDO
 {
+
+
+//    private $servername = "127.0.0.1";
+//    private $username = "cherry_eoffice";
+//    private $password = "cherrycherry";
+//    private $dbname = "cherry_eoffice";
+
     private $servername = "localhost";
     private $username = "root";
     private $password = "1234";
-    private $dbname = "db_augur";
+    private $dbname = "db_b2i";
+
     private $conn = null;
     private $stmt = null;
 
@@ -109,6 +117,11 @@ class _PDO
             echo $e->getMessage();
         }
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function link($url){
+        header("Location: /B2I/$url");
+        return true;
     }
 
 }
