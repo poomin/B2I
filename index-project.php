@@ -14,6 +14,8 @@ include_once __DIR__.'/controller/project.php'
 <html lang="en">
 <head>
     <?php include '_header.php'; ?>
+
+    <link rel="stylesheet" href="froala/css/froala_style.css">
 </head>
 
 <body id="page-top">
@@ -65,7 +67,7 @@ include_once __DIR__.'/controller/project.php'
             <div class="box-about">
                 <i class="fa fa-street-view sr-icons fa-4x"></i>
                 <h4>ผู้รับผิดชอบโครงการ</h4>
-                <div style="padding-top: 20px;">
+                <div class="fr-view" style="padding-top: 20px;">
                     <?=$manager;?>
                 </div>
             </div>
@@ -74,7 +76,7 @@ include_once __DIR__.'/controller/project.php'
             <div class="box-about">
                 <i class="fa fa-bank sr-icons fa-4x"></i>
                 <h4>หลักการและเหตุผล</h4>
-                <div style="padding-top: 20px;">
+                <div class="fr-view" style="padding-top: 20px;">
                     <?=$rationale;?>
                 </div>
             </div>
@@ -83,7 +85,7 @@ include_once __DIR__.'/controller/project.php'
             <div class="box-about">
                 <i class="fa fa-book sr-icons fa-4x"></i>
                 <h4>วัตถุประสงค์</h4>
-                <div style="padding-top: 20px;">
+                <div class="fr-view" style="padding-top: 20px;">
                     <?=$objective;?>
                 </div>
             </div>
@@ -92,7 +94,7 @@ include_once __DIR__.'/controller/project.php'
             <div class="box-about">
                 <i class="fa fa-balance-scale sr-icons fa-4x"></i>
                 <h4>ระเบียบเกณฑ์</h4>
-                <div style="padding-top: 20px;">
+                <div class="fr-view" style="padding-top: 20px;">
                     <?=$criteria;?>
                 </div>
             </div>
@@ -101,7 +103,7 @@ include_once __DIR__.'/controller/project.php'
             <div class="box-about">
                 <i class="fa fa-money sr-icons fa-4x"></i>
                 <h4>รางวัล</h4>
-                <div style="padding-top: 20px;">
+                <div class="fr-view" style="padding-top: 20px;">
                     <?=$award;?>
                 </div>
             </div>

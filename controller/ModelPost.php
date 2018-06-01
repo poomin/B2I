@@ -95,4 +95,13 @@ class ModelPost extends _PDO
         return $result;
     }
 
+    function getTopPost($limit){
+        $this->connect();
+        $sql = "select * from  b2i_post ORDER BY view DESC LIMIT ".$limit;
+        $params= array();
+        $result = $this->queryAll($sql,$params);
+        $this->close();
+        return $result;
+    }
+
 }

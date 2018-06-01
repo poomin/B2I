@@ -14,6 +14,8 @@ include_once __DIR__.'/controller/about.php'
 <html lang="en">
 <head>
     <?php include '_header.php'; ?>
+
+    <link rel="stylesheet" href="froala/css/froala_style.css">
 </head>
 
 <body id="page-top">
@@ -28,7 +30,7 @@ include_once __DIR__.'/controller/about.php'
             <div class="box-about col-xs-12 col-sm-8 col-sm-push-2">
                 <i class="fa fa-phone-square sr-icons fa-4x"></i>
                 <h4>ติดต่อเรา</h4>
-                <div style="padding-top: 20px;">
+                <div class="fr-view" style="padding-top: 20px;">
                     <?=$connect;?>
                 </div>
             </div>

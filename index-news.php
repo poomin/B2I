@@ -8,7 +8,6 @@ session_start();
  */
 $m_nev = 'news';
 
-$page= isset($_REQUEST['page'])?$_REQUEST['page']:1;
 include_once __DIR__.'/controller/news.php';
 
 ?>
@@ -79,47 +78,36 @@ include_once __DIR__.'/controller/news.php';
                 </form>
                 <div class="panel">
                     <div class="panel-heading">
-                        <h4>Categories</h4>
+                        <h4>หัวข้อ</h4>
                     </div>
                     <div class="panel-body">
                         <ul class="nav">
-                            <li><a href="#">Category I</a></li>
-                            <li><a href="#">Category II</a></li>
-                            <li><a href="#">Category III</a></li>
-                            <li><a href="#">Category IV</a></li>
-                            <li class="last"><a href="#">Category V</a></li>
+                            <li><a href="index-news.php?type=article">บทความ</a></li>
+                            <li><a href="index-news.php?type=news">ข่าว</a></li>
+                            <li class="last"><a href="index-news.php?type=announce">ประกาศ</a></li>
                         </ul>
                     </div>
                 </div>
 
-                <h3>Recent Posts</h3>
+                <h3>Top Posts</h3>
                 <hr>
+
+                <?php foreach ($TOPNEWS as $item): ?>
                 <div class="post">
                     <div class="post-heading">
-                        <span>10 APRIL</span>
-                        <img class="img-responsive" src="images/science2.jpg" alt="post's picture">
+                        <span><?=$item['createat'];?></span>
+                        <img class="img-responsive" src="<?=$item['path'];?>" alt="post's picture">
                     </div>
                     <div class="post-body">
                  <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
+                 <i class="fa fa-eye sr-icons"></i> <?=$item['view'];?>
+                 <i class="fa fa-comments sr-icons"></i> <?=$item['comment'];?>
                  </span>
-                        <h4 class="text-left"><a href="single_post.html"><strong>Aliquam soluta</strong></a></h4>
+                        <h4 class="text-left"><a href="index-news-detail.php?id=<?=$item['id'];?>"><strong><?=$item['type'];?></strong></a></h4>
                     </div>
                 </div>
-                <div class="post">
-                    <div class="post-heading">
-                        <span>12 MAY</span>
-                        <img class="img-responsive" src="images/science1.jpg" alt="post's picture">
-                    </div>
-                    <div class="post-body">
-                 <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
-                 </span>
-                        <h4 class="text-left"><a href="single_post.html"><strong>Consequuntur</strong></a></h4>
-                    </div>
-                </div>
+                <?php endforeach;?>
+
             </div>
             <!-- End of Side bar -->
 
