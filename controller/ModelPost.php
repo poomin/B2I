@@ -77,7 +77,7 @@ class ModelPost extends _PDO
 
     function getPostById($id){
         $this->connect();
-        $sql = "select * from  b2i_post WHERE id=:id DESC";
+        $sql = "select * from  b2i_post WHERE id=:id";
         $params= array(':id'=> $id);
         $result = $this->query($sql,$params);
         $this->close();

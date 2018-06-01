@@ -30,7 +30,7 @@ class ModelUpload extends _PDO
 
     function getImageProjectSetup(){
         $this->connect();
-        $sql = "SELECT * FROM b2i_projectsetup_image order by createat DESC";
+        $sql = "SELECT * FROM b2i_projectsetup_image order by id DESC";
         $params= array();
         $result = $this->queryAll($sql,$params);
         $this->close();

@@ -192,7 +192,7 @@ $m_li = 'news';
                 ajax_image.addEventListener("load", completeHandler, false);
                 ajax_image.addEventListener("error", errorHandler, false);
                 ajax_image.addEventListener("abort", abortHandler, false);
-                ajax_image.open("POST", "../upload/upload_file.php?type=" + set_type);
+                ajax_image.open("POST", "/upload/upload_file.php?type=" + set_type);
                 ajax_image.send(form_data);
 
                 function progressHandler(event) {
@@ -250,7 +250,7 @@ $m_li = 'news';
         if (file == 'image') {
             ajax_image.abort();
         }
-
+        $('#show_progressBar_image').addClass('hide');
         $("#file_" + file).val("");
 
     }

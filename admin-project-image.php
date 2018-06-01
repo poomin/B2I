@@ -84,7 +84,7 @@ include_once __DIR__.'/controller/adminProjectImage.php';
                     </div>
 
                     <hr>
-                    <div class="row">
+                    <div class="show-detail">
 
                         <div id="loadFile" class="text-center">
                             <div class="form-inline hide" id="show_progressBar_image">
@@ -122,7 +122,7 @@ include_once __DIR__.'/controller/adminProjectImage.php';
                             </div>
 
                             <div class="row">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" action="admin-project-image.php" method="post">
                                     <div class="form-group">
                                         <label for="nameImage" class="col-sm-4 control-label">รายละเอียดภาพ</label>
                                         <div class="col-sm-6">
@@ -189,7 +189,7 @@ include_once __DIR__.'/controller/adminProjectImage.php';
                 ajax_image.addEventListener("load", completeHandler, false);
                 ajax_image.addEventListener("error", errorHandler, false);
                 ajax_image.addEventListener("abort", abortHandler, false);
-                ajax_image.open("POST", "../upload/upload_file.php?type=" + set_type);
+                ajax_image.open("POST", "/upload/upload_file.php?type=" + set_type);
                 ajax_image.send(form_data);
 
                 function progressHandler(event) {
@@ -252,7 +252,7 @@ include_once __DIR__.'/controller/adminProjectImage.php';
         if (file == 'image') {
             ajax_image.abort();
         }
-
+        $('#show_progressBar_image').addClass('hide');
         $("#file_" + file).val("");
 
     }

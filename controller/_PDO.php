@@ -120,8 +120,7 @@ class _PDO
     }
 
     function link($url){
-        header("Location: /B2I/$url");
-        return true;
+        header("Location: /$url");
     }
 
 }

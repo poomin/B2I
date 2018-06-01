@@ -159,7 +159,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
             req.done(function (res) {
                 if(res.status){
                     alert('save data complete...');
-                    window.location.href = '/admin-news.php';
+                    window.location.href = '/B2I/admin-news.php';
                 }else{
                     alert('save data false!!!!');
                 }
@@ -223,7 +223,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
                 ajax_image.addEventListener("load", completeHandler, false);
                 ajax_image.addEventListener("error", errorHandler, false);
                 ajax_image.addEventListener("abort", abortHandler, false);
-                ajax_image.open("POST", "../upload/upload_file.php?type=" + set_type);
+                ajax_image.open("POST", "/B2I/upload/upload_file.php?type=" + set_type);
                 ajax_image.send(form_data);
 
                 function progressHandler(event) {
@@ -235,7 +235,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
                 function completeHandler(event) {
                     var data_return = JSON.parse(event.target.responseText);
                     if (data_return['status'] == 'ok') {
-                        var src = '/upload/image/'+data_return['new_name'];
+                        var src = '/B2I/upload/image/'+data_return['new_name'];
 
                         $('#imageShow').attr('src',src);
 
@@ -281,7 +281,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
         if (file == 'image') {
             ajax_image.abort();
         }
-
+        $('#show_progressBar_image').addClass('hide');
         $("#file_" + file).val("");
 
     }
