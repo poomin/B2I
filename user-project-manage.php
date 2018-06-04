@@ -18,6 +18,8 @@ require_once __DIR__.'/controller/userProjectManage.php';
 <head>
     <?php include '_header.php'; ?>
 
+    <?php include '_datatablecss.php';?>
+
 </head>
 
 <body id="page-top">
@@ -95,7 +97,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                 <?php else: ?>
                                     <?php if($createPhase1): ?>
                                         <form class="text-center" style="padding-top: 50px;">
-                                            <input class="hidden" name="id" value="<?=$projectSetup['id'];?>">
+                                            <input class="hidden" name="id" value="<?= isset($_REQUEST['id'])?$_REQUEST['id']:0;?>">
                                             <input class="hidden" name="fn" value="phase1">
                                             <button class="btn btn-primary btn-lg"><i class="fa fa-pencil-square-o"></i> เริ่มโปรเจค</button>
                                         </form>
@@ -141,6 +143,83 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                             </div>
                                             <hr>
 
+                                            <div class="file-upload">
+                                                <h4>เอกสาร</h4>
+                                                <div id="showFileP1">
+
+                                                    <table class="thisdatatable table table-striped table-bordered" style="width:100%">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>เอกสาร</th>
+                                                            <th>จัดการ</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php for($i=0;$i<10;$i++): ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="/upload/image/img.png">
+                                                                        <i class="fa fa-file"></i>
+                                                                        file for download
+                                                                    </a>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button class="btn btn-danger btn-xs">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endfor; ?>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                                <div id="uploadFileP1">
+
+                                                </div>
+
+                                            </div>
+                                            <hr>
+
+                                            <div class="image-upload">
+                                                <h4>ภาพ</h4>
+                                                <div id="showImageP1">
+
+                                                    <table class="thisdatatable table table-striped table-bordered" style="width:100%">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ภาพ</th>
+                                                            <th>รายละเอียด</th>
+                                                            <th>จัดการ</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php for($i=0;$i<10;$i++): ?>
+                                                            <tr>
+                                                                <td class="text-center">
+                                                                    <img src="/images/science1.jpg" alt="image" class="img-thumbnail" style="height: 100px;">
+                                                                </td>
+                                                                <td>Test</td>
+                                                                <td class="text-center">
+                                                                    <button class="btn btn-primary btn-xs">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </button>
+                                                                    <button class="btn btn-danger btn-xs">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endfor; ?>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                                <div id="uploadImageP1">
+
+                                                </div>
+
+                                            </div>
+
 
                                         </div>
                                     <?php endif; ?>
@@ -167,6 +246,13 @@ require_once __DIR__.'/controller/userProjectManage.php';
     <?php include '_footer.php'; ?>
 </footer>
 <?php include '_script.php'; ?>
+
+<?php include "_datatablescript.php"; ?>
+<script>
+    $(document).ready(function() {
+        $('.thisdatatable').DataTable();
+    } );
+</script>
 
 </body>
 </html>
