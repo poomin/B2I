@@ -34,6 +34,9 @@ $role = $_SESSION['role'];
             <hr>
             <i class="fa fa-bookmark fa-fw"></i> ระเบียบโครงการ
         </li>
+        <li class="<?= $m_li=='manage'?'active':'';?>">
+            <a href="admin-project-manage.php"><i class="fa fa-wrench fa-fw"></i> ตั้งค่าโครงการ</a>
+        </li>
         <li class="<?= $m_li=='image'?'active':'';?>">
             <a href="admin-project-image.php"><i class="fa fa-image fa-fw"></i> ภาพ</a>
         </li>

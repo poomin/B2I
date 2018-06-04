@@ -17,6 +17,8 @@ $SETID = 1;
 <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 <!-- Bootstrap core css -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<!--Bootstrap call out css -->
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-callout.css">
 <!-- Font Awesome icons -->
 <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
 
