@@ -37,6 +37,11 @@ if(isset($result['id'])){
 
     //add view
     $MP->countAddViewPost($id);
+
+    $result = $MC->getCommentByPostId($id);
+    if(count($result)>0){
+        $COMMENTS = $result;
+    }
 }
 
 

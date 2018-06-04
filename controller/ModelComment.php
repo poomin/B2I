@@ -35,9 +35,15 @@ class ModelComment extends _PDO
     }
 
     function getCommentByPostId($id){
+
+        $this->connect();
         $sql = 'select b2i_post_comment.* , b2i_user.name , b2i_user.surname from b2i_post_comment
-left join b2i_user on b2i_post_comment.user_id = b2i_user.id
-where b2i_post_comment.post_id=3';
+        left join b2i_user on b2i_post_comment.user_id = b2i_user.id
+        where b2i_post_comment.post_id=:id ORDER BY b2i_post_comment.id DESC ';
+        $params= array(':id'=> $id);
+        $result = $this->queryAll($sql,$params);
+        $this->close();
+        return $result;
 
 
     }

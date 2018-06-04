@@ -59,13 +59,15 @@ require_once __DIR__.'/controller/newsDetail.php'
         <div class="row">
             <div class="col-xs-12 col-sm-12 block2">
 
+                <?php foreach ( $COMMENTS as $item): ?>
                 <div class="comment">
-                    <h4>Young Papou</h4>
+                    <h4><?=$item['name'];?> <?=$item['surname'];?></h4>
 
-                    <p class="time">9:00 AM</p>
+                    <p class="time"><?=$item['createat'];?></p>
                     <hr>
-                    <p>Perferendis recusandae consequuntur quasi, non culpa. Minus porro officiis veniam facilis praesentium expedita doloribus, recusandae aut dolore autem, modi consequuntur rem perferendis dolores quisquam, sequi quas. Esse, doloremque consectetur veniam quo ut voluptas necessitatibus quae quis iusto quod optio eligendi distinctio dicta, nihil impedit officia aspernatur tenetur saepe expedita, odio vitae reprehenderit pariatur!</p>
+                    <p><?=$item['details'];?></p>
                 </div>
+                <?php endforeach; ?>
 
 
                 <hr class="line">
