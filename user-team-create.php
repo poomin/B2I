@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__.'/_redirectUser.php';
 $SETID = 1;
 /**
  * Created by PhpStorm.
