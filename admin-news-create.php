@@ -67,7 +67,7 @@ $m_li = 'news';
                         <div class="col-xs-6 col-md-4 col-md-offset-4 text-center">
                             ภาพหัวข้อข่าว
                             <a href="#" class="thumbnail">
-                                <img id="imageShow" src="/upload/image/img.png" alt="image">
+                                <img id="imageShow" src="/froala/upload/img.png" alt="image">
                             </a>
                         </div>
                     </div>
