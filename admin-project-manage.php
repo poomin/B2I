@@ -104,7 +104,7 @@ require_once __DIR__.'/controller/adminProjectManage.php';
                                     </div>
                                     <div>
                                         <h5>รายละเอียด</h5>
-                                        <textarea class="form-control" name="phase1detail" rows="3"> <?=$PROJECTSETUP['phase1detail'];?></textarea>
+                                        <textarea class="form-control" name="phase1detail" rows="3"><?=$PROJECTSETUP['phase1detail'];?></textarea>
                                     </div>
                                     <div class="text-center" style="padding-top: 20px;">
                                         <input class="hidden" name="fn" value="editPhase1Status">
@@ -116,7 +116,44 @@ require_once __DIR__.'/controller/adminProjectManage.php';
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="phase2">
-
+                                <?php
+                                $bs_callout = 'bs-callout-danger';
+                                if($PROJECTSETUP['phase2status']=='wait'){
+                                    $bs_callout = 'bs-callout-warning';
+                                }elseif ($PROJECTSETUP['phase2status']=='process'){
+                                    $bs_callout = 'bs-callout-success';
+                                }
+                                ?>
+                                <form id="radioChangeStatus2" class="bs-callout <?=$bs_callout;?>" method="post" autocomplete="off">
+                                    <h4>สถานะ</h4>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="phase2status" id="phase2status1" value="close" <?= $PROJECTSETUP['phase2status']=='close'?'checked':''?> >
+                                            <strong>ปิด</strong> ยังไม่เปิดให้ส่งเอกสารการนำเสนอสำหรับผู้ที่ผ่านเข้ารอบ
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="phase2status" id="phase2status2" value="process" <?= $PROJECTSETUP['phase2status']=='process'?'checked':''?>>
+                                            <strong>เปิด</strong> เปิดให้ส่งเอกสารการนำเสนอสำหรับผู้ที่ผ่านเข้ารอบ
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="phase2status" id="phase2status3" value="wait" <?= $PROJECTSETUP['phase2status']=='wait'?'checked':''?>>
+                                            <strong>รอ</strong> ปิดส่งเอกสารสำหรับการนำเสนอ รอผลการตรวจจากคณะกรรมการ
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <h5>รายละเอียด</h5>
+                                        <textarea class="form-control" name="phase2detail" rows="3"><?=$PROJECTSETUP['phase2detail'];?></textarea>
+                                    </div>
+                                    <div class="text-center" style="padding-top: 20px;">
+                                        <input class="hidden" name="fn" value="editPhase2Status">
+                                        <input class="hidden" name="id" value="<?=$PROJECTSETUP['id'];?>" >
+                                        <button type="submit" class="btn btn-lg sr-button btn-success">SAVE</button>
+                                    </div>
+                                </form>
                             </div>
 
                         </div>
@@ -147,6 +184,17 @@ require_once __DIR__.'/controller/adminProjectManage.php';
             }
             else {
                 $('#radioChangeStatus').attr('class','bs-callout bs-callout-danger');
+            }
+        });
+        $('input[type=radio][name=phase2status]').change(function() {
+            if (this.value == 'process') {
+                $('#radioChangeStatus2').attr('class','bs-callout bs-callout-success');
+            }
+            else if (this.value == 'wait') {
+                $('#radioChangeStatus2').attr('class','bs-callout bs-callout-warning');
+            }
+            else {
+                $('#radioChangeStatus2').attr('class','bs-callout bs-callout-danger');
             }
         });
     });

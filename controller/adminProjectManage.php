@@ -23,7 +23,14 @@ if($fn=='editPhase1Status'){
     $result = $MPS->addDetailProject($id,'phase1status',$phase1status);
     $result = $MPS->addDetailProject($id,'phase1detail',$phase1detail);
     $_SESSION['success'] = 'Update data Success.';
-    unset($_REQUEST['fn']);
+}
+elseif($fn=='editPhase2Status'){
+    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+    $phase1status = isset($_REQUEST['phase2status'])?$_REQUEST['phase2status']:'close';
+    $phase1detail = isset($_REQUEST['phase2detail'])?$_REQUEST['phase2detail']:'';
+    $result = $MPS->addDetailProject($id,'phase2status',$phase1status);
+    $result = $MPS->addDetailProject($id,'phase2detail',$phase1detail);
+    $_SESSION['success'] = 'Update data Success.';
 }
 
 
