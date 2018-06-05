@@ -8,10 +8,12 @@
 require_once __DIR__.'/ModelProject.php';
 require_once __DIR__.'/ModelProjectSetup.php';
 require_once __DIR__.'/ModelProjectPhase.php';
+require_once __DIR__.'/ModelProjectPhaseUpload.php';
 require_once __DIR__.'/ModelUser.php';
 $MP = new ModelProject();
 $MPS = new ModelProjectSetup();
 $MPP = new ModelProjectPhase();
+$MPPU = new ModelProjectPhaseUpload();
 $MU = new ModelUser();
 
 $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
@@ -36,6 +38,22 @@ if($fn=='phase1'){
         $l = $MU->link('user-project.php');
         exit;
     }
+}
+else if($fn=='savePdf'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
+    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
+    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
+    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $input = [
+        'phase_id'=> $phase_id,
+        'user_id'=> $user_id,
+        'namefile'=> $namefile,
+        'typefile'=> $typefile,
+        'path'=> $path
+    ];
+    $result = $MPPU->addUpload($input);
+
 }
 
 

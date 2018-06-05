@@ -176,6 +176,59 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                 </div>
                                                 <div id="uploadFileP1">
 
+                                                    <div id="loadFilePdf" class="text-center">
+                                                        <div class="form-inline hide" id="show_progressBar_pdf">
+                                                            <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
+                                                                <div id="progressBar_pdf" class="progress-bar" role="progressbar"
+                                                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                                                     style="width: 0%;">
+                                                                    0%
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-danger btn-xs"
+                                                                    onclick="cancelUploadFile('pdf')">
+                                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                            </button>
+                                                        </div>
+                                                        <div id="pdf">
+                                                            <input id="path_pdf" class="hide" type="text" name="path_pdf" value="">
+                                                            <input id="name_pdf" class="hide" type="text" name="name_pdf" value="">
+                                                            <div class="box-img-ready">
+                                                                <label style="cursor: pointer;" for="file_pdf">
+                                                                    <h3 id="upload_pdf"><span class="label label-info"><i class="fa fa-upload"></i> File Upload </span></h3>
+                                                                    <input id="file_pdf" topic_id="<?= $PROJECT['id']; ?>" accept="application/pdf" type="file" style="display:none;" onchange="showLoadPdf(this)">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="saveLoadFilePdf" class="hidden">
+                                                        <div class="row text-center">
+                                                            <i class="fa fa-file-pdf-o fa-5x thumbnail"></i>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                <div class="form-group">
+                                                                    <label for="namePdf" class="col-sm-4 control-label">รายละเอียดไฟล์</label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" class="form-control" id="namePdf" name="namefile" placeholder="รายละเอียดภาพ">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-offset-4 col-sm-6">
+                                                                        <input class="hidden" name="fn" value="savePdf" >
+                                                                        <input class="hidden" name="phase_id" value="<?=$PHASE1['id'];?>" >
+                                                                        <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
+                                                                        <input class="hidden" name="typefile" value="pdf" >
+                                                                        <input id="inputPatePdf" class="hidden" name="path" value="">
+                                                                        <button type="submit" class="btn btn-success">SAVE</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
 
                                             </div>
@@ -252,7 +305,109 @@ require_once __DIR__.'/controller/userProjectManage.php';
     $(document).ready(function() {
         $('.thisdatatable').DataTable();
     } );
+
+
+    var ajax_pdf;
+    var ajax_image;
+    function showLoadPdf(input) {
+        if (input.files && input.files[0]) {
+            ajax_pdf = new XMLHttpRequest();
+            var type_file = input.files[0].type;
+            var file_name = input.files[0].name;
+            var cut_type_file = file_name.split('.');
+            var file_type = cut_type_file[cut_type_file.length - 1];
+            var cut = type_file.split("/");
+            var set_type = 'pdf';
+            type_file = (cut.length > 0) ? cut[1] : "";
+            type_file = type_file.toLowerCase();
+            //check type file upload
+            if (type_file == set_type) {
+                $('#show_progressBar_' + set_type).removeClass('hide');
+                var progressBar = "progressBar_" + set_type;
+                var topic_id = input.getAttribute("topic_id");
+
+                var form_data = new FormData();
+                form_data.append("fileToUpload", input.files[0]);
+                ajax_pdf.upload.addEventListener("progress", progressHandler, false);
+                ajax_pdf.addEventListener("load", completeHandler, false);
+                ajax_pdf.addEventListener("error", errorHandler, false);
+                ajax_pdf.addEventListener("abort", abortHandler, false);
+                ajax_pdf.open("POST", "../upload/upload_file.php?type=" + set_type);
+                ajax_pdf.send(form_data);
+
+                function progressHandler(event) {
+                    var percent = (event.loaded / event.total) * 100;
+                    $("#" + progressBar).css('width', Math.round(percent) + "%");
+                    $("#" + progressBar).html(Math.round(percent) + "%");
+                }
+
+                function completeHandler(event) {
+                    var data_return = JSON.parse(event.target.responseText);
+                    if (data_return['status'] == 'ok') {
+                        var path = '/upload/pdf/'+data_return['new_name'];
+
+                        $('#namePdf').val(data_return['file_name']);
+                        $('#inputPatePdf').val(path);
+
+
+                        $('#show_progressBar_' + set_type).addClass('hide');
+                        $("#" + progressBar).css('width', "0%");
+                        $("#" + progressBar).html("0%");
+
+                        $('#loadFilePdf').addClass('hidden');
+                        $('#saveLoadFilePdf').removeClass('hidden');
+
+
+                    } else {
+                        ajax_pdf.abort();
+                        alert("Error:" + data_return['message']);
+                        $("#" + progressBar).css('width', "0%");
+                        $("#" + progressBar).html("0%");
+                    }
+                }
+
+                function errorHandler(event) {
+                    ajax_pdf.abort();
+                    alert("Upload Failed");
+                    $('#show_progressBar_' + set_type).addClass('hide');
+                    $("#" + progressBar).css('width', "0%");
+                    $("#" + progressBar).html("0%");
+
+                }
+
+                function abortHandler(event) {
+                    ajax_pdf.abort();
+                    alert("Upload Aborted");
+                    $('#show_progressBar_' + set_type).addClass('hide');
+                    $("#" + progressBar).css('width', "0%");
+                    $("#" + progressBar).html("0%");
+                }
+
+            } else {
+                alert("File type cannot upload!!!");
+            }
+        } else {
+            alert("Not found file input!!!");
+        }
+    }
+    function cancelUploadFile(addOrEdit) {
+        var file = addOrEdit;
+        if (file == 'image') {
+            ajax_image.abort();
+        }
+        else if (file == 'pdf') {
+            ajax_pdf.abort();
+        }
+        $('#show_progressBar_'+file).addClass('hide');
+        $("#file_" + file).val("");
+
+    }
+
+
+    
 </script>
+
+
 
 </body>
 </html>
