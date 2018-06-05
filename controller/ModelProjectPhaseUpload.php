@@ -9,6 +9,7 @@
 require_once __DIR__.'/_PDO.php';
 class ModelProjectPhaseUpload extends _PDO
 {
+
     function addUpload($input){
 
         $phase_id = isset($input['phase_id'])?$input['phase_id']:'';
@@ -36,5 +37,15 @@ class ModelProjectPhaseUpload extends _PDO
 
         return $lastId;
     }
+
+    function getByPhaseId($phase_id){
+        $this->connect();
+        $sql = "select * from  b2i_project_phase_upload where phase_id=:phase_id ORDER BY id";
+        $params= array(':phase_id'=> $phase_id);
+        $result = $this->queryAll($sql,$params);
+        $this->close();
+        return $result;
+    }
+
 
 }

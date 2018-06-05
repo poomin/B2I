@@ -22,6 +22,7 @@ $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
 $projectSetup=[];
 $PROJECT = [];
 $PHASE1 = [];
+$PHASEUPLOAD = [];
 $PHASE2 = [];
 $LEADER = '-';
 $MEMBER = '-';
@@ -73,6 +74,12 @@ if(isset($result['id'])){
     $result = $MPP->getPhase($id,1);
     if(isset($result['id'])){
         $PHASE1 = $result;
+
+        $result = $MPPU->getByPhaseId($PHASE1['id']);
+        if(count($result)>0){
+            $PHASEUPLOAD = $result;
+        }
+
     }
 
     $result = $MU->getUserByProjectId($id);
@@ -87,6 +94,8 @@ if(isset($result['id'])){
             }
         }
     }
+
+
 
 }
 

@@ -12,6 +12,7 @@ $m_nev = '';
 $m_li = 'project';
 
 require_once __DIR__.'/controller/userProjectManage.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -155,21 +156,23 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <?php for($i=0;$i<10;$i++): ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="/upload/image/img.png">
-                                                                        <i class="fa fa-file"></i>
-                                                                        file for download
-                                                                    </a>
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    <button class="btn btn-danger btn-xs">
-                                                                        <i class="fa fa-trash"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        <?php endfor; ?>
+                                                        <?php foreach($PHASEUPLOAD as $item) : ?>
+                                                            <?php if ($item['typefile']=="pdf"): ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="<?= $item['path'];?>">
+                                                                            <i class="fa fa-file"></i>
+                                                                            <?= $item['namefile'];?>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <button class="btn btn-danger btn-xs">
+                                                                            <i class="fa fa-trash"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
                                                         </tbody>
                                                     </table>
 
