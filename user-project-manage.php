@@ -145,8 +145,8 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                             <hr>
 
                                             <div class="file-upload">
-                                                <h4>เอกสาร</h4>
-                                                <div id="showFileP1">
+                                                <h3 style="text-decoration: underline;">เอกสาร</h3>
+                                                <div id="showFileP1" style="padding-top: 20px;">
 
                                                     <table class="thisdatatable table table-striped table-bordered" style="width:100%">
                                                         <thead>
@@ -160,8 +160,8 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                             <?php if ($item['typefile']=="pdf"): ?>
                                                                 <tr>
                                                                     <td>
-                                                                        <a href="<?= $item['path'];?>">
-                                                                            <i class="fa fa-file"></i>
+                                                                        <a href="<?= $item['path'];?>" target="_blank">
+                                                                            <i class="fa fa-file-pdf-o"></i>
                                                                             <?= $item['namefile'];?>
                                                                         </a>
                                                                     </td>
@@ -238,8 +238,8 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                             <hr>
 
                                             <div class="image-upload">
-                                                <h4>ภาพ</h4>
-                                                <div id="showImageP1">
+                                                <h3 style="text-decoration: underline;">ภาพ</h3>
+                                                <div id="showImageP1" style="padding-top: 20px;">
 
                                                     <table class="thisdatatable table table-striped table-bordered" style="width:100%">
                                                         <thead>
@@ -250,27 +250,85 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <?php for($i=0;$i<10;$i++): ?>
-                                                            <tr>
-                                                                <td class="text-center">
-                                                                    <img src="/images/science1.jpg" alt="image" class="img-thumbnail" style="height: 100px;">
-                                                                </td>
-                                                                <td>Test</td>
-                                                                <td class="text-center">
-                                                                    <button class="btn btn-primary btn-xs">
-                                                                        <i class="fa fa-download"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-danger btn-xs">
-                                                                        <i class="fa fa-trash"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        <?php endfor; ?>
+                                                        <?php foreach($PHASEUPLOAD as $item) : ?>
+                                                            <?php if ($item['typefile']=="img"): ?>
+                                                                <tr>
+                                                                    <td class="text-center">
+                                                                        <img src="<?=$item['path'];?>" alt="image" class="img-thumbnail" style="height: 100px;">
+                                                                    </td>
+                                                                    <td><?=$item['namefile'];?></td>
+                                                                    <td class="text-center">
+                                                                        <button class="btn btn-primary btn-xs">
+                                                                            <i class="fa fa-download"></i>
+                                                                        </button>
+                                                                        <button class="btn btn-danger btn-xs">
+                                                                            <i class="fa fa-trash"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
                                                         </tbody>
                                                     </table>
 
                                                 </div>
                                                 <div id="uploadImageP1">
+
+                                                    <div id="loadFileImage" class="text-center">
+                                                        <div class="form-inline hide" id="show_progressBar_image">
+                                                            <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
+                                                                <div id="progressBar_image" class="progress-bar" role="progressbar"
+                                                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                                                     style="width: 0%;">
+                                                                    0%
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-danger btn-xs"
+                                                                    onclick="cancelUploadFile('image')">
+                                                                <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                            </button>
+                                                        </div>
+                                                        <div id="image">
+                                                            <div class="box-img-ready">
+                                                                <label style="cursor: pointer;" for="file_image">
+                                                                    <h3 id="upload_image"><span class="label label-info"><i class="fa fa-upload"></i> Image Upload</span></h3>
+                                                                    <input id="file_image" accept="image/*" type="file" style="display:none;" onchange="showLoadImage(this)">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="saveLoadFileImage" class="hidden">
+                                                        <div class="row">
+                                                            <div class="col-xs-6 col-md-4 col-md-offset-4">
+                                                                <a href="#" class="thumbnail">
+                                                                    <img id="imageShow" src="/froala/upload/img.png" alt="image">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                <div class="form-group">
+                                                                    <label for="nameImage" class="col-sm-4 control-label">รายละเอียดภาพ</label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" class="form-control" id="nameImage" name="namefile" placeholder="รายละเอียดภาพ">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-offset-4 col-sm-6">
+                                                                        <input class="hidden" name="fn" value="saveImage" >
+                                                                        <input class="hidden" name="phase_id" value="<?=$PHASE1['id'];?>" >
+                                                                        <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
+                                                                        <input class="hidden" name="typefile" value="img" >
+                                                                        <input id="inputPate" class="hidden" name="path" value="">
+                                                                        <button type="submit" class="btn btn-success">SAVE</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
 
                                                 </div>
 
@@ -313,6 +371,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
 
     var ajax_pdf;
     var ajax_image;
+    var ajax_video;
     function showLoadPdf(input) {
         if (input.files && input.files[0]) {
             ajax_pdf = new XMLHttpRequest();
@@ -381,6 +440,90 @@ require_once __DIR__.'/controller/userProjectManage.php';
 
                 function abortHandler(event) {
                     ajax_pdf.abort();
+                    alert("Upload Aborted");
+                    $('#show_progressBar_' + set_type).addClass('hide');
+                    $("#" + progressBar).css('width', "0%");
+                    $("#" + progressBar).html("0%");
+                }
+
+            } else {
+                alert("File type cannot upload!!!");
+            }
+        } else {
+            alert("Not found file input!!!");
+        }
+    }
+    function showLoadImage(input) {
+        if (input.files && input.files[0]) {
+            ajax_image = new XMLHttpRequest();
+            var type_file = input.files[0].type;
+            var file_name = input.files[0].name;
+
+            var tmppath = URL.createObjectURL(input.files[0]);
+            console.log(tmppath);
+
+            var cut_type_file = file_name.split('.');
+            var file_type = cut_type_file[cut_type_file.length - 1];
+            var cut = type_file.split("/");
+            var set_type = 'image';
+            type_file = (cut.length > 0) ? cut[0] : "";
+            type_file = type_file.toLowerCase();
+            //check type file upload
+            if (type_file == set_type) {
+                $('#show_progressBar_' + set_type).removeClass('hide');
+                var progressBar = "progressBar_" + set_type;
+                var topic_id = input.getAttribute("topic_id");
+
+                var form_data = new FormData();
+                form_data.append("fileToUpload", input.files[0]);
+                ajax_image.upload.addEventListener("progress", progressHandler, false);
+                ajax_image.addEventListener("load", completeHandler, false);
+                ajax_image.addEventListener("error", errorHandler, false);
+                ajax_image.addEventListener("abort", abortHandler, false);
+                ajax_image.open("POST","/upload/upload_file.php?type=" + set_type);
+                ajax_image.send(form_data);
+
+                function progressHandler(event) {
+                    var percent = (event.loaded / event.total) * 100;
+                    $("#" + progressBar).css('width', Math.round(percent) + "%");
+                    $("#" + progressBar).html(Math.round(percent) + "%");
+                }
+
+                function completeHandler(event) {
+                    var data_return = JSON.parse(event.target.responseText);
+                    if (data_return['status'] == 'ok') {
+                        var src = '/upload/image/'+data_return['new_name'];
+
+                        $('#nameImage').val(data_return['file_name']);
+                        $('#imageShow').attr('src',src);
+                        $('#inputPate').attr('value',src);
+
+                        $('#show_progressBar_' + set_type).addClass('hide');
+                        $("#" + progressBar).css('width', "0%");
+                        $("#" + progressBar).html("0%");
+
+                        $('#loadFileImage').addClass('hidden');
+                        $('#saveLoadFileImage').removeClass('hidden');
+
+                    } else {
+                        ajax_image.abort();
+                        alert("Error:" + data_return['message']);
+                        $("#" + progressBar).css('width', "0%");
+                        $("#" + progressBar).html("0%");
+                    }
+                }
+
+                function errorHandler(event) {
+                    ajax_image.abort();
+                    alert("Upload Failed");
+                    $('#show_progressBar_' + set_type).addClass('hide');
+                    $("#" + progressBar).css('width', "0%");
+                    $("#" + progressBar).html("0%");
+
+                }
+
+                function abortHandler(event) {
+                    ajax_image.abort();
                     alert("Upload Aborted");
                     $('#show_progressBar_' + set_type).addClass('hide');
                     $("#" + progressBar).css('width', "0%");

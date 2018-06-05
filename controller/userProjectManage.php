@@ -56,6 +56,22 @@ else if($fn=='savePdf'){
     $result = $MPPU->addUpload($input);
 
 }
+else if($fn=='saveImage'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
+    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
+    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
+    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $input = [
+        'phase_id'=> $phase_id,
+        'user_id'=> $user_id,
+        'namefile'=> $namefile,
+        'typefile'=> $typefile,
+        'path'=> $path
+    ];
+    $result = $MPPU->addUpload($input);
+
+}
 
 
 
