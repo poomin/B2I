@@ -28,7 +28,12 @@ if (!empty($_FILES)) {
     $nameImage = $cut_name[0];
 
     $t=time();
-    $change_name = $type."_".$t.".".$extension;
+    if($type=='video'){
+        $change_name = $type."_".$t.".mp4";
+    }else{
+        $change_name = $type."_".$t.".".$extension;
+    }
+//    $change_name = $type."_".$t.".".$extension;
 
     $targetFile = rtrim($targetPath, '/') . '/'.$change_name;
 
