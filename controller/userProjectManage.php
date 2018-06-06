@@ -9,11 +9,13 @@ require_once __DIR__.'/ModelProject.php';
 require_once __DIR__.'/ModelProjectSetup.php';
 require_once __DIR__.'/ModelProjectPhase.php';
 require_once __DIR__.'/ModelProjectPhaseUpload.php';
+require_once __DIR__.'/ModelProjectPhaseLog.php';
 require_once __DIR__.'/ModelUser.php';
 $MP = new ModelProject();
 $MPS = new ModelProjectSetup();
 $MPP = new ModelProjectPhase();
 $MPPU = new ModelProjectPhaseUpload();
+$LOG = new ModelProjectPhaseLog();
 $MU = new ModelUser();
 
 $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
@@ -62,6 +64,9 @@ elseif($fn=='savePdf'){
     ];
     $result = $MPPU->addUpload($input);
 
+    //add Log
+    $result = $LOG->addLog($phase_id,$user_id,'Upload File Name: '.$namefile);
+
 }
 elseif($fn=='saveImage'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
@@ -77,6 +82,8 @@ elseif($fn=='saveImage'){
         'path'=> $path
     ];
     $result = $MPPU->addUpload($input);
+
+    $result = $LOG->addLog($phase_id,$user_id,'Upload Image Name: '.$namefile);
 
 }
 elseif($fn=='saveVideo'){
@@ -94,6 +101,8 @@ elseif($fn=='saveVideo'){
     ];
     $result = $MPPU->addUpload($input);
 
+    $result = $LOG->addLog($phase_id,$user_id,'Upload Video Name: '.$namefile);
+
 }
 
 elseif($fn=='phase2'){
@@ -107,6 +116,42 @@ elseif($fn=='phase2'){
         $l = $MU->link('user-project.php');
         exit;
     }
+}
+elseif($fn=='savePdfP2'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
+    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
+    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
+    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $input = [
+        'phase_id'=> $phase_id,
+        'user_id'=> $user_id,
+        'namefile'=> $namefile,
+        'typefile'=> $typefile,
+        'path'=> $path
+    ];
+    $result = $MPPU->addUpload($input);
+
+    $result = $LOG->addLog($phase_id,$user_id,'Upload File Name: '.$namefile);
+
+}
+elseif($fn=='saveImageP2'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
+    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
+    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
+    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $input = [
+        'phase_id'=> $phase_id,
+        'user_id'=> $user_id,
+        'namefile'=> $namefile,
+        'typefile'=> $typefile,
+        'path'=> $path
+    ];
+    $result = $MPPU->addUpload($input);
+
+    $result = $LOG->addLog($phase_id,$user_id,'Upload Image Name: '.$namefile);
+
 }
 
 
@@ -133,6 +178,11 @@ if(isset($result['id']) && $check ){
             $PHASEUPLOAD = $result;
         }
 
+        $result = $LOG->getLogByPhase($PHASE1['id']);
+        if(count($result)>0){
+            $P1LOG = $result;
+        }
+
     }
 
     $result = $MPP->getPhase($id,2);
@@ -142,6 +192,10 @@ if(isset($result['id']) && $check ){
         $result = $MPPU->getByPhaseId($PHASE2['id']);
         if(count($result)>0){
             $P2UPLOAD = $result;
+        }
+        $result = $LOG->getLogByPhase($PHASE2['id']);
+        if(count($result)>0){
+            $P2LOG = $result;
         }
 
     }
