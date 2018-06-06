@@ -14,7 +14,7 @@ $host = $_SERVER['SERVER_NAME'];
 if($host=='localhost'){
     $targetFolder = '/upload/'.$type;  //for localhost
 }else{
-    $targetFolder = '/B2I/upload/'.$type;    //for server
+    $targetFolder = '/upload/'.$type;    //for server
 }
 
 

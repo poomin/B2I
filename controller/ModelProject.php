@@ -147,4 +147,17 @@ class ModelProject extends  _PDO
         return $result;
     }
 
+
+
+
+    /* ----- function call ----- */
+    function checkUserInProject($project_id , $user_id){
+        $this->connect();
+        $sql = "select * from  b2i_project_member where project_id=:project_id AND user_id=:user_id";
+        $params= array(':project_id'=> $project_id , ':user_id'=> $user_id);
+        $result = $this->query($sql,$params);
+        $this->close();
+        return isset($result);
+    }
+
 }

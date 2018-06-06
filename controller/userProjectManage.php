@@ -17,13 +17,20 @@ $MPPU = new ModelProjectPhaseUpload();
 $MU = new ModelUser();
 
 $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+$session_user_id = isset($_SESSION['id'])?$_SESSION['id']:0;
 
 
 $projectSetup=[];
 $PROJECT = [];
+
 $PHASE1 = [];
 $PHASEUPLOAD = [];
+$P1LOG = [];
+
 $PHASE2 = [];
+$P2UPLOAD = [];
+$P2LOG = [];
+
 $LEADER = '-';
 $MEMBER = '-';
 
@@ -40,7 +47,7 @@ if($fn=='phase1'){
         exit;
     }
 }
-else if($fn=='savePdf'){
+elseif($fn=='savePdf'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
     $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
     $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
@@ -56,7 +63,7 @@ else if($fn=='savePdf'){
     $result = $MPPU->addUpload($input);
 
 }
-else if($fn=='saveImage'){
+elseif($fn=='saveImage'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
     $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
     $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
@@ -72,7 +79,7 @@ else if($fn=='saveImage'){
     $result = $MPPU->addUpload($input);
 
 }
-else if($fn=='saveVideo'){
+elseif($fn=='saveVideo'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
     $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
     $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
@@ -87,6 +94,19 @@ else if($fn=='saveVideo'){
     ];
     $result = $MPPU->addUpload($input);
 
+}
+
+elseif($fn=='phase2'){
+    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+    $result = $MPP->addPhase($id,2);
+    if($result > 0){
+        $l = $MU->link('user-project-manage.php?id='.$id);
+        exit;
+    }else{
+        header("Location: /user-project.php");
+        $l = $MU->link('user-project.php');
+        exit;
+    }
 }
 
 
@@ -94,7 +114,9 @@ else if($fn=='saveVideo'){
 
 
 $result = $MP->getProjectById($id);
-if(isset($result['id'])){
+$check = $MP->checkUserInProject($id,$session_user_id);
+
+if(isset($result['id']) && $check ){
     $PROJECT = $result;
 
     $result = $MPS->getProjectById($result['projectsetup_id']);
@@ -109,6 +131,17 @@ if(isset($result['id'])){
         $result = $MPPU->getByPhaseId($PHASE1['id']);
         if(count($result)>0){
             $PHASEUPLOAD = $result;
+        }
+
+    }
+
+    $result = $MPP->getPhase($id,2);
+    if(isset($result['id'])){
+        $PHASE2 = $result;
+
+        $result = $MPPU->getByPhaseId($PHASE2['id']);
+        if(count($result)>0){
+            $P2UPLOAD = $result;
         }
 
     }

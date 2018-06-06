@@ -63,9 +63,6 @@ require_once __DIR__.'/controller/userProjectManage.php';
                             <li role="presentation">
                                 <a href="#phase2" aria-controls="profile" role="tab" data-toggle="tab">ส่งเอกสารนำเสนอ</a>
                             </li>
-                            <li class="disabled" role="presentation">
-                                <a href="#phase2" aria-controls="profile" role="tab" data-toggle="tab">ส่งเอกสารนำเสนอ</a>
-                            </li>
                         </ul>
 
                         <!-- Tab panes -->
@@ -79,6 +76,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                     if(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='close' ){
                                         $status = true;
                                     }
+
                                     if(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process' ){
                                         $edit = true;
                                     }
@@ -177,6 +175,8 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                     </table>
 
                                                 </div>
+
+                                                <?PHP if($edit): ?>
                                                 <div id="uploadFileP1">
 
                                                     <div id="loadFilePdf" class="text-center">
@@ -233,6 +233,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                     </div>
 
                                                 </div>
+                                                <?php endif;?>
 
                                             </div>
                                             <hr>
@@ -272,6 +273,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                     </table>
 
                                                 </div>
+                                                <?PHP if($edit): ?>
                                                 <div id="uploadImageP1">
 
                                                     <div id="loadFileImage" class="text-center">
@@ -331,6 +333,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                     </div>
 
                                                 </div>
+                                                <?PHP endif;?>
 
                                             </div>
                                             <hr>
@@ -375,6 +378,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                     </table>
 
                                                 </div>
+                                                <?PHP if($edit): ?>
                                                 <div id="uploadVideoP1">
 
                                                     <div id="loadFileVideo" class="text-center">
@@ -436,6 +440,8 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                     </div>
 
                                                 </div>
+                                                <?PHP endif; ?>
+
                                             </div>
 
 
@@ -447,6 +453,101 @@ require_once __DIR__.'/controller/userProjectManage.php';
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="phase2">
+                                <?PHP
+                                    $statusP2 = false;
+                                    $createP2 = true;
+                                    $editP2 = false;
+                                    $statusFail = false;
+                                    $statusWait = false;
+
+
+                                if(isset($projectSetup['phase2status']) && $projectSetup['phase2status']=='close' ){
+                                    $statusP2 = true;
+                                }
+                                elseif(isset($projectSetup['phase2status']) && $projectSetup['phase2status']=='process' ){
+                                    $editP2 = true;
+                                }
+
+                                if(isset($PHASE1['result']) && $PHASE1['result']=='wait' ){
+                                    $statusWait = true;
+                                }
+                                elseif(isset($PHASE1['result']) && $PHASE1['result']=='process' ){
+                                    $statusWait = true;
+                                }
+                                elseif(isset($PHASE1['result']) && $PHASE1['result']=='fail' ){
+                                    $statusFail = true;
+                                }
+
+
+
+                                if(count($PHASE2)>0){
+                                    $createP2 = false;
+                                }
+
+                                if(!isset($projectSetup['id'])){$statusP2=true;}
+                                ?>
+
+                                <?php if($statusP2){ ?>
+                                    <div class="text-center" style="padding-top: 50px;">
+                                        <h3> ยังไม่เปิดให้ส่งเอกสารนำเสนอ </h3>
+                                    </div>
+                                <?php }elseif($statusFail){ ?>
+                                    <div class="text-center" style="padding-top: 50px;">
+                                        <h3 class="text-danger"> ไม่ผ่านการรับคัดเลือก </h3>
+                                    </div>
+                                <?php }elseif($statusWait){ ?>
+                                    <div class="text-center" style="padding-top: 50px;">
+                                        <h3 class="text-warning"> อยู่ในขั้นตอนการตรวจสอบจากคณะกรรมการ </h3>
+                                    </div>
+                                <?php }else{ ?>
+                                    <?php if($createP2): ?>
+                                        <form class="text-center" style="padding-top: 50px;">
+                                            <input class="hidden" name="id" value="<?= isset($_REQUEST['id'])?$_REQUEST['id']:0;?>">
+                                            <input class="hidden" name="fn" value="phase2">
+                                            <button class="btn btn-primary btn-lg"><i class="fa fa-pencil-square-o"></i> เริ่มโปรเจค</button>
+                                        </form>
+                                    <?php else: ?>
+                                        <div style="padding-top: 20px; padding-bottom: 10px;">
+
+                                            <div class="file-upload">
+                                                <h4 style="text-decoration: underline;">เอกสารนำเสนอ</h4>
+                                                <div id="showFileP2" style="padding-top: 20px;">
+
+                                                    <table class="thisdatatable table table-striped table-bordered" style="width:100%">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>เอกสาร</th>
+                                                            <th>จัดการ</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php foreach($PHASEUPLOAD as $item) : ?>
+                                                            <?php if ($item['typefile']=="pdf"): ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="<?= $item['path'];?>" target="_blank">
+                                                                            <i class="fa fa-file-pdf-o"></i>
+                                                                            <?= $item['namefile'];?>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <button class="btn btn-danger btn-xs">
+                                                                            <i class="fa fa-trash"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    <?php endif; ?>
+                                <?php } ?>
 
                             </div>
                         </div>
@@ -476,6 +577,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
     } );
 
 
+    //phase 1
     var ajax_pdf;
     var ajax_image;
     var ajax_video;
@@ -743,6 +845,9 @@ require_once __DIR__.'/controller/userProjectManage.php';
         $("#file_" + file).val("");
 
     }
+
+
+
 
 
     
