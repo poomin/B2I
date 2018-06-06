@@ -164,9 +164,27 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                                         </a>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <button class="btn btn-danger btn-xs">
-                                                                            <i class="fa fa-trash"></i>
-                                                                        </button>
+                                                                        <div class="form-group">
+                                                                            <a class="btn btn-primary btn-xs" href="<?= $item['path'];?>" target="_blank">
+                                                                                <i class="fa fa-download"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <?php if($edit): ?>
+                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                    <input class="hidden" name="fn" value="deleteUpload">
+                                                                                    <input class="hidden" name="typefile" value="file">
+                                                                                    <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
+                                                                                    <input class="hidden" name="phase_id" value="<?=$item['phase_id'];?>">
+                                                                                    <input class="hidden" name="name" value="<?=$item['namefile'];?>">
+                                                                                    <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>">
+                                                                                    <button class="btn btn-danger btn-xs" type="submit">
+                                                                                        <i class="fa fa-trash"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            <?php endif; ?>
+                                                                        </div>
+
                                                                     </td>
                                                                 </tr>
                                                             <?php endif; ?>
@@ -259,12 +277,26 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                                     </td>
                                                                     <td><?=$item['namefile'];?></td>
                                                                     <td class="text-center">
-                                                                        <button class="btn btn-primary btn-xs">
-                                                                            <i class="fa fa-download"></i>
-                                                                        </button>
-                                                                        <button class="btn btn-danger btn-xs">
-                                                                            <i class="fa fa-trash"></i>
-                                                                        </button>
+                                                                        <div class="form-group">
+                                                                            <a class="btn btn-primary btn-xs" href="<?= $item['path'];?>" target="_blank">
+                                                                                <i class="fa fa-download"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <?php if($edit): ?>
+                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                    <input class="hidden" name="fn" value="deleteUpload">
+                                                                                    <input class="hidden" name="typefile" value="image">
+                                                                                    <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
+                                                                                    <input class="hidden" name="phase_id" value="<?=$item['phase_id'];?>">
+                                                                                    <input class="hidden" name="name" value="<?=$item['namefile'];?>">
+                                                                                    <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>">
+                                                                                    <button class="btn btn-danger btn-xs" type="submit">
+                                                                                        <i class="fa fa-trash"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            <?php endif; ?>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             <?php endif; ?>
@@ -364,12 +396,26 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                                     </td>
                                                                     <td><?=$item['namefile'];?></td>
                                                                     <td class="text-center">
-                                                                        <button class="btn btn-primary btn-xs">
-                                                                            <i class="fa fa-download"></i>
-                                                                        </button>
-                                                                        <button class="btn btn-danger btn-xs">
-                                                                            <i class="fa fa-trash"></i>
-                                                                        </button>
+                                                                        <div class="form-group">
+                                                                            <a class="btn btn-primary btn-xs" href="<?= $item['path'];?>" target="_blank">
+                                                                                <i class="fa fa-download"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <?php if($edit): ?>
+                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                    <input class="hidden" name="fn" value="deleteUpload">
+                                                                                    <input class="hidden" name="typefile" value="video">
+                                                                                    <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
+                                                                                    <input class="hidden" name="phase_id" value="<?=$item['phase_id'];?>">
+                                                                                    <input class="hidden" name="name" value="<?=$item['namefile'];?>">
+                                                                                    <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>">
+                                                                                    <button class="btn btn-danger btn-xs" type="submit">
+                                                                                        <i class="fa fa-trash"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            <?php endif; ?>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             <?php endif; ?>
@@ -442,6 +488,13 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                 </div>
                                                 <?PHP endif; ?>
 
+                                            </div>
+
+
+                                            <div class="text-right" style="padding-top: 20px; padding-bottom: 10px;">
+                                                <button class="btn btn-primary" data-toggle="modal" data-target=".moddalLogPhase1">
+                                                    ข้อมูลการอัพงาน
+                                                </button>
                                             </div>
 
 
@@ -530,9 +583,26 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                                         </a>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <button class="btn btn-danger btn-xs">
-                                                                            <i class="fa fa-trash"></i>
-                                                                        </button>
+                                                                        <div class="form-group">
+                                                                            <a class="btn btn-primary btn-xs" href="<?= $item['path'];?>" target="_blank">
+                                                                                <i class="fa fa-download"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <?php if($editP2): ?>
+                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                    <input class="hidden" name="fn" value="deleteUpload">
+                                                                                    <input class="hidden" name="typefile" value="file">
+                                                                                    <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
+                                                                                    <input class="hidden" name="phase_id" value="<?=$item['phase_id'];?>">
+                                                                                    <input class="hidden" name="name" value="<?=$item['namefile'];?>">
+                                                                                    <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>">
+                                                                                    <button class="btn btn-danger btn-xs" type="submit">
+                                                                                        <i class="fa fa-trash"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            <?php endif; ?>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             <?php endif; ?>
@@ -621,12 +691,26 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                                     </td>
                                                                     <td><?=$item['namefile'];?></td>
                                                                     <td class="text-center">
-                                                                        <button class="btn btn-primary btn-xs">
-                                                                            <i class="fa fa-download"></i>
-                                                                        </button>
-                                                                        <button class="btn btn-danger btn-xs">
-                                                                            <i class="fa fa-trash"></i>
-                                                                        </button>
+                                                                        <div class="form-group">
+                                                                            <a class="btn btn-primary btn-xs" href="<?= $item['path'];?>" target="_blank">
+                                                                                <i class="fa fa-download"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <?php if($editP2): ?>
+                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                    <input class="hidden" name="fn" value="deleteUpload">
+                                                                                    <input class="hidden" name="typefile" value="image">
+                                                                                    <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
+                                                                                    <input class="hidden" name="phase_id" value="<?=$item['phase_id'];?>">
+                                                                                    <input class="hidden" name="name" value="<?=$item['namefile'];?>">
+                                                                                    <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>">
+                                                                                    <button class="btn btn-danger btn-xs" type="submit">
+                                                                                        <i class="fa fa-trash"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            <?php endif; ?>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             <?php endif; ?>
@@ -700,6 +784,132 @@ require_once __DIR__.'/controller/userProjectManage.php';
 
                                             </div>
 
+                                            <div class="video-upload">
+                                                <h4 style="text-decoration: underline;">วีดีโอ</h4> (.mp4)
+                                                <div id="showVideoP2" style="padding-top: 20px;">
+
+                                                    <table class="thisdatatable table table-striped table-bordered" style="width:100%">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>วีดีโอ</th>
+                                                            <th>รายละเอียด</th>
+                                                            <th>จัดการ</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <?php foreach($P2UPLOAD as $item) : ?>
+                                                            <?php if ($item['typefile']=="video"): ?>
+                                                                <tr>
+                                                                    <td class="text-center">
+
+                                                                        <video controls='1' loop='1' height="150px;">
+                                                                            <source src="<?=$item['path'];?>">
+                                                                            Your browser does not support HTML5 video tags.
+                                                                        </video>
+
+                                                                    </td>
+                                                                    <td><?=$item['namefile'];?></td>
+                                                                    <td class="text-center form-inline">
+                                                                        <div class="form-group">
+                                                                            <a class="btn btn-primary btn-xs" href="<?= $item['path'];?>" target="_blank">
+                                                                                <i class="fa fa-download"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <?php if($editP2): ?>
+                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                    <input class="hidden" name="fn" value="deleteUpload">
+                                                                                    <input class="hidden" name="typefile" value="video">
+                                                                                    <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
+                                                                                    <input class="hidden" name="phase_id" value="<?=$item['phase_id'];?>">
+                                                                                    <input class="hidden" name="name" value="<?=$item['namefile'];?>">
+                                                                                    <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>">
+                                                                                    <button class="btn btn-danger btn-xs" type="submit">
+                                                                                        <i class="fa fa-trash"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            <?php endif; ?>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                                <?PHP if($editP2): ?>
+                                                    <div id="uploadVideoP2">
+
+                                                        <div id="loadFileVideoP2" class="text-center">
+                                                            <div class="form-inline hide" id="p2_show_progressBar_video">
+                                                                <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
+                                                                    <div id="p2_progressBar_video" class="progress-bar" role="progressbar"
+                                                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                                                         style="width: 0%;">
+                                                                        0%
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button" class="btn btn-danger btn-xs"
+                                                                        onclick="cancelUploadFileP2('video')">
+                                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                                </button>
+                                                            </div>
+                                                            <div id="video">
+                                                                <div class="box-img-ready">
+                                                                    <label style="cursor: pointer;" for="p2_file_video">
+                                                                        <h3 id="p2_upload_video"><span class="label label-info"><i class="fa fa-upload"></i> Video Upload</span></h3>
+                                                                        <input id="p2_file_video" accept="video/mp4" type="file" style="display:none;" onchange="showLoadVideoP2(this)">
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="saveLoadFileVideoP2" class="hidden">
+                                                            <div class="row">
+                                                                <div class="col-xs-6 col-md-4 col-md-offset-4">
+
+                                                                    <div class="embed-responsive embed-responsive-16by9">
+                                                                        <iframe id="videoShowP2" class="embed-responsive-item" src="" ></iframe>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row" style="padding-top: 20px;">
+                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                    <div class="form-group">
+                                                                        <label for="nameVideoP2" class="col-sm-4 control-label">รายละเอียดภาพ</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control" id="nameVideoP2" name="namefile" placeholder="รายละเอียดภาพ">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-offset-4 col-sm-6">
+                                                                            <input class="hidden" name="fn" value="saveVideoP2" >
+                                                                            <input class="hidden" name="phase_id" value="<?=$PHASE2['id'];?>" >
+                                                                            <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
+                                                                            <input class="hidden" name="typefile" value="video" >
+                                                                            <input id="inputVideoP2" class="hidden" name="path" value="">
+                                                                            <button type="submit" class="btn btn-success">SAVE</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                <?PHP endif; ?>
+                                            </div>
+
+
+                                            <div class="text-right" style="padding-top: 20px; padding-bottom: 10px;">
+                                                <button class="btn btn-primary" data-toggle="modal" data-target=".moddalLogPhase2">
+                                                    ข้อมูลการอัพงาน
+                                                </button>
+                                            </div>
+
                                         </div>
                                     <?php endif; ?>
                                 <?php } ?>
@@ -715,7 +925,6 @@ require_once __DIR__.'/controller/userProjectManage.php';
 
 </div>
 <!-- End of container Box -->
-
 
 <footer>
     <?php include '_footer.php'; ?>
@@ -1169,6 +1378,89 @@ require_once __DIR__.'/controller/userProjectManage.php';
             alert("Not found file input!!!");
         }
     }
+    function showLoadVideoP2(input) {
+        if (input.files && input.files[0]) {
+            ajax_video_p2 = new XMLHttpRequest();
+            var type_file = input.files[0].type;
+            var file_name = input.files[0].name;
+
+            var tmppath = URL.createObjectURL(input.files[0]);
+            console.log(tmppath);
+
+            var cut_type_file = file_name.split('.');
+            var file_type = cut_type_file[cut_type_file.length - 1];
+            var cut = type_file.split("/");
+            var set_type = 'video';
+            type_file = (cut.length > 0) ? cut[0] : "";
+            type_file = type_file.toLowerCase();
+            //check type file upload
+            if (type_file == set_type) {
+                $('#p2_show_progressBar_' + set_type).removeClass('hide');
+                var progressBar = "p2_progressBar_" + set_type;
+
+                var form_data = new FormData();
+                form_data.append("fileToUpload", input.files[0]);
+                ajax_video_p2.upload.addEventListener("progress", progressHandler, false);
+                ajax_video_p2.addEventListener("load", completeHandler, false);
+                ajax_video_p2.addEventListener("error", errorHandler, false);
+                ajax_video_p2.addEventListener("abort", abortHandler, false);
+                ajax_video_p2.open("POST","/upload/upload_file.php?type=" + set_type);
+                ajax_video_p2.send(form_data);
+
+                function progressHandler(event) {
+                    var percent = (event.loaded / event.total) * 100;
+                    $("#" + progressBar).css('width', Math.round(percent) + "%");
+                    $("#" + progressBar).html(Math.round(percent) + "%");
+                }
+
+                function completeHandler(event) {
+                    var data_return = JSON.parse(event.target.responseText);
+                    if (data_return['status'] == 'ok') {
+                        var src = '/upload/video/'+data_return['new_name'];
+
+                        $('#nameVideoP2').val(data_return['file_name']);
+                        $('#videoShowP2').attr('src',src);
+                        $('#inputVideoP2').attr('value',src);
+
+                        $('#p2_show_progressBar_' + set_type).addClass('hide');
+                        $("#" + progressBar).css('width', "0%");
+                        $("#" + progressBar).html("0%");
+
+                        $('#loadFileVideoP2').addClass('hidden');
+                        $('#saveLoadFileVideoP2').removeClass('hidden');
+
+                    } else {
+                        ajax_video_p2.abort();
+                        alert("Error:" + data_return['message']);
+                        $("#" + progressBar).css('width', "0%");
+                        $("#" + progressBar).html("0%");
+                    }
+                }
+
+                function errorHandler(event) {
+                    ajax_video_p2.abort();
+                    alert("Upload Failed");
+                    $('#p2_show_progressBar_' + set_type).addClass('hide');
+                    $("#" + progressBar).css('width', "0%");
+                    $("#" + progressBar).html("0%");
+
+                }
+
+                function abortHandler(event) {
+                    ajax_video_p2.abort();
+                    alert("Upload Aborted");
+                    $('#p2_show_progressBar_' + set_type).addClass('hide');
+                    $("#" + progressBar).css('width', "0%");
+                    $("#" + progressBar).html("0%");
+                }
+
+            } else {
+                alert("File type cannot upload!!!");
+            }
+        } else {
+            alert("Not found file input!!!");
+        }
+    }
     function cancelUploadFileP2(addOrEdit) {
         var file = addOrEdit;
         if (file == 'image') {
@@ -1186,13 +1478,77 @@ require_once __DIR__.'/controller/userProjectManage.php';
     }
 
 
-
-
-
-    
 </script>
 
-
 <?php include "_modal.php";?>
+<!--    modal log phase 1 -->
+<div class="modal fade moddalLogPhase1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myLargeModalLabel1">ประวัติการทำงาน</h4>
+            </div>
+            <div class="modal-body">
+                <table class="thisdatatable table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>วันที่</th>
+                        <th>สมาชิก</th>
+                        <th>รายละเอียด</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($P1LOG as $item) : ?>
+                        <tr>
+                            <td class="text-center"><?=$item['createat'];?></td>
+                            <td><?=$item['name'];?> <?=$item['surname'];?></td>
+                            <td><?=$item['message'];?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    modal log phase 2 -->
+<div class="modal fade moddalLogPhase2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myLargeModalLabel2">ประวัติการทำงาน</h4>
+            </div>
+            <div class="modal-body">
+                <table class="thisdatatable table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>วันที่</th>
+                        <th>สมาชิก</th>
+                        <th>รายละเอียด</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($P2LOG as $item) : ?>
+                        <tr>
+                            <td class="text-center"><?=$item['createat'];?></td>
+                            <td><?=$item['name'];?> <?=$item['surname'];?></td>
+                            <td><?=$item['message'];?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

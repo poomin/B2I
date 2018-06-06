@@ -47,5 +47,19 @@ class ModelProjectPhaseUpload extends _PDO
         return $result;
     }
 
+    function deleteUploadById($up_id){
+        //connect DB
+        $this->connect();
+        $sql = "DELETE FROM b2i_project_phase_upload WHERE id=:id";
+        $params= array(
+            ':id'=> $up_id
+        );
+        $lastId = $this->update($sql,$params);
+        //close DB
+        $this->close();
+
+
+        return $lastId;
+    }
 
 }

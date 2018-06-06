@@ -153,6 +153,36 @@ elseif($fn=='saveImageP2'){
     $result = $LOG->addLog($phase_id,$user_id,'Upload Image Name: '.$namefile);
 
 }
+elseif($fn=='saveVideoP2'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
+    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
+    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
+    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $input = [
+        'phase_id'=> $phase_id,
+        'user_id'=> $user_id,
+        'namefile'=> $namefile,
+        'typefile'=> $typefile,
+        'path'=> $path
+    ];
+    $result = $MPPU->addUpload($input);
+
+    $result = $LOG->addLog($phase_id,$user_id,'Upload Video Name: '.$namefile);
+
+}
+
+
+elseif ($fn=='deleteUpload'){
+    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
+    $upload_id = isset($_REQUEST['upload_id'])?$_REQUEST['upload_id']:'';
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $name = isset($_REQUEST['name'])?$_REQUEST['name']:'';
+    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
+
+    $result = $MPPU->deleteUploadById($upload_id);
+    $result = $LOG->addLog($phase_id,$user_id,'Delete '.$typefile.' Name: '.$name);
+}
 
 
 

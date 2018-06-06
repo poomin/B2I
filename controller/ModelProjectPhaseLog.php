@@ -31,7 +31,9 @@ class ModelProjectPhaseLog extends _PDO
 
     function getLogByPhase($phase_id){
         $this->connect();
-        $sql = "select * from  b2i_project_phase_log where phase_id=:phase_id";
+        $sql = "select name , surname , username , role , message ,b2i_project_phase_log.createat from b2i_project_phase_log 
+        left join b2i_user on b2i_project_phase_log.user_id = b2i_user.id
+        where phase_id=:phase_id";
         $params= array(':phase_id'=> $phase_id);
         $result = $this->queryAll($sql,$params);
         $this->close();

@@ -16,7 +16,7 @@
     .myImgModal:hover {opacity: 0.7;}
 
     /* The Modal (background) */
-    .modal {
+    .modalImg {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
         z-index: 3; /* Sit on top */
@@ -69,7 +69,7 @@
     }
 
     /* The Close Button */
-    .close {
+    #myModalClose {
         position: absolute;
         top: 50px;
         right: 35px;
@@ -79,8 +79,8 @@
         transition: 0.3s;
     }
 
-    .close:hover,
-    .close:focus {
+    #myModalClose:hover,
+    #myModalClose:focus {
         color: #FFFFFF;
         text-decoration: none;
         cursor: pointer;
@@ -97,7 +97,7 @@
 </style>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="myModal" class="modalImg">
     <span class="close" id="myModalClose">&times;</span>
     <img class="modal-content" id="myModalShow">
 </div>
