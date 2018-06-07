@@ -2,9 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: EPOP
- * Date: 5/30/2018
- * Time: 2:16 PM
+ * Date: 6/7/2018
+ * Time: 5:11 PM
  */
+
 require_once __DIR__.'/ModelProject.php';
 require_once __DIR__.'/ModelProjectSetup.php';
 require_once __DIR__.'/ModelProjectPhase.php';
@@ -111,6 +112,7 @@ elseif($fn=='phase2'){
         $l = $MU->link('user-project-manage.php?id='.$id);
         exit;
     }else{
+        header("Location: /user-project.php");
         $l = $MU->link('user-project.php');
         exit;
     }
@@ -244,8 +246,4 @@ if(isset($result['id']) && $check ){
 
 
 }
-
-
-
-
 

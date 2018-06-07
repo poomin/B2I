@@ -91,7 +91,7 @@ include "controller/adminCheck.php"
                                         ?>
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> ตรวจ </a>
+                                        <a href="admin-check-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> ตรวจ </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

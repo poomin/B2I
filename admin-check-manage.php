@@ -1,7 +1,6 @@
 <?php
 session_start();
-require_once __DIR__.'/_redirectUser.php';
-
+require_once __DIR__.'/_redirectAdmin.php';
 /**
  * Created by PhpStorm.
  * User: Gimo
@@ -9,10 +8,9 @@ require_once __DIR__.'/_redirectUser.php';
  * Time: 11:30
  */
 $m_nev = '';
-$m_li = 'project';
+$m_li = 'check';
 
-require_once __DIR__.'/controller/userProjectManage.php';
-
+include "controller/adminCheckManage.php"
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +33,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
 
             <div class="col-xs-12 col-sm-3">
                 <div class="box-card">
-                   <?php include '_user.php'?>
+                    <?php include '_user.php'?>
                 </div>
             </div>
 
@@ -43,11 +41,11 @@ require_once __DIR__.'/controller/userProjectManage.php';
                 <div class="box-card" style="min-height: 300px;">
 
                     <?php if(isset($_SESSION['error'])): ?>
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong> <?php echo $_SESSION['error']; ?>
-                    </div>
-                    <?php unset($_SESSION['error']); endif; ?>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Warning!</strong> <?php echo $_SESSION['error']; ?>
+                        </div>
+                        <?php unset($_SESSION['error']); endif; ?>
 
                     <div class="form-inline">
                         <h3><?= isset($PROJECT['name'])?$PROJECT['name']:'';?></h3>
@@ -69,24 +67,24 @@ require_once __DIR__.'/controller/userProjectManage.php';
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane <?=(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process')?'active':'';?>" id="phase1">
                                 <?php
-                                    $status = false;
-                                    $createPhase1 = true;
-                                    $edit = false;
+                                $status = false;
+                                $createPhase1 = true;
+                                $edit = false;
 
-                                    if(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='close' ){
-                                        $status = true;
-                                    }
+                                if(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='close' ){
+                                    $status = true;
+                                }
 
-                                    if(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process' ){
-                                        $edit = true;
-                                    }
+                                if(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process' ){
+                                    $edit = true;
+                                }
 
-                                    if(count($PHASE1)>0){
-                                        $createPhase1 = false;
-                                    }
+                                if(count($PHASE1)>0){
+                                    $createPhase1 = false;
+                                }
 
 
-                                    if(!isset($projectSetup['id'])){$status=true;}
+                                if(!isset($projectSetup['id'])){$status=true;}
                                 ?>
 
                                 <?php if($status): ?>
@@ -195,62 +193,62 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                                 </div>
 
                                                 <?PHP if($edit): ?>
-                                                <div id="uploadFileP1">
+                                                    <div id="uploadFileP1">
 
-                                                    <div id="loadFilePdf" class="text-center">
-                                                        <div class="form-inline hide" id="show_progressBar_pdf">
-                                                            <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
-                                                                <div id="progressBar_pdf" class="progress-bar" role="progressbar"
-                                                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                                     style="width: 0%;">
-                                                                    0%
-                                                                </div>
-                                                            </div>
-                                                            <button type="button" class="btn btn-danger btn-xs"
-                                                                    onclick="cancelUploadFile('pdf')">
-                                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                                            </button>
-                                                        </div>
-                                                        <div id="pdf">
-                                                            <input id="path_pdf" class="hide" type="text" name="path_pdf" value="">
-                                                            <input id="name_pdf" class="hide" type="text" name="name_pdf" value="">
-                                                            <div class="box-img-ready">
-                                                                <label style="cursor: pointer;" for="file_pdf">
-                                                                    <h3 id="upload_pdf"><span class="label label-info"><i class="fa fa-upload"></i> File Upload </span></h3>
-                                                                    <input id="file_pdf" topic_id="<?= $PROJECT['id']; ?>" accept="application/pdf" type="file" style="display:none;" onchange="showLoadPdf(this)">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="saveLoadFilePdf" class="hidden">
-                                                        <div class="row text-center">
-                                                            <i class="fa fa-file-pdf-o fa-5x thumbnail"></i>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
-                                                                <div class="form-group">
-                                                                    <label for="namePdf" class="col-sm-4 control-label">รายละเอียดไฟล์</label>
-                                                                    <div class="col-sm-6">
-                                                                        <input type="text" class="form-control" id="namePdf" name="namefile" placeholder="รายละเอียดภาพ">
+                                                        <div id="loadFilePdf" class="text-center">
+                                                            <div class="form-inline hide" id="show_progressBar_pdf">
+                                                                <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
+                                                                    <div id="progressBar_pdf" class="progress-bar" role="progressbar"
+                                                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                                                         style="width: 0%;">
+                                                                        0%
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <div class="col-sm-offset-4 col-sm-6">
-                                                                        <input class="hidden" name="fn" value="savePdf" >
-                                                                        <input class="hidden" name="phase_id" value="<?=$PHASE1['id'];?>" >
-                                                                        <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
-                                                                        <input class="hidden" name="typefile" value="pdf" >
-                                                                        <input id="inputPatePdf" class="hidden" name="path" value="">
-                                                                        <button type="submit" class="btn btn-success">SAVE</button>
-                                                                    </div>
+                                                                <button type="button" class="btn btn-danger btn-xs"
+                                                                        onclick="cancelUploadFile('pdf')">
+                                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                                </button>
+                                                            </div>
+                                                            <div id="pdf">
+                                                                <input id="path_pdf" class="hide" type="text" name="path_pdf" value="">
+                                                                <input id="name_pdf" class="hide" type="text" name="name_pdf" value="">
+                                                                <div class="box-img-ready">
+                                                                    <label style="cursor: pointer;" for="file_pdf">
+                                                                        <h3 id="upload_pdf"><span class="label label-info"><i class="fa fa-upload"></i> File Upload </span></h3>
+                                                                        <input id="file_pdf" topic_id="<?= $PROJECT['id']; ?>" accept="application/pdf" type="file" style="display:none;" onchange="showLoadPdf(this)">
+                                                                    </label>
                                                                 </div>
-                                                            </form>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                </div>
+                                                        <div id="saveLoadFilePdf" class="hidden">
+                                                            <div class="row text-center">
+                                                                <i class="fa fa-file-pdf-o fa-5x thumbnail"></i>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                    <div class="form-group">
+                                                                        <label for="namePdf" class="col-sm-4 control-label">รายละเอียดไฟล์</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control" id="namePdf" name="namefile" placeholder="รายละเอียดภาพ">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-offset-4 col-sm-6">
+                                                                            <input class="hidden" name="fn" value="savePdf" >
+                                                                            <input class="hidden" name="phase_id" value="<?=$PHASE1['id'];?>" >
+                                                                            <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
+                                                                            <input class="hidden" name="typefile" value="pdf" >
+                                                                            <input id="inputPatePdf" class="hidden" name="path" value="">
+                                                                            <button type="submit" class="btn btn-success">SAVE</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
                                                 <?php endif;?>
 
                                             </div>
@@ -306,65 +304,65 @@ require_once __DIR__.'/controller/userProjectManage.php';
 
                                                 </div>
                                                 <?PHP if($edit): ?>
-                                                <div id="uploadImageP1">
+                                                    <div id="uploadImageP1">
 
-                                                    <div id="loadFileImage" class="text-center">
-                                                        <div class="form-inline hide" id="show_progressBar_image">
-                                                            <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
-                                                                <div id="progressBar_image" class="progress-bar" role="progressbar"
-                                                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                                     style="width: 0%;">
-                                                                    0%
-                                                                </div>
-                                                            </div>
-                                                            <button type="button" class="btn btn-danger btn-xs"
-                                                                    onclick="cancelUploadFile('image')">
-                                                                <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                                            </button>
-                                                        </div>
-                                                        <div id="image">
-                                                            <div class="box-img-ready">
-                                                                <label style="cursor: pointer;" for="file_image">
-                                                                    <h3 id="upload_image"><span class="label label-info"><i class="fa fa-upload"></i> Image Upload</span></h3>
-                                                                    <input id="file_image" accept="image/*" type="file" style="display:none;" onchange="showLoadImage(this)">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="saveLoadFileImage" class="hidden">
-                                                        <div class="row">
-                                                            <div class="col-xs-6 col-md-4 col-md-offset-4">
-                                                                <a href="#" class="thumbnail">
-                                                                    <img id="imageShow" src="/froala/upload/img.png" alt="image">
-                                                                </a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
-                                                                <div class="form-group">
-                                                                    <label for="nameImage" class="col-sm-4 control-label">รายละเอียดภาพ</label>
-                                                                    <div class="col-sm-6">
-                                                                        <input type="text" class="form-control" id="nameImage" name="namefile" placeholder="รายละเอียดภาพ">
+                                                        <div id="loadFileImage" class="text-center">
+                                                            <div class="form-inline hide" id="show_progressBar_image">
+                                                                <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
+                                                                    <div id="progressBar_image" class="progress-bar" role="progressbar"
+                                                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                                                         style="width: 0%;">
+                                                                        0%
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <div class="col-sm-offset-4 col-sm-6">
-                                                                        <input class="hidden" name="fn" value="saveImage" >
-                                                                        <input class="hidden" name="phase_id" value="<?=$PHASE1['id'];?>" >
-                                                                        <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
-                                                                        <input class="hidden" name="typefile" value="img" >
-                                                                        <input id="inputPate" class="hidden" name="path" value="">
-                                                                        <button type="submit" class="btn btn-success">SAVE</button>
-                                                                    </div>
+                                                                <button type="button" class="btn btn-danger btn-xs"
+                                                                        onclick="cancelUploadFile('image')">
+                                                                    <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                                </button>
+                                                            </div>
+                                                            <div id="image">
+                                                                <div class="box-img-ready">
+                                                                    <label style="cursor: pointer;" for="file_image">
+                                                                        <h3 id="upload_image"><span class="label label-info"><i class="fa fa-upload"></i> Image Upload</span></h3>
+                                                                        <input id="file_image" accept="image/*" type="file" style="display:none;" onchange="showLoadImage(this)">
+                                                                    </label>
                                                                 </div>
-                                                            </form>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="saveLoadFileImage" class="hidden">
+                                                            <div class="row">
+                                                                <div class="col-xs-6 col-md-4 col-md-offset-4">
+                                                                    <a href="#" class="thumbnail">
+                                                                        <img id="imageShow" src="/froala/upload/img.png" alt="image">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                    <div class="form-group">
+                                                                        <label for="nameImage" class="col-sm-4 control-label">รายละเอียดภาพ</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control" id="nameImage" name="namefile" placeholder="รายละเอียดภาพ">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-offset-4 col-sm-6">
+                                                                            <input class="hidden" name="fn" value="saveImage" >
+                                                                            <input class="hidden" name="phase_id" value="<?=$PHASE1['id'];?>" >
+                                                                            <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
+                                                                            <input class="hidden" name="typefile" value="img" >
+                                                                            <input id="inputPate" class="hidden" name="path" value="">
+                                                                            <button type="submit" class="btn btn-success">SAVE</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
                                                         </div>
 
                                                     </div>
-
-                                                </div>
                                                 <?PHP endif;?>
 
                                             </div>
@@ -425,67 +423,67 @@ require_once __DIR__.'/controller/userProjectManage.php';
 
                                                 </div>
                                                 <?PHP if($edit): ?>
-                                                <div id="uploadVideoP1">
+                                                    <div id="uploadVideoP1">
 
-                                                    <div id="loadFileVideo" class="text-center">
-                                                        <div class="form-inline hide" id="show_progressBar_video">
-                                                            <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
-                                                                <div id="progressBar_video" class="progress-bar" role="progressbar"
-                                                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                                     style="width: 0%;">
-                                                                    0%
-                                                                </div>
-                                                            </div>
-                                                            <button type="button" class="btn btn-danger btn-xs"
-                                                                    onclick="cancelUploadFile('video')">
-                                                                <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                                            </button>
-                                                        </div>
-                                                        <div id="video">
-                                                            <div class="box-img-ready">
-                                                                <label style="cursor: pointer;" for="file_video">
-                                                                    <h3 id="upload_video"><span class="label label-info"><i class="fa fa-upload"></i> Video Upload</span></h3>
-                                                                    <input id="file_video" accept="video/mp4" type="file" style="display:none;" onchange="showLoadVideo(this)">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="saveLoadFileVideo" class="hidden">
-                                                        <div class="row">
-                                                            <div class="col-xs-6 col-md-4 col-md-offset-4">
-
-                                                                <div class="embed-responsive embed-responsive-16by9">
-                                                                    <iframe id="videoShow" class="embed-responsive-item" src="" ></iframe>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row" style="padding-top: 20px;">
-                                                            <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
-                                                                <div class="form-group">
-                                                                    <label for="nameVideo" class="col-sm-4 control-label">รายละเอียดภาพ</label>
-                                                                    <div class="col-sm-6">
-                                                                        <input type="text" class="form-control" id="nameVideo" name="namefile" placeholder="รายละเอียดภาพ">
+                                                        <div id="loadFileVideo" class="text-center">
+                                                            <div class="form-inline hide" id="show_progressBar_video">
+                                                                <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
+                                                                    <div id="progressBar_video" class="progress-bar" role="progressbar"
+                                                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                                                         style="width: 0%;">
+                                                                        0%
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <div class="col-sm-offset-4 col-sm-6">
-                                                                        <input class="hidden" name="fn" value="saveVideo" >
-                                                                        <input class="hidden" name="phase_id" value="<?=$PHASE1['id'];?>" >
-                                                                        <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
-                                                                        <input class="hidden" name="typefile" value="video" >
-                                                                        <input id="inputVideo" class="hidden" name="path" value="">
-                                                                        <button type="submit" class="btn btn-success">SAVE</button>
-                                                                    </div>
+                                                                <button type="button" class="btn btn-danger btn-xs"
+                                                                        onclick="cancelUploadFile('video')">
+                                                                    <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                                </button>
+                                                            </div>
+                                                            <div id="video">
+                                                                <div class="box-img-ready">
+                                                                    <label style="cursor: pointer;" for="file_video">
+                                                                        <h3 id="upload_video"><span class="label label-info"><i class="fa fa-upload"></i> Video Upload</span></h3>
+                                                                        <input id="file_video" accept="video/mp4" type="file" style="display:none;" onchange="showLoadVideo(this)">
+                                                                    </label>
                                                                 </div>
-                                                            </form>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="saveLoadFileVideo" class="hidden">
+                                                            <div class="row">
+                                                                <div class="col-xs-6 col-md-4 col-md-offset-4">
+
+                                                                    <div class="embed-responsive embed-responsive-16by9">
+                                                                        <iframe id="videoShow" class="embed-responsive-item" src="" ></iframe>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row" style="padding-top: 20px;">
+                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                    <div class="form-group">
+                                                                        <label for="nameVideo" class="col-sm-4 control-label">รายละเอียดภาพ</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control" id="nameVideo" name="namefile" placeholder="รายละเอียดภาพ">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-offset-4 col-sm-6">
+                                                                            <input class="hidden" name="fn" value="saveVideo" >
+                                                                            <input class="hidden" name="phase_id" value="<?=$PHASE1['id'];?>" >
+                                                                            <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
+                                                                            <input class="hidden" name="typefile" value="video" >
+                                                                            <input id="inputVideo" class="hidden" name="path" value="">
+                                                                            <button type="submit" class="btn btn-success">SAVE</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
                                                         </div>
 
                                                     </div>
-
-                                                </div>
                                                 <?PHP endif; ?>
 
                                             </div>
@@ -507,11 +505,11 @@ require_once __DIR__.'/controller/userProjectManage.php';
 
                             <div role="tabpanel" class="tab-pane <?=(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process')?'':'active';?>" id="phase2">
                                 <?PHP
-                                    $statusP2 = false;
-                                    $createP2 = true;
-                                    $editP2 = false;
-                                    $statusFail = false;
-                                    $statusWait = false;
+                                $statusP2 = false;
+                                $createP2 = true;
+                                $editP2 = false;
+                                $statusFail = false;
+                                $statusWait = false;
 
 
                                 if(isset($projectSetup['phase2status']) && $projectSetup['phase2status']=='close' ){
