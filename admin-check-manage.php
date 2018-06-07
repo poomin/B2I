@@ -78,6 +78,8 @@ include "controller/adminCheckManage.php"
                                 if(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process' ){
                                     $edit = true;
                                 }
+                                //for admin
+                                $edit = true;
 
                                 if(count($PHASE1)>0){
                                     $createPhase1 = false;
@@ -169,7 +171,7 @@ include "controller/adminCheckManage.php"
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <?php if($edit): ?>
-                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                <form action="admin-check-manage.php?id=<?=$id?>" method="post">
                                                                                     <input class="hidden" name="fn" value="deleteUpload">
                                                                                     <input class="hidden" name="typefile" value="file">
                                                                                     <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -227,7 +229,7 @@ include "controller/adminCheckManage.php"
                                                             </div>
 
                                                             <div class="row">
-                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                <form class="form-horizontal" action="admin-check-manage.php?id=<?=$PROJECT['id'];?>" method="post">
                                                                     <div class="form-group">
                                                                         <label for="namePdf" class="col-sm-4 control-label">รายละเอียดไฟล์</label>
                                                                         <div class="col-sm-6">
@@ -282,7 +284,7 @@ include "controller/adminCheckManage.php"
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <?php if($edit): ?>
-                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                <form action="admin-check-manage.php?id=<?=$id?>" method="post">
                                                                                     <input class="hidden" name="fn" value="deleteUpload">
                                                                                     <input class="hidden" name="typefile" value="image">
                                                                                     <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -340,7 +342,7 @@ include "controller/adminCheckManage.php"
                                                             </div>
 
                                                             <div class="row">
-                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                <form class="form-horizontal" action="admin-check-manage.php?id=<?=$PROJECT['id'];?>" method="post">
                                                                     <div class="form-group">
                                                                         <label for="nameImage" class="col-sm-4 control-label">รายละเอียดภาพ</label>
                                                                         <div class="col-sm-6">
@@ -401,7 +403,7 @@ include "controller/adminCheckManage.php"
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <?php if($edit): ?>
-                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                <form action="admin-check-manage.php?id=<?=$id?>" method="post">
                                                                                     <input class="hidden" name="fn" value="deleteUpload">
                                                                                     <input class="hidden" name="typefile" value="video">
                                                                                     <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -461,7 +463,7 @@ include "controller/adminCheckManage.php"
                                                             </div>
 
                                                             <div class="row" style="padding-top: 20px;">
-                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                <form class="form-horizontal" action="admin-check-manage.php?id=<?=$PROJECT['id'];?>" method="post">
                                                                     <div class="form-group">
                                                                         <label for="nameVideo" class="col-sm-4 control-label">รายละเอียดภาพ</label>
                                                                         <div class="col-sm-6">
@@ -588,7 +590,7 @@ include "controller/adminCheckManage.php"
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <?php if($editP2): ?>
-                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                <form action="admin-check-manage.php?id=<?=$id?>" method="post">
                                                                                     <input class="hidden" name="fn" value="deleteUpload">
                                                                                     <input class="hidden" name="typefile" value="file">
                                                                                     <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -643,7 +645,7 @@ include "controller/adminCheckManage.php"
                                                             </div>
 
                                                             <div class="row">
-                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                <form class="form-horizontal" action="admin-check-manage.php?id=<?=$PROJECT['id'];?>" method="post">
                                                                     <div class="form-group">
                                                                         <label for="namePdfP2" class="col-sm-4 control-label">รายละเอียดไฟล์</label>
                                                                         <div class="col-sm-6">
@@ -696,7 +698,7 @@ include "controller/adminCheckManage.php"
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <?php if($editP2): ?>
-                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                <form action="admin-check-manage.php?id=<?=$id?>" method="post">
                                                                                     <input class="hidden" name="fn" value="deleteUpload">
                                                                                     <input class="hidden" name="typefile" value="image">
                                                                                     <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -754,7 +756,7 @@ include "controller/adminCheckManage.php"
                                                             </div>
 
                                                             <div class="row">
-                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                <form class="form-horizontal" action="admin-check-manage.php?id=<?=$PROJECT['id'];?>" method="post">
                                                                     <div class="form-group">
                                                                         <label for="nameImageP2" class="col-sm-4 control-label">รายละเอียดภาพ</label>
                                                                         <div class="col-sm-6">
@@ -815,7 +817,7 @@ include "controller/adminCheckManage.php"
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <?php if($editP2): ?>
-                                                                                <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                                                <form action="admin-check-manage.php?id=<?=$id?>" method="post">
                                                                                     <input class="hidden" name="fn" value="deleteUpload">
                                                                                     <input class="hidden" name="typefile" value="video">
                                                                                     <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -875,7 +877,7 @@ include "controller/adminCheckManage.php"
                                                             </div>
 
                                                             <div class="row" style="padding-top: 20px;">
-                                                                <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                                                <form class="form-horizontal" action="admin-check-manage.php?id=<?=$PROJECT['id'];?>" method="post">
                                                                     <div class="form-group">
                                                                         <label for="nameVideoP2" class="col-sm-4 control-label">รายละเอียดภาพ</label>
                                                                         <div class="col-sm-6">

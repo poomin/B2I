@@ -112,7 +112,6 @@ elseif($fn=='phase2'){
         $l = $MU->link('admin-check-manage.php?id='.$id);
         exit;
     }else{
-        header("Location: /user-project.php");
         $l = $MU->link('admin-check.php');
         exit;
     }
