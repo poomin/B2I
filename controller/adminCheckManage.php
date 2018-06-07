@@ -42,10 +42,10 @@ if($fn=='phase1'){
     $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $result = $MPP->addPhase($id,1);
     if($result > 0){
-        $l = $MU->link('user-project-manage.php?id='.$id);
+        $l = $MU->link('admin-check-manage.php?id='.$id);
         exit;
     }else{
-        $l = $MU->link('user-project.php');
+        $l = $MU->link('admin-check.php');
         exit;
     }
 }
@@ -109,11 +109,11 @@ elseif($fn=='phase2'){
     $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $result = $MPP->addPhase($id,2);
     if($result > 0){
-        $l = $MU->link('user-project-manage.php?id='.$id);
+        $l = $MU->link('admin-check-manage.php?id='.$id);
         exit;
     }else{
         header("Location: /user-project.php");
-        $l = $MU->link('user-project.php');
+        $l = $MU->link('admin-check.php');
         exit;
     }
 }
