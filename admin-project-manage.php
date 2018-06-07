@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once __DIR__.'/_redirectAdmin.php';
-$SETID = 1;
 /**
  * Created by PhpStorm.
  * User: Gimo

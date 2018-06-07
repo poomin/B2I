@@ -47,9 +47,7 @@ require_once __DIR__.'/controller/adminPost.php';
                         <a href="admin-news-create.php" class="btn btn-success"><i class="fa fa-plus"></i> สร้างข่าว/ประกาศ</a>
                     </div>
                     <hr>
-                    <div>
-
-
+                    <div class="">
                         <table id="thisdatatable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                             <tr>
@@ -74,9 +72,6 @@ require_once __DIR__.'/controller/adminPost.php';
                             <?php endforeach; ?>
                             </tbody>
                         </table>
-
-
-
 
                     </div>
                 </div>

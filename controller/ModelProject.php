@@ -147,6 +147,49 @@ class ModelProject extends  _PDO
         return $result;
     }
 
+    function getProjectBySetupId($setup_id){
+        $this->connect();
+        $sql = "select * from b2i_project where projectsetup_id=:setup_id ";
+        $params= array(':setup_id'=> $setup_id);
+        $project = $this->queryAll($sql,$params);
+
+        $sql = "select * from b2i_project_phase ";
+        $params= array();
+        $phase = $this->queryAll($sql,$params);
+
+        $this->close();
+
+        $data_return =[];
+        $arr_phase = [];
+        foreach ($phase as $item){
+            if(isset($arr_phase[$item['project_id']])){
+            }else{
+                $arr_phase[$item['project_id']]=[
+                    'phase1result'=> 'none',
+                    'phase2result'=> 'none'
+                ];
+            }
+
+            if($item['phase']=='1'){
+                $arr_phase[$item['project_id']]['phase1result'] = $item['result'];
+            }elseif($item['phase']=='2'){
+                $arr_phase[$item['project_id']]['phase2result'] = $item['result'];
+            }
+        }
+
+        foreach ($project as $item){
+            if(isset($arr_phase[$item['id']])){
+                $item['phase1result'] = $arr_phase[$item['id']]['phase1result'];
+                $item['phase2result'] = $arr_phase[$item['id']]['phase2result'];
+                $data_return[] = $item;
+            }else{
+                $item['phase1result'] = 'none';
+                $item['phase2result'] = 'none';
+                $data_return[] = $item;
+            }
+        }
+        return $data_return;
+    }
 
 
 

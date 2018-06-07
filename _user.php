@@ -27,8 +27,8 @@ $role = $_SESSION['role'];
         <li class="<?= $m_li=='news'?'active':'';?>">
             <a href="admin-news.php"><i class="fa fa-bullhorn fa-fw"></i>ประกาศ/ข่าว</a>
         </li>
-        <li>
-            <a href="#"><i class="fa fa-edit fa-fw"></i> จัดการโครงการ</a>
+        <li class="<?= $m_li=='check'?'active':'';?>">
+            <a href="admin-check.php"><i class="fa fa-edit fa-fw"></i> ตรวจโครงการ</a>
         </li>
         <li>
             <hr>
