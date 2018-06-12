@@ -9,11 +9,7 @@ require_once __DIR__.'/ModelProjectSetup.php';
 
 $MPS = new ModelProjectSetup();
 
-
 $PROJECTSETUP=[];
-
-
-
 
 $fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
 if($fn=='editPhase1Status'){
@@ -33,12 +29,9 @@ elseif($fn=='editPhase2Status'){
     $_SESSION['success'] = 'Update data Success.';
 }
 
-
-
 $result = $MPS->getProjectById($SETID);
 if(isset($result['id'])){
     $PROJECTSETUP = $result;
-
 }
 
 

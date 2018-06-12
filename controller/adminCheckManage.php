@@ -66,6 +66,7 @@ elseif($fn=='savePdf'){
 
     //add Log
     $result = $LOG->addLog($phase_id,$user_id,'Upload File Name: '.$namefile);
+    $_SESSION['success'] = 'Upload Success.';
 
 }
 elseif($fn=='saveImage'){
@@ -84,6 +85,7 @@ elseif($fn=='saveImage'){
     $result = $MPPU->addUpload($input);
 
     $result = $LOG->addLog($phase_id,$user_id,'Upload Image Name: '.$namefile);
+    $_SESSION['success'] = 'Upload Success.';
 
 }
 elseif($fn=='saveVideo'){
@@ -102,6 +104,7 @@ elseif($fn=='saveVideo'){
     $result = $MPPU->addUpload($input);
 
     $result = $LOG->addLog($phase_id,$user_id,'Upload Video Name: '.$namefile);
+    $_SESSION['success'] = 'Upload Success.';
 
 }
 
@@ -132,6 +135,7 @@ elseif($fn=='savePdfP2'){
     $result = $MPPU->addUpload($input);
 
     $result = $LOG->addLog($phase_id,$user_id,'Upload File Name: '.$namefile);
+    $_SESSION['success'] = 'Upload Success.';
 
 }
 elseif($fn=='saveImageP2'){
@@ -150,6 +154,7 @@ elseif($fn=='saveImageP2'){
     $result = $MPPU->addUpload($input);
 
     $result = $LOG->addLog($phase_id,$user_id,'Upload Image Name: '.$namefile);
+    $_SESSION['success'] = 'Upload Success.';
 
 }
 elseif($fn=='saveVideoP2'){
@@ -168,6 +173,7 @@ elseif($fn=='saveVideoP2'){
     $result = $MPPU->addUpload($input);
 
     $result = $LOG->addLog($phase_id,$user_id,'Upload Video Name: '.$namefile);
+    $_SESSION['success'] = 'Upload Success.';
 
 }
 
@@ -181,8 +187,22 @@ elseif ($fn=='deleteUpload'){
 
     $result = $MPPU->deleteUploadById($upload_id);
     $result = $LOG->addLog($phase_id,$user_id,'Delete '.$typefile.' Name: '.$name);
+    $_SESSION['success'] = 'Delete Success.';
 }
 
+
+elseif($fn=='editPhase1Result'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $phase_result = isset($_REQUEST['phase1result'])?$_REQUEST['phase1result']:'process';
+    $result = $MPP->editResult($phase_id,$phase_result);
+    $_SESSION['success'] = 'Update Status Success.';
+}
+elseif($fn=='editPhase2Result'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $phase_result = isset($_REQUEST['phase2result'])?$_REQUEST['phase2result']:'process';
+    $result = $MPP->editResult($phase_id,$phase_result);
+    $_SESSION['success'] = 'Update Status Success.';
+}
 
 
 

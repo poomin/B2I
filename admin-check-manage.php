@@ -40,19 +40,19 @@ include "controller/adminCheckManage.php"
             <div class="col-xs-12 col-sm-9">
                 <div class="box-card" style="min-height: 300px;">
 
-                    <?php if(isset($_SESSION['error'])): ?>
-                        <div class="alert alert-danger alert-dismissible" role="alert">
+                    <?php if(isset($_SESSION['success'])): ?>
+                        <div class="alert alert-success alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong>Warning!</strong> <?php echo $_SESSION['error']; ?>
+                            <strong>Success!</strong> <?php echo $_SESSION['success']; ?>
                         </div>
-                        <?php unset($_SESSION['error']); endif; ?>
+                        <?php unset($_SESSION['success']); endif; ?>
+
 
                     <div class="form-inline">
                         <h3><?= isset($PROJECT['name'])?$PROJECT['name']:'';?></h3>
                     </div>
                     <hr>
                     <div>
-
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs nav-justified" role="tablist">
                             <li role="presentation" class="<?=(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process')?'active':'';?>">
@@ -85,7 +85,6 @@ include "controller/adminCheckManage.php"
                                     $createPhase1 = false;
                                 }
 
-
                                 if(!isset($projectSetup['id'])){$status=true;}
                                 ?>
 
@@ -102,6 +101,42 @@ include "controller/adminCheckManage.php"
                                         </form>
                                     <?php else: ?>
                                         <div style="padding-top: 20px; padding-bottom: 10px;">
+                                            <?php
+                                            $bs_callout = 'bs-callout-danger';
+                                            $phase1_result = $PHASE1['result'];
+                                            if($phase1_result=='process'){
+                                                $bs_callout = 'bs-callout-warning';
+                                            }elseif ($phase1_result== 'pass'){
+                                                $bs_callout = 'bs-callout-success';
+                                            }
+                                            ?>
+                                            <form id="radioChangePhase1Result" class="bs-callout <?=$bs_callout;?>" method="post" autocomplete="off">
+                                                <h4>ตรวจโครงการ</h4>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="phase1result" value="process" <?= $phase1_result=='process'?'checked':''?>>
+                                                        <strong>รอ</strong> รอการตรวจสอบจากคณะกรรมการ
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="phase1result" value="fail" <?= $phase1_result=='fail'?'checked':''?> >
+                                                        <strong>ไม่ผ่าน</strong> โครงการไม่ผ่านการคัดเลือก
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="phase1result" value="pass" <?= $phase1_result=='pass'?'checked':''?>>
+                                                        <strong>ผ่าน</strong> โครงการผ่านการคัดเลือก
+                                                    </label>
+                                                </div>
+                                                <div class="text-center" style="padding-top: 20px;">
+                                                    <input class="hidden" name="fn" value="editPhase1Result">
+                                                    <input class="hidden" name="phase_id" value="<?=$PHASE1['id'];?>" >
+                                                    <button type="submit" class="btn sr-button btn-success">SAVE</button>
+                                                </div>
+                                            </form>
+                                            <hr>
 
                                             <div class="form-horizontal">
                                                 <div class="form-group">
@@ -562,6 +597,43 @@ include "controller/adminCheckManage.php"
                                     <?php else: ?>
                                         <div style="padding-top: 20px; padding-bottom: 10px;">
 
+                                            <?php
+                                            $bs_callout = 'bs-callout-danger';
+                                            $phase1_result = $PHASE2['result'];
+                                            if($phase1_result=='process'){
+                                                $bs_callout = 'bs-callout-warning';
+                                            }elseif ($phase1_result== 'pass'){
+                                                $bs_callout = 'bs-callout-success';
+                                            }
+                                            ?>
+                                            <form id="radioChangePhase2Result" class="bs-callout <?=$bs_callout;?>" method="post" autocomplete="off">
+                                                <h4>ตรวจโครงการ</h4>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="phase2result" value="process" <?= $phase1_result=='process'?'checked':''?>>
+                                                        <strong>รอ</strong> รอการตรวจสอบจากคณะกรรมการ
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="phase2result" value="fail" <?= $phase1_result=='fail'?'checked':''?> >
+                                                        <strong>ไม่ผ่าน</strong> โครงการไม่ผ่านการคัดเลือก
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="phase2result" value="pass" <?= $phase1_result=='pass'?'checked':''?>>
+                                                        <strong>ผ่าน</strong> โครงการผ่านการคัดเลือก
+                                                    </label>
+                                                </div>
+                                                <div class="text-center" style="padding-top: 20px;">
+                                                    <input class="hidden" name="fn" value="editPhase2Result">
+                                                    <input class="hidden" name="phase_id" value="<?=$PHASE2['id'];?>" >
+                                                    <button type="submit" class="btn sr-button btn-success">SAVE</button>
+                                                </div>
+                                            </form>
+                                            <hr>
+
                                             <div class="file-upload">
                                                 <h4 style="text-decoration: underline;">เอกสารนำเสนอ</h4>
                                                 <div id="showFileP2" style="padding-top: 20px;">
@@ -939,6 +1011,19 @@ include "controller/adminCheckManage.php"
             "info": false,
             "lengthChange": false
         });
+
+        $('input[type=radio][name=phase1result]').change(function() {
+            if (this.value == 'pass') {
+                $('#radioChangePhase1Result').attr('class','bs-callout bs-callout-success');
+            }
+            else if (this.value == 'process') {
+                $('#radioChangePhase1Result').attr('class','bs-callout bs-callout-warning');
+            }
+            else {
+                $('#radioChangePhase1Result').attr('class','bs-callout bs-callout-danger');
+            }
+        });
+
     } );
 
 
