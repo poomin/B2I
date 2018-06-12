@@ -30,7 +30,8 @@ if($fn=='addUser'){
     $MU = new ModelUser();
     $result = $MU->addUser($input);
     if($result>0){
-
+        $l = $MU->link('index-login.php');
+        exit;
     }else{
 
     }
