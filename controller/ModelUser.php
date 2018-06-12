@@ -11,6 +11,7 @@ class ModelUser extends  _PDO
 {
 
     function login($username , $password){
+        $password = md5($password);
         $this->connect();
         $sql = "SELECT id,username,name,email,surname,schoolname,schoolregion,role FROM b2i_user WHERE username=:username AND password=:password";
         $params= array(':username'=> $username , ':password'=>$password);
@@ -22,6 +23,7 @@ class ModelUser extends  _PDO
     function addUser($input){
         $username = isset($input['username'])?$input['username']:'';
         $password = isset($input['password'])?$input['password']:'';
+        $password = md5($password);
         $email = isset($input['email'])?$input['email']:'';
         $name = isset($input['name'])?$input['name']:'';
         $surname = isset($input['surname'])?$input['surname']:'';
@@ -78,6 +80,42 @@ class ModelUser extends  _PDO
 
 
         return $lastId;
+
+    }
+
+    function editPassword($input){
+        $id = isset($input['id'])?$input['id']:'';
+        $username = isset($input['username'])?$input['username']:'';
+        $password = isset($input['password'])?$input['password']:'';
+        $oldPassword = isset($input['oldPassword'])?$input['oldPassword']:'';
+        $password = md5($password);
+        $oldPassword = md5($oldPassword);
+
+        //connect DB
+        $this->connect();
+
+        $sql = "select * from b2i_user WHERE id=:id and password=:password";
+        $params= array(':id'=> $id , ':password'=>$oldPassword);
+        $result = $this->query($sql,$params);
+
+        if(isset($result['id'])){
+
+            $sql = "UPDATE b2i_user SET username=:username,password=:password WHERE id=:id";
+            $params= array(
+                ':username'=> $username,
+                ':password'=> $password,
+                ':id'=>$id
+            );
+            $row_update = $this->update($sql,$params);
+        }else{
+            $row_update =0;
+        }
+
+        //close DB
+        $this->close();
+
+
+        return $row_update;
 
     }
 

@@ -33,12 +33,30 @@ if($fn=='editUser'){
         $_SESSION['schoolregion']= $schoolregion;
 
         $_SESSION['success']="Edit User Success.";
-        $l = $MU->link('user-profile.php');
-        exit;
     }else{
         $_SESSION['error']="Edit User Fail !!!!!";
-        $l = $MU->link('user-profile.php');
-        exit;
+    }
+
+}
+if($fn=='editPassword'){
+    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+    $password = isset($_REQUEST['password'])?$_REQUEST['password']:'';
+    $oldPassword = isset($_REQUEST['oldPassword'])?$_REQUEST['oldPassword']:'';
+    $username = isset($_REQUEST['username'])?$_REQUEST['username']:'';
+
+    $input = [
+        'id'=> $id,
+        'username'=> $username,
+        'password'=> $password,
+        'oldPassword'=> $oldPassword,
+    ];
+    $MU = new ModelUser();
+    $result = $MU->editPassword($input);
+    if($result > 0 ){
+        $_SESSION['username']= $username;
+        $_SESSION['success']="Edit Username Password Success.";
+    }else{
+        $_SESSION['error']="Edit Username Password Fail !!!!!";
     }
 
 }
