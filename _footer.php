@@ -15,9 +15,9 @@
 <!--        <li><a href="#"><i class="fa fa-google-plus sr-icons"></i></a>-->
 <!--        </li>-->
     </ul>
-    <ul class="list-inline">
-        <li class="footer-number"><i class="fa fa-phone sr-icons"></i>  (00228)92229954 </li>
-        <li><i class="fa fa-envelope sr-icons"></i>  kouvenceslas93@gmail.com</li>
-    </ul>
-    <p>Photography Fanatic Template &copy; 2018</p>
+<!--    <ul class="list-inline">-->
+<!--        <li class="footer-number"><i class="fa fa-phone sr-icons"></i>  (00228)92229954 </li>-->
+<!--        <li><i class="fa fa-envelope sr-icons"></i>  kouvenceslas93@gmail.com</li>-->
+<!--    </ul>-->
+    <p> &copy; 2018</p>
 </div>
