@@ -920,18 +920,24 @@ img{
 	border-bottom: dotted 1px #e0e4f6;
 }
 #blog .panel-body ul li a{
-	padding: 0px;
-	text-decoration: none;
-	color: #373d54;
-}
+	 padding: 0px;
+	 text-decoration: none;
+	 color:#373d54;
+ }
 #blog .panel-body ul li a:hover,
 #blog .panel-body ul li a:active,
 #blog .panel-body ul li a:focus{
 	background-color: transparent;
-	color: #151b32;
+	color: #337ab7;
+	font-weight: bold;
 }
 #blog .panel-body .last{
 	border-bottom: none;
+}
+#blog .panel-body .activeA{
+	background-color: transparent;
+	color: #337ab7;
+	font-weight: bold;
 }
 
 #blog .well{

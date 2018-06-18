@@ -84,15 +84,33 @@ class ModelPost extends _PDO
         return $result;
     }
 
-    function getPostPage($page){
+    function getPostPage($page , $type=''){
         $this->connect();
-        $page = $page-1 * 5;
+        $page = ($page-1) * 5;
         $page = $page>0?$page:0;
-        $sql = "select * from  b2i_post ORDER BY id DESC LIMIT ".$page.",5";
+
+        $sql_type = "";
+        if($type!=''){
+            $sql_type = " WHERE `type` = '$type' ";
+        }
+        $sql = "select * from  b2i_post $sql_type ORDER BY id DESC LIMIT ".$page.",5";
+
         $params= array();
         $result = $this->queryAll($sql,$params);
         $this->close();
         return $result;
+    }
+    function getPostPageCount($type=''){
+        $this->connect();
+        $sql_type = "";
+        if($type!=''){
+            $sql_type = " WHERE `type` = '$type' ";
+        }
+        $sql = "select id from  b2i_post $sql_type";
+        $params= array();
+        $result = $this->queryAll($sql,$params);
+        $this->close();
+        return count($result);
     }
 
     function getTopPost($limit){

@@ -54,12 +54,9 @@ include_once __DIR__.'/controller/news.php';
 
                 <nav class="text-left">
                     <ul class="pagination">
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#" aria-label="suivant">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a></li>
+                        <?php for($i=1;$i<=$ALLPAGE;$i++): ?>
+                            <li class="<?= $i==$page?'active':'' ?>"><a href="index-news.php?page=<?=$i?><?=$type!=''?'&type='.$type:''?>"><?=$i;?></a></li>
+                        <?php endfor;?>
                     </ul>
                 </nav>
 
@@ -72,8 +69,8 @@ include_once __DIR__.'/controller/news.php';
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Research">
                         <span class="input-group-btn">
-                  <a href="" class="btn"><i class="fa fa-search"></i></a>
-               </span>
+                          <a href="" class="btn"><i class="fa fa-search"></i></a>
+                       </span>
                     </div>
                 </form>
                 <div class="panel">
@@ -82,9 +79,10 @@ include_once __DIR__.'/controller/news.php';
                     </div>
                     <div class="panel-body">
                         <ul class="nav">
-                            <li><a href="index-news.php?type=article">บทความ</a></li>
-                            <li><a href="index-news.php?type=news">ข่าว</a></li>
-                            <li class="last"><a href="index-news.php?type=announce">ประกาศ</a></li>
+                            <li class="<?= $type=='article'?'activeA':'';?>" ><a href="index-news.php?type=article">บทความ</a></li>
+                            <li class="<?= $type=='news'?'activeA':'';?>"><a href="index-news.php?type=news">ข่าว</a></li>
+                            <li class="<?= $type=='announce'?'activeA':'';?>"><a href="index-news.php?type=announce">ประกาศ</a></li>
+                            <li class="last <?= $type==''?'activeA':'';?>"><a href="index-news.php">ทั้งหมด</a></li>
                         </ul>
                     </div>
                 </div>
