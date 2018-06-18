@@ -19,9 +19,6 @@ if($fn=='cmp'){
     $detail =  isset($_REQUEST['detail'])?$_REQUEST['detail']:'';
     $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $MPS->updateProject($name,$title,$detail,$id);
-    $l = $MU->link('admin-project.php');
-    exit;
-
 }
 
 $result = $MPS->getProjectById($id);
