@@ -94,7 +94,7 @@ require_once __DIR__.'/controller/newsDetail.php'
                         </form>
                     <?php else: ?>
                         <div class="text-center">
-                            <h3> <a href="#"> กรุณา Login </a> </h3>
+                            <h3> <a href="index-login.php"> กรุณา Login </a> </h3>
                         </div>
                     <?php endif; ?>
 

@@ -13,12 +13,21 @@ $ALLPAGE = 1;
 
 $page= isset($_REQUEST['page'])?$_REQUEST['page']:1;
 $type = isset($_REQUEST['type'])?$_REQUEST['type']:'';
-$result = $MP->getPostPage($page,$type);
-if(count($result)>0){
-    $NEWS=$result;
-    $countPage = $MP->getPostPageCount($type);
-    $ALLPAGE = intval($countPage/5);
-    $ALLPAGE = $countPage%5==0?$ALLPAGE:$ALLPAGE+1;
+$search = isset($_REQUEST['search'])?$_REQUEST['search']:'';
+if($search!=''){
+    $result = $MP->getPostSearch($search);
+    if(count($result)>0){
+        $NEWS=$result;
+        $ALLPAGE = 1;
+    }
+}else{
+    $result = $MP->getPostPage($page,$type);
+    if(count($result)>0){
+        $NEWS=$result;
+        $countPage = $MP->getPostPageCount($type);
+        $ALLPAGE = intval($countPage/5);
+        $ALLPAGE = $countPage%5==0?$ALLPAGE:$ALLPAGE+1;
+    }
 }
 
 $result = $MP->getTopPost(2);

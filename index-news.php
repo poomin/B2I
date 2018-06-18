@@ -67,9 +67,9 @@ include_once __DIR__.'/controller/news.php';
             <div class="col-xs-12 col-sm-4">
                 <form class="form-horizontal">
                     <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Research">
+                        <input name="search" class="form-control" type="text" placeholder="Research">
                         <span class="input-group-btn">
-                          <a href="" class="btn"><i class="fa fa-search"></i></a>
+                          <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                        </span>
                     </div>
                 </form>

@@ -112,6 +112,14 @@ class ModelPost extends _PDO
         $this->close();
         return count($result);
     }
+    function getPostSearch($search=''){
+        $this->connect();
+        $sql = "select * from  b2i_post WHERE title LIKE '%$search%'";
+        $params= array();
+        $result = $this->queryAll($sql,$params);
+        $this->close();
+        return $result;
+    }
 
     function getTopPost($limit){
         $this->connect();
