@@ -127,6 +127,7 @@ require_once __DIR__.'/controller/userProfile.php'
                                     <option value="ตะวันออก" <?=$_SESSION['schoolregion']=='ตะวันออก'?'selected':'';?> >ตะวันออก</option>
                                     <option value="ตะวันตก" <?=$_SESSION['schoolregion']=='ตะวันตก'?'selected':'';?> >ตะวันตก</option>
                                     <option value="ตะวันออกเฉียงเหนือ" <?=$_SESSION['schoolregion']=='ตะวันออกเฉียงเหนือ'?'selected':'';?> >ตะวันออกเฉียงเหนือ</option>
+                                    <option value="ใต้" <?=$_SESSION['schoolregion']=='ใต้'?'selected':'';?> >ใต้</option>
                                 </select>
                             </div>
                         </div>
