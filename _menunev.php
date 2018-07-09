@@ -16,8 +16,8 @@
                 <span class="icon-bar"></span>
             </button>
             <div class="navbar-brand page-scroll">
-                <?php if(isset($_SESSION['role'])): ?>
-                <a style="text-decoration: underline;" href="user-profile.php"><i class="fa fa-gears sr-icons"></i> <?= ucwords($_SESSION['role']);?></a>
+                <?php if(isset($_SESSION['username'])): ?>
+                <a style="text-decoration: underline;" href="user-profile.php"><i class="fa fa-gears sr-icons"></i> <?= ucwords($_SESSION['username']);?></a>
                 <?php endif; ?>
             </div>
         </div>
