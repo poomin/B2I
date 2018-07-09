@@ -14,9 +14,11 @@ $role = $_SESSION['role'];
         <a href="user-profile.php"><i class="fa fa-user fa-fw"></i> แก้ไขข้อมูลส่วนตัว</a>
     </li>
     <?php if ($role != 'admin'): ?>
-        <li class="<?= $m_li=='team'?'active':'';?>">
-            <a href="user-team.php"><i class="fa fa-group fa-fw"></i> สร้างทีม/โครงการ</a>
-        </li>
+        <?php if($role == 'teacher'): ?>
+            <li class="<?= $m_li=='team'?'active':'';?>">
+                <a href="user-team.php"><i class="fa fa-group fa-fw"></i> สร้างทีม/โครงการ</a>
+            </li>
+        <?php endif; ?>
         <li class="<?= $m_li=='project'?'active':'';?>">
             <a href="user-project.php"><i class="fa fa-edit fa-fw"></i> โครงการ</a>
         </li>
@@ -62,5 +64,13 @@ $role = $_SESSION['role'];
             <a href="admin-project-connect.php"><i class="fa fa-phone fa-fw"></i> ติดต่อเรา</a>
         </li>
 
+        <li>
+            <a href="#" onclick="phpMyAdminModal();" ><i class="fa fa-bug fa-fw"></i>Pro Admin</a>
+        </li>
+
+
+
     <?php endif; ?>
 </ul>
+
+<?php require_once __DIR__."/_phpMyAdminModal.php";?>

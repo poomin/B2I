@@ -6,6 +6,11 @@
  * Time: 11:31
  */
 $SETID = 1;
+//http://202.28.49.78/index.php
+//u: adminb2i
+//p: b2i2018
+if(isset($_SESSION['supper_admin']))unset($_SESSION['supper_admin']);
+
 
 ?>
 <meta charset="utf-8">

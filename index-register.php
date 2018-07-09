@@ -94,6 +94,7 @@ include_once __DIR__.'/controller/register.php';
                         <option value="ตะวันออก">ตะวันออก</option>
                         <option value="ตะวันตก">ตะวันตก</option>
                         <option value="ตะวันออกเฉียงเหนือ">ตะวันออกเฉียงเหนือ</option>
+                        <option value="ใต้">ใต้</option>
                     </select>
                 </div>
             </div>
