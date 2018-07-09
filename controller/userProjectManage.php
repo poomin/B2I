@@ -236,7 +236,12 @@ if(isset($result['id']) && $check ){
             if($item['membertype']=='header'){
                 $LEADER.=''.$item['name'].' '.$item['surname'];
             }else{
-                $MEMBER.=''.$item['name'].' '.$item['surname'].' , ';
+                if($MEMBER==''){
+                    $MEMBER.=''.$item['name'].' '.$item['surname'];
+                }else{
+                    $MEMBER.=','.$item['name'].' '.$item['surname'];
+                }
+
             }
         }
     }

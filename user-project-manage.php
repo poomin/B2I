@@ -103,6 +103,17 @@ require_once __DIR__.'/controller/userProjectManage.php';
                                     <?php else: ?>
                                         <div style="padding-top: 20px; padding-bottom: 10px;">
 
+                                            <?php if(isset($PHASE1)&&$PHASE1['result']=='fail'): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <strong>ไม่ผ่าน</strong>
+                                                </div>
+                                            <?php elseif (isset($PHASE1)&& $PHASE1['result']=='pass'): ?>
+                                                <div class="alert alert-success" role="alert">
+                                                    <strong>ผ่าน</strong>
+                                                </div>
+                                            <?php endif;?>
+
+
                                             <div class="form-horizontal">
                                                 <div class="form-group">
                                                     <label class="col-sm-4 control-label">โครงการ:</label>
