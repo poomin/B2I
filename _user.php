@@ -23,6 +23,9 @@ $role = $_SESSION['role'];
             <a href="user-project.php"><i class="fa fa-edit fa-fw"></i> โครงการ</a>
         </li>
     <?php else: ?>
+        <li class="<?= $m_li=='school'?'active':'';?>">
+            <a href="admin-school.php"><i class="fa fa-graduation-cap fa-fw"></i> จัดการโรงเรียน</a>
+        </li>
         <li class="<?= $m_li=='user'?'active':'';?>">
             <a href="admin-user.php"><i class="fa fa-group fa-fw"></i> จัดการสมาชิก</a>
         </li>
