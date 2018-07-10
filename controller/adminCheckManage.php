@@ -194,13 +194,15 @@ elseif ($fn=='deleteUpload'){
 elseif($fn=='editPhase1Result'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
     $phase_result = isset($_REQUEST['phase1result'])?$_REQUEST['phase1result']:'process';
-    $result = $MPP->editResult($phase_id,$phase_result);
+    $phase_detail = isset($_REQUEST['phase1detail'])?$_REQUEST['phase1detail']:'';
+    $result = $MPP->editResult($phase_id,$phase_result,$phase_detail);
     $_SESSION['success'] = 'Update Status Success.';
 }
 elseif($fn=='editPhase2Result'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
     $phase_result = isset($_REQUEST['phase2result'])?$_REQUEST['phase2result']:'process';
-    $result = $MPP->editResult($phase_id,$phase_result);
+    $phase_detail = isset($_REQUEST['phase2detail'])?$_REQUEST['phase2detail']:'';
+    $result = $MPP->editResult($phase_id,$phase_result,$phase_detail);
     $_SESSION['success'] = 'Update Status Success.';
 }
 

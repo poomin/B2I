@@ -32,13 +32,14 @@ class ModelProjectPhase extends _PDO
         return $lastId;
     }
 
-    function editResult($phase_id , $phase_result){
+    function editResult($phase_id , $phase_result , $phase_detail){
 
         //connect DB
         $this->connect();
-        $sql = "UPDATE  b2i_project_phase SET result=:result WHERE id=:id";
+        $sql = "UPDATE  b2i_project_phase SET result=:result , detail=:detail WHERE id=:id";
         $params= array(
             ':result'=> $phase_result,
+            ':detail'=> $phase_detail,
             ':id'=> $phase_id
         );
         $row_update = $this->update($sql,$params);

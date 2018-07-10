@@ -105,11 +105,11 @@ require_once __DIR__.'/controller/userProjectManage.php';
 
                                             <?php if(isset($PHASE1)&&$PHASE1['result']=='fail'): ?>
                                                 <div class="alert alert-danger" role="alert">
-                                                    <strong>ไม่ผ่าน</strong>
+                                                    <strong>ไม่ผ่าน </strong><?= $PHASE1['detail']; ?>
                                                 </div>
                                             <?php elseif (isset($PHASE1)&& $PHASE1['result']=='pass'): ?>
                                                 <div class="alert alert-success" role="alert">
-                                                    <strong>ผ่าน</strong>
+                                                    <strong>ผ่าน </strong><?= $PHASE1['detail']; ?>
                                                 </div>
                                             <?php endif;?>
 

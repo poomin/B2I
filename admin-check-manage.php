@@ -104,6 +104,7 @@ include "controller/adminCheckManage.php"
                                             <?php
                                             $bs_callout = 'bs-callout-danger';
                                             $phase1_result = $PHASE1['result'];
+                                            $phase1_detail = $PHASE1['detail'];
                                             if($phase1_result=='process'){
                                                 $bs_callout = 'bs-callout-warning';
                                             }elseif ($phase1_result== 'pass'){
@@ -129,6 +130,10 @@ include "controller/adminCheckManage.php"
                                                         <input type="radio" name="phase1result" value="pass" <?= $phase1_result=='pass'?'checked':''?>>
                                                         <strong>ผ่าน</strong> โครงการผ่านการคัดเลือก
                                                     </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label class="form-control-static">รายละเอียดเพิ่มเติม</label>
+                                                    <textarea class="form-control" name="phase1detail" rows="2"><?=$phase1_detail;?></textarea>
                                                 </div>
                                                 <div class="text-center" style="padding-top: 20px;">
                                                     <input class="hidden" name="fn" value="editPhase1Result">
@@ -600,6 +605,7 @@ include "controller/adminCheckManage.php"
                                             <?php
                                             $bs_callout = 'bs-callout-danger';
                                             $phase1_result = $PHASE2['result'];
+                                            $phase1_detail = $PHASE2['detail'];
                                             if($phase1_result=='process'){
                                                 $bs_callout = 'bs-callout-warning';
                                             }elseif ($phase1_result== 'pass'){
@@ -625,6 +631,10 @@ include "controller/adminCheckManage.php"
                                                         <input type="radio" name="phase2result" value="pass" <?= $phase1_result=='pass'?'checked':''?>>
                                                         <strong>ผ่าน</strong> โครงการผ่านการคัดเลือก
                                                     </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label class="form-control-static">รายละเอียดเพิ่มเติม</label>
+                                                    <textarea class="form-control" name="phase2detail" rows="2"><?=$phase1_detail;?></textarea>
                                                 </div>
                                                 <div class="text-center" style="padding-top: 20px;">
                                                     <input class="hidden" name="fn" value="editPhase2Result">
