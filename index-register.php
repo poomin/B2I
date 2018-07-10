@@ -80,8 +80,17 @@ include_once __DIR__.'/controller/register.php';
 
             <div class="form-group">
                 <div class="col-xs-12">
-                    <label class="label-control">โรงเรียน / สถานศึกษา</label>
-                    <input class="form-control" type="text" name="schoolname">
+                    <label class="label-control">โรงเรียน / สถานศึกษา
+                        <p class="btn btn-success btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-plus"></i></p>
+                    </label>
+                    <div class="row-fluid">
+                        <select  name="schoolname" class="selectpicker form-control" data-live-search="true">
+                            <option value=""></option>
+                            <?php foreach ($SCHOOL as $item): ?>
+                                <option value="<?=$item['school_name'];?>"><?=$item['school_name'];?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -126,6 +135,28 @@ include_once __DIR__.'/controller/register.php';
         }
     }
 </script>
+
+
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog " role="document">
+        <form class="modal-content" method="post">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel"> เพิ่มโรงเรียน </h4>
+            </div>
+            <div class="modal-body">
+                <strong> โรงเรียน </strong>
+                <input class="form-control" name="name" value="" required>
+            </div>
+            <div class="modal-footer">
+                <input name="fn" value="insertSchool" hidden>
+                <button type="submit" class="btn btn-success">บันทึก</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

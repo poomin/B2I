@@ -6,6 +6,8 @@
  * Time: 18:45
  */
 require_once __DIR__.'/ModelUser.php';
+require_once __DIR__.'/ModelSchool.php';
+$MS = new ModelSchool();
 
 $fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
 if($fn=='addUser'){
@@ -35,4 +37,15 @@ if($fn=='addUser'){
     }else{
 
     }
+}
+
+elseif($fn=='insertSchool'){
+    $name = isset($_REQUEST['name'])?$_REQUEST['name']:'';
+    $result = $MS->addSchool(['name'=>$name]);
+}
+
+$SCHOOL = [];
+$result = $MS->getSchoolAll();
+if(count($result) > 0){
+    $SCHOOL = $result;
 }
