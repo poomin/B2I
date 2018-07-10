@@ -24,6 +24,8 @@ if(isset($_SESSION['supper_admin']))unset($_SESSION['supper_admin']);
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <!--Bootstrap call out css -->
 <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-callout.css">
+<!-- Bootstrap select css -->
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-select.min.css">
 <!-- Font Awesome icons -->
 <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
 
