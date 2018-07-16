@@ -93,9 +93,16 @@ require_once __DIR__ . '/controller/userTeamCreate.php';
 
                             <div class="form-group">
                                 <label for="schoolname" class="col-sm-2 control-label">โรงเรียน</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="schoolname" name="schoolname"
-                                           placeholder="โรงเรียน" required>
+                                <div class="col-sm-10 row-fluid">
+                                    <select id="schoolname" name="schoolname" class="selectpicker form-control" data-live-search="true">
+                                        <option value=""></option>
+                                        <?php foreach ($SCHOOL as $item): ?>
+                                            <option value="<?=$item['school_name'];?>"
+                                                <?php echo $_SESSION['schoolname']== $item['school_name']?'selected':'';?>>
+                                                <?=$item['school_name'];?>
+                                            </option>
+                                        <?php endforeach;?>
+                                    </select>
                                 </div>
                             </div>
 
@@ -103,11 +110,12 @@ require_once __DIR__ . '/controller/userTeamCreate.php';
                                 <label for="schoolregion" class="col-sm-2 control-label">ภาค</label>
                                 <div class="col-sm-10">
                                     <select class="form-control" name="schoolregion">
-                                        <option value="กลาง">กลาง</option>
-                                        <option value="เหนือ">เหนือ</option>
-                                        <option value="ตะวันออก">ตะวันออก</option>
-                                        <option value="ตะวันตก">ตะวันตก</option>
-                                        <option value="ตะวันออกเฉียงเหนือ">ตะวันออกเฉียงเหนือ</option>
+                                        <option value="กลาง" <?php echo $_SESSION['schoolregion']=='กลาง'?'selected':'';?>>กลาง</option>
+                                        <option value="เหนือ" <?php echo $_SESSION['schoolregion']=='เหนือ'?'selected':'';?> >เหนือ</option>
+                                        <option value="ตะวันออก" <?php echo $_SESSION['schoolregion']=='ตะวันออก'?'selected':'';?> >ตะวันออก</option>
+                                        <option value="ตะวันตก" <?php echo $_SESSION['schoolregion']=='ตะวันตก'?'selected':'';?> >ตะวันตก</option>
+                                        <option value="ตะวันออกเฉียงเหนือ" <?php echo $_SESSION['schoolregion']=='ตะวันออกเฉียงเหนือ'?'selected':'';?> >ตะวันออกเฉียงเหนือ</option>
+                                        <option value="ใต้" <?php echo $_SESSION['schoolregion']=='ใต้'?'selected':'';?>>ใต้</option>
                                     </select>
                                 </div>
                             </div>

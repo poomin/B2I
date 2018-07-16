@@ -6,7 +6,7 @@ session_start();
  * Date: 29/5/2561
  * Time: 11:30
  */
-$m_nev = 'login';
+$m_nev = 'register';
 
 
 

@@ -28,7 +28,8 @@
                 <li class="<?= $m_nev == 'news' ? 'active' : ''; ?> lien"><a href="index-news.php"><i class="fa fa-file-text sr-icons"></i> ข่าว/ประกาศ</a></li>
                 <li class="<?= $m_nev == 'about' ? 'active' : ''; ?> lien"><a href="index-about.php"><i class="fa fa-phone-square sr-icons"></i> ติดต่อเรา</a></li>
                 <?php if(!isset($_SESSION['id'])): ?>
-                    <li class="<?= $m_nev == 'login' ? 'active' : ''; ?> lien"><a href="index-login.php"><i class="fa fa-user sr-icons"></i> เข้าสู่ระบบ</a></li>
+                    <li class="<?= $m_nev == 'register' ? 'active' : ''; ?> lien"><a href="index-register.php"><i class="fa fa-user-plus sr-icons"></i> สมัครสมาชิก</a></li>
+                    <li class="<?= $m_nev == 'login' ? 'active' : ''; ?> lien"><a href="index-login.php"><i class="fa fa-unlock-alt sr-icons"></i> เข้าสู่ระบบ</a></li>
                 <?php else: ?>
                     <li class="lien"><a href="index-logout.php"><i class="fa fa-lock sr-icons"></i> ออกจากระบบ</a></li>
                 <?php endif;?>

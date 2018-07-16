@@ -58,7 +58,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs nav-justified" role="tablist">
                             <li role="presentation" class="<?=(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process')?'active':'';?>">
-                                <a href="#phase1" aria-controls="home" role="tab" data-toggle="tab">ส่งเอกสารสมัครโครงการ</a>
+                                <a href="#phase1" aria-controls="home" role="tab" data-toggle="tab">เอกสารความก้าวหน้าโครงการ</a>
                             </li>
                             <li role="presentation" class="<?=(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process')?'':'active';?>">
                                 <a href="#phase2" aria-controls="profile" role="tab" data-toggle="tab">ส่งเอกสารนำเสนอ</a>

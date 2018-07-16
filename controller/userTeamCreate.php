@@ -8,9 +8,12 @@
 require_once __DIR__.'/ModelProject.php';
 require_once __DIR__.'/ModelProjectSetup.php';
 require_once __DIR__.'/ModelUser.php';
+require_once __DIR__.'/ModelSchool.php';
+
 $MP = new ModelProject();
 $MPS = new ModelProjectSetup();
 $MU = new ModelUser();
+$MS = new ModelSchool();
 
 $projectSetup=[];
 $USER = [];
@@ -52,6 +55,12 @@ if(isset($result['id'])){
 $result = $MU->getUserRole('student');
 if(count($result)>0){
     $USER = $result;
+}
+
+$SCHOOL = [];
+$result = $MS->getSchoolAll();
+if(count($result) > 0){
+    $SCHOOL = $result;
 }
 
 

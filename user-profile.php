@@ -114,7 +114,17 @@ require_once __DIR__.'/controller/userProfile.php'
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <label class="label-control">โรงเรียน / สถานศึกษา</label>
-                                <input class="form-control" type="text" name="schoolname" value="<?=$_SESSION['schoolname'];?>">
+                                <div class="row-fluid">
+                                    <select  name="schoolname" class="selectpicker form-control" data-live-search="true">
+                                        <option value=""></option>
+                                        <?php foreach ($SCHOOL as $item): ?>
+                                            <option value="<?=$item['school_name'];?>"
+                                                    <?php echo $_SESSION['schoolname']== $item['school_name']?'selected':'';?>>
+                                                <?=$item['school_name'];?>
+                                            </option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 

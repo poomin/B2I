@@ -6,6 +6,10 @@
  * Time: 2:44 PM
  */
 require_once __DIR__.'/ModelUser.php';
+require_once __DIR__.'/ModelSchool.php';
+$MS = new ModelSchool();
+
+
 $fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
 if($fn=='editUser'){
     $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
@@ -59,4 +63,11 @@ if($fn=='editPassword'){
         $_SESSION['error']="Edit Username Password Fail !!!!!";
     }
 
+}
+
+
+$SCHOOL = [];
+$result = $MS->getSchoolAll();
+if(count($result) > 0){
+    $SCHOOL = $result;
 }
