@@ -67,6 +67,7 @@ require_once __DIR__.'/controller/adminPost.php';
                                     <td><?=$item['type']; ?></td>
                                     <td class="text-center">
                                         <a href="admin-news-edit.php?id=<?=$item['id'];?>" class="btn btn-warning btn-sm"><i class="fa fa-pencil-square-o"></i> แก้ไข </a>
+                                        <button class="btn btn-danger btn-sm" attr_news_id = "<?=$item['id'];?>" onclick="showModalDelete(this);"><i class="fa fa-remove"></i> ลบ</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -82,6 +83,26 @@ require_once __DIR__.'/controller/adminPost.php';
 </div>
 <!-- End of container Box -->
 
+<div id="modalDeleteNews" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog " role="document">
+        <form class="modal-content" method="post">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel"> ลบข้อมูล </h4>
+            </div>
+            <div class="modal-body">
+                <strong> ยืนยันการลบข้อมูลข่าว </strong>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-dismiss="modal">ยกเลิก</button>
+                <input name="fn" value="deleteNews" hidden>
+                <input id = "modal_news_id" name="news_id" value="" hidden >
+                <button type="submit" class="btn btn-success">ยืนยันการลบข้อมูล</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <footer>
     <?php include '_footer.php'; ?>
@@ -94,6 +115,12 @@ require_once __DIR__.'/controller/adminPost.php';
     $(document).ready(function() {
         $('#thisdatatable').DataTable();
     } );
+
+    function showModalDelete(_this) {
+        var news_id = $(_this).attr('attr_news_id');
+        $('#modal_news_id').attr('value',news_id);
+        $('#modalDeleteNews').modal();
+    }
 </script>
 
 </body>

@@ -66,6 +66,21 @@ class ModelPost extends _PDO
         return $lastId;
     }
 
+    function deletePost($up_id){
+        //connect DB
+        $this->connect();
+        $sql = "DELETE FROM b2i_post WHERE id=:id";
+        $params= array(
+            ':id'=> $up_id
+        );
+        $lastId = $this->update($sql,$params);
+        //close DB
+        $this->close();
+
+
+        return $lastId;
+    }
+
     function getPostAll(){
         $this->connect();
         $sql = "select * from  b2i_post ORDER BY id DESC";

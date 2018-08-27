@@ -37,33 +37,13 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
 
             <div class="col-xs-12 col-sm-9">
                 <div class="box-card">
+
+
                     <div class="text-left">
                         <h3>ข่าว / ประกาศ </h3>
                     </div>
                     <hr>
 
-
-                    <dev class="form-horizontal" style="padding: 20px;">
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <label class="label-control">หัวข้อข่าว/ประกาศ</label>
-                                <input id="inputTitle" class="form-control" name="name" type="text" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <label class="label-control">ประเภท</label>
-                                <select class="form-control" id="selectType">
-                                    <option value="news"> ข่าว </option>
-                                    <option value="article"> บทความ </option>
-                                    <option value="announce"> ประกาศ </option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </dev>
 
                     <div class="row">
                         <div class="col-xs-6 col-md-4 col-md-offset-4 text-center">
@@ -73,7 +53,6 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
                             </a>
                         </div>
                     </div>
-
                     <div class="text-center">
                         <div class="form-inline hide" id="show_progressBar_image">
                             <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
@@ -99,6 +78,27 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
                     </div>
 
 
+                    <dev class="form-horizontal" style="padding: 20px;">
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="label-control">หัวข้อข่าว/ประกาศ</label>
+                                <input id="inputTitle" class="form-control" name="name" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="label-control">ประเภท</label>
+                                <select class="form-control" id="selectType">
+                                    <option value="news"> ข่าว </option>
+                                    <option value="article"> บทความ </option>
+                                    <option value="announce"> ประกาศ </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </dev>
 
 
                     <div id="editor">
@@ -160,7 +160,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
             req.done(function (res) {
                 if(res.status){
                     alert('save data complete...');
-                    window.location.href = '/B2I/admin-news.php';
+                    window.location.href = '/admin-news.php';
                 }else{
                     alert('save data false!!!!');
                 }
@@ -224,7 +224,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
                 ajax_image.addEventListener("load", completeHandler, false);
                 ajax_image.addEventListener("error", errorHandler, false);
                 ajax_image.addEventListener("abort", abortHandler, false);
-                ajax_image.open("POST", "/B2I/upload/upload_file.php?type=" + set_type);
+                ajax_image.open("POST", "/upload/upload_file.php?type=" + set_type);
                 ajax_image.send(form_data);
 
                 function progressHandler(event) {
@@ -236,7 +236,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
                 function completeHandler(event) {
                     var data_return = JSON.parse(event.target.responseText);
                     if (data_return['status'] == 'ok') {
-                        var src = '/B2I/upload/image/'+data_return['new_name'];
+                        var src = '/upload/image/'+data_return['new_name'];
 
                         $('#imageShow').attr('src',src);
 
