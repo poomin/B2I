@@ -119,6 +119,22 @@ class ModelUser extends  _PDO
 
     }
 
+    function editRemove($id){
+
+        //connect DB
+        $this->connect();
+        $sql = "UPDATE b2i_user SET userremove='y' WHERE id=:id";
+        $params= array(
+            ':id'=>$id
+        );
+        $lastId = $this->update($sql,$params);
+        //close DB
+        $this->close();
+
+
+        return $lastId;
+
+    }
 
     function getUserByProjectId($project_id){
         $this->connect();
@@ -141,7 +157,7 @@ class ModelUser extends  _PDO
 
     function getUserAll(){
         $this->connect();
-        $sql = "select * from b2i_user WHERE role!='admin'";
+        $sql = "select * from b2i_user WHERE role!='admin' AND userremove ='n'";
         $params= array();
         $result = $this->queryAll($sql,$params);
         $this->close();

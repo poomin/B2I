@@ -13,12 +13,23 @@ class ModelSchool extends  _PDO
 
     function addSchool($input){
         $name = isset($input['name'])?$input['name']:'';
+        $address = isset($input['address'])?$input['address']:'';
+        $subdistrict = isset($input['subdistrict'])?$input['subdistrict']:'';
+        $district = isset($input['district'])?$input['district']:'';
+        $province = isset($input['province'])?$input['province']:'';
+        $code = isset($input['code'])?$input['code']:'';
 
         //connect DB
         $this->connect();
-        $sql = "INSERT INTO b2i_school (school_name) VALUES (:name)";
+        $sql = "INSERT INTO b2i_school (school_name,address,subdistrict,district,province,code) 
+        VALUES (:name,:address,:subdistrict,:district,:province,:code)";
         $params= array(
-            ':name'=> $name
+            ':name'=> $name,
+            ':address'=>$address,
+            ':subdistrict'=>$subdistrict,
+            ':district'=>$district,
+            ':province'=>$province,
+            ':code'=>$code
         );
         $lastId = $this->insert($sql,$params);
         //close DB
@@ -32,14 +43,24 @@ class ModelSchool extends  _PDO
     function editSchool($input){
         $old = isset($input['name_old'])?$input['name_old']:'';
         $new = isset($input['name_new'])?$input['name_new']:'';
-
+        $address = isset($input['address'])?$input['address']:'';
+        $subdistrict = isset($input['subdistrict'])?$input['subdistrict']:'';
+        $district = isset($input['district'])?$input['district']:'';
+        $province = isset($input['province'])?$input['province']:'';
+        $code = isset($input['code'])?$input['code']:'';
 
         //connect DB
         $this->connect();
-        $sql = "UPDATE b2i_school SET school_name=:new WHERE school_name=:old";
+        $sql = "UPDATE b2i_school SET school_name=:new , address=:address , subdistrict=:subdistrict,
+        district=:district, province=:province , code=:code   WHERE school_name=:old";
         $params= array(
             ':new'=> $new,
-            ':old'=> $old
+            ':old'=> $old,
+            ':address'=>$address,
+            ':subdistrict'=>$subdistrict,
+            ':district'=>$district,
+            'province'=>$province,
+            'code'=>$code
         );
         $lastId = $this->update($sql,$params);
         //close DB

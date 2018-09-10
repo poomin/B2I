@@ -29,6 +29,9 @@ if(isset($_SESSION['supper_admin']))unset($_SESSION['supper_admin']);
 <!-- Font Awesome icons -->
 <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
 
+<!-- Bootstrap Date Picker -->
+<link rel="stylesheet" type="text/css" href="datepicker/css/bootstrap-datepicker.css" >
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>

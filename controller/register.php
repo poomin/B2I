@@ -41,7 +41,20 @@ if($fn=='addUser'){
 
 elseif($fn=='insertSchool'){
     $name = isset($_REQUEST['name'])?$_REQUEST['name']:'';
-    $result = $MS->addSchool(['name'=>$name]);
+    $address = isset($_REQUEST['address'])?$_REQUEST['address']:'';
+    $subdistrict = isset($_REQUEST['subdistrict'])?$_REQUEST['subdistrict']:'';
+    $district = isset($_REQUEST['district'])?$_REQUEST['district']:'';
+    $province = isset($_REQUEST['province'])?$_REQUEST['province']:'';
+    $code = isset($_REQUEST['code'])?$_REQUEST['code']:'';
+    $input = [
+        'name'=>$name,
+        'address'=>$address,
+        'subdistrict'=>$subdistrict,
+        'district'=>$district,
+        'province'=>$province,
+        'code'=>$code
+    ];
+    $result = $MS->addSchool($input);
 }
 
 $SCHOOL = [];
