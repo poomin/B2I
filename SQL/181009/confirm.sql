@@ -11,13 +11,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for db_b2i
-DROP DATABASE IF EXISTS `db_b2i`;
-CREATE DATABASE IF NOT EXISTS `db_b2i` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `db_b2i`;
-
 -- Dumping structure for table db_b2i.b2i_project_confirm
+DROP TABLE IF EXISTS `b2i_project_confirm`;
 CREATE TABLE IF NOT EXISTS `b2i_project_confirm` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL,
@@ -31,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `b2i_project_confirm` (
 
 -- Data exporting was unselected.
 -- Dumping structure for table db_b2i.b2i_project_confirm_member
+DROP TABLE IF EXISTS `b2i_project_confirm_member`;
 CREATE TABLE IF NOT EXISTS `b2i_project_confirm_member` (
   `confirm_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
