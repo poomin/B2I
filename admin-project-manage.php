@@ -10,6 +10,7 @@ require_once __DIR__.'/_redirectAdmin.php';
 $m_nev = '';
 $m_li = 'manage';
 
+
 require_once __DIR__.'/controller/adminProjectManage.php';
 ?>
 <!DOCTYPE html>
