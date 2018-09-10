@@ -65,7 +65,14 @@ include __DIR__."/controller/adminUser.php"
                                     <td><?=$item['schoolregion']; ?></td>
                                     <td><?=$item['role']; ?></td>
                                     <td class="text-center">
+
                                         <a href="admin-user-edit.php?id=<?=$item['id'];?>" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> แก้ไข </a>
+                                        <form class="form-group" method="post">
+                                            <input name="id" value="<?=$item['id'];?>" hidden>
+                                            <input name="fn" value="deleteUser" hidden>
+                                            <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-remove"></i> ลบ </button>
+                                        </form>
+
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

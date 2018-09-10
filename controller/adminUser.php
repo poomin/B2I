@@ -8,6 +8,11 @@
 require_once __DIR__.'/ModelUser.php';
 $MU = new  ModelUser();
 
+$fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
+if($fn=='deleteUser'){
+    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+    $result = $MU->editRemove($id);
+}
 
 $USER = [];
 $result = $MU->getUserAll();

@@ -42,27 +42,6 @@ $m_li = 'news';
                     <hr>
 
 
-                    <dev class="form-horizontal" style="padding: 20px;">
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <label class="label-control">หัวข้อข่าว/ประกาศ</label>
-                                <input id="inputTitle" class="form-control" name="name" type="text" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <label class="label-control">ประเภท</label>
-                                <select class="form-control" id="selectType">
-                                    <option value="news"> ข่าว </option>
-                                    <option value="article"> บทความ </option>
-                                    <option value="announce"> ประกาศ </option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </dev>
 
                     <div class="row">
                         <div class="col-xs-6 col-md-4 col-md-offset-4 text-center">
@@ -72,7 +51,6 @@ $m_li = 'news';
                             </a>
                         </div>
                     </div>
-
                     <div class="text-center">
                         <div class="form-inline hide" id="show_progressBar_image">
                             <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
@@ -98,6 +76,28 @@ $m_li = 'news';
                     </div>
 
 
+
+                    <dev class="form-horizontal" style="padding: 20px;">
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="label-control">หัวข้อข่าว/ประกาศ</label>
+                                <input id="inputTitle" class="form-control" name="name" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="label-control">ประเภท</label>
+                                <select class="form-control" id="selectType">
+                                    <option value="news"> ข่าว </option>
+                                    <option value="article"> บทความ </option>
+                                    <option value="announce"> ประกาศ </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </dev>
 
 
                     <div id="editor">

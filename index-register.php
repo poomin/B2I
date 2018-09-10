@@ -146,9 +146,49 @@ include_once __DIR__.'/controller/register.php';
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="gridSystemModalLabel"> เพิ่มโรงเรียน </h4>
             </div>
-            <div class="modal-body">
-                <strong> โรงเรียน </strong>
-                <input class="form-control" name="name" value="" required>
+            <div class="modal-body form-horizontal">
+                <div class="form-group">
+                    <label for="addName" class="col-sm-2 control-label">โรงเรียน</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="addName" name="name" value=""  type="text" placeholder="โรงเรียน" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="addAddress" class="col-sm-2 control-label">ที่อยู่</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="addAddress" name="address" value="" type="text"  placeholder="ที่อยู่,ซอย,ถนน" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="addSubdistrict" class="col-sm-2 control-label">ตำบล</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="addSubdistrict" name="subdistrict" value="" type="text" placeholder="ตำบล" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="addDistrict" class="col-sm-2 control-label">อำเภอ</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="addDistrict" name="district" value="" type="text" placeholder="อำเภอ" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="addProvince" class="col-sm-2 control-label">จังหวัด</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="addProvince" name="province" value="" type="text"  placeholder="จังหวัด" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="addCode" class="col-sm-2 control-label">รหัสไปรษณีย์</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="addCode" name="code" value="" type="text"  placeholder="รหัสไปรษณีย์" required>
+                    </div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <input name="fn" value="insertSchool" hidden>
