@@ -209,6 +209,18 @@ include "controller/adminCheckManage.php"
             }
         });
 
+        $('input[type=radio][name=phase3result]').change(function() {
+            if (this.value == 'pass') {
+                $('#radioChangePhase3Result').attr('class','bs-callout bs-callout-success');
+            }
+            else if (this.value == 'process') {
+                $('#radioChangePhase3Result').attr('class','bs-callout bs-callout-warning');
+            }
+            else {
+                $('#radioChangePhase3Result').attr('class','bs-callout bs-callout-danger');
+            }
+        });
+
     } );
 
     function showDetailProject(_this) {

@@ -52,15 +52,47 @@
         <?php else: ?>
             <div style="padding-top: 20px; padding-bottom: 10px;">
 
-                <?php if(isset($PHASE3['result'])&&$PHASE3['result']=='fail'): ?>
-                    <div class="alert alert-danger" role="alert">
-                        <strong>ไม่ผ่าน </strong>
+                <?php
+                $bs_callout = 'bs-callout-danger';
+                $phase1_result = $PHASE3['result'];
+                $phase1_detail = $PHASE3['detail'];
+                if($phase1_result=='process'){
+                    $bs_callout = 'bs-callout-warning';
+                }elseif ($phase1_result== 'pass'){
+                    $bs_callout = 'bs-callout-success';
+                }
+                ?>
+                <form id="radioChangePhase3Result" class="bs-callout <?=$bs_callout;?>" method="post" autocomplete="off">
+                    <h4>ตรวจโครงการ</h4>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="phase3result" value="process" <?= $phase1_result=='process'?'checked':''?>>
+                            <strong>รอ</strong> รอการตรวจสอบจากคณะกรรมการ
+                        </label>
                     </div>
-                <?php elseif (isset($PHASE3['result'])&& $PHASE3['result']=='pass'): ?>
-                    <div class="alert alert-success" role="alert">
-                        <strong>ผ่าน </strong>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="phase3result" value="fail" <?= $phase1_result=='fail'?'checked':''?> >
+                            <strong>ไม่ผ่าน</strong> โครงการไม่ผ่านการคัดเลือก
+                        </label>
                     </div>
-                <?php endif;?>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="phase3result" value="pass" <?= $phase1_result=='pass'?'checked':''?>>
+                            <strong>ผ่าน</strong> โครงการผ่านการคัดเลือก
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="form-control-static">รายละเอียดเพิ่มเติม</label>
+                        <textarea class="form-control" name="phase3detail" rows="2"><?=$phase1_detail;?></textarea>
+                    </div>
+                    <div class="text-center" style="padding-top: 20px;">
+                        <input class="hidden" name="fn" value="editPhase3Result">
+                        <input class="hidden" name="phase_id" value="<?=$PHASE3['id'];?>" >
+                        <button type="submit" class="btn btn-success">SAVE</button>
+                    </div>
+                </form>
+                <hr>
 
 
                 <div class="file-upload">
