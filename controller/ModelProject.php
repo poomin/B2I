@@ -193,10 +193,22 @@ class ModelProject extends  _PDO
 
     function getProjectByProjectSetUp($projectSetUp){
         $this->connect();
-        $sql = "select b2i_project.* , 'process' as result from b2i_project
+        $project = [];
+        $sql = "select * from b2i_project
         where b2i_project.projectsetup_id =:projectsetup_id ";
         $params= array(':projectsetup_id'=> $projectSetUp);
-        $project = $this->queryAll($sql,$params);
+        $p = $this->queryAll($sql,$params);
+        foreach ($p as $item){
+            $sql = "select * from b2i_project_phase where project_id =:project_id and phase = 1";
+            $params= array(':project_id'=> $item['id']);
+            $result = $this->query($sql,$params);
+            if(isset($result["result"])){
+                $item['result']=$result['result'];
+            }else{
+                $item['result']='process';
+            }
+            $project[]=$item;
+        }
 
         $this->close();
 
@@ -225,6 +237,56 @@ class ModelProject extends  _PDO
         $this->close();
 
         return $project;
+    }
+
+    function deleteProject($project_id){
+        $this->connect();
+
+        //delete confirm , confirm_member
+        $sql = "select * from b2i_project_confirm where project_id=:project_id ";
+        $params= array(':project_id'=> $project_id);
+        $confirm = $this->queryAll($sql,$params);
+        foreach ($confirm as $item){
+            $sql = "DELETE FROM b2i_project_confirm_member WHERE confirm_id=:confirm_id";
+            $params= array(':confirm_id'=> $item['id']);
+            $result = $this->update($sql,$params);
+        }
+        $sql = "DELETE FROM b2i_project_confirm WHERE project_id=:project_id";
+        $params= array(':project_id'=> $project_id);
+        $result = $this->update($sql,$params);
+
+        //project member
+        $sql = "DELETE FROM b2i_project_member WHERE project_id=:project_id";
+        $params= array(':project_id'=> $project_id);
+        $result = $this->update($sql,$params);
+
+        //phase
+        $sql = "select * from b2i_project_phase where project_id=:project_id ";
+        $params= array(':project_id'=> $project_id);
+        $phase = $this->queryAll($sql,$params);
+        foreach ($phase as $item){
+            $sql = "DELETE FROM b2i_project_phase_log WHERE phase_id=:phase_id";
+            $params= array(':phase_id'=> $item['id']);
+            $result = $this->update($sql,$params);
+
+            $sql = "DELETE FROM b2i_project_phase_upload WHERE phase_id=:phase_id";
+            $params= array(':phase_id'=> $item['id']);
+            $result = $this->update($sql,$params);
+
+        }
+        $sql = "DELETE FROM b2i_project_phase where project_id=:project_id ";
+        $params= array(':project_id'=> $project_id);
+        $result = $this->update($sql,$params);
+
+
+        $sql = "DELETE FROM b2i_project where id=:project_id ";
+        $params= array(':project_id'=> $project_id);
+        $result = $this->update($sql,$params);
+
+        $this->close();
+
+        return $result;
+
     }
 
 
