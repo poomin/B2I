@@ -721,7 +721,7 @@
         }
     }
 </script>
-<!--    modal log phase 2 -->
+<!--    modal youtube phase 2 -->
 <div class="modal fade moddalURLYoutubeP2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalURLYoutubeP2">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
