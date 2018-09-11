@@ -385,6 +385,12 @@
                                 </div>
                                 <div id="video">
                                     <div class="box-img-ready">
+
+                                        <label style="cursor: pointer;" for="upload_youtube" onclick="showLoadYoutubeP2();">
+                                            <h3><span class="label label-danger"><i class="fa fa-youtube"></i> Youtube Upload</span></h3>
+                                            <input id="upload_youtube" type="text" style="display:none;">
+                                        </label>
+
                                         <label style="cursor: pointer;" for="p2_file_video">
                                             <h3 id="p2_upload_video"><span class="label label-info"><i class="fa fa-upload"></i> Video Upload</span></h3>
                                             <input id="p2_file_video" accept="video/mp4" type="file" style="display:none;" onchange="showLoadVideoP2(this)">
