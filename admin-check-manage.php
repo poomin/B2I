@@ -162,6 +162,10 @@ include "controller/adminCheckManage.php"
             "info": false,
             "lengthChange": false
         });
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            language: "th"
+        });
 
         $('input[type=radio][name=phase1result]').change(function() {
             if (this.value == 'pass') {

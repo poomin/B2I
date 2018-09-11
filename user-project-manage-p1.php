@@ -278,7 +278,7 @@
                 </div>
                 <hr>
 
-                <div class="video-upload">
+                <div class="video-upload" hidden>
                     <h3 style="text-decoration: underline;">วีดีโอ</h3> (.mp4/youtube)
                     <div id="showVideoP1" style="padding-top: 20px;">
 

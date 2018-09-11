@@ -13,7 +13,7 @@
         $editP3 = true;
     }
 
-    elseif(isset($PHASE1['result']) && $PHASE1['result']=='fail' ){
+    if(isset($PHASE1['result']) && $PHASE1['result']=='fail' ){
         $statusFail = true;
     }elseif (isset($PHASE2['result']) && $PHASE2['result']=='fail'){
         $statusFail = true;
@@ -123,7 +123,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <?php if($editP3): ?>
-                                                    <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                    <form method="post">
                                                         <input class="hidden" name="fn" value="deleteUpload">
                                                         <input class="hidden" name="typefile" value="file">
                                                         <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -156,7 +156,7 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-danger btn-xs"
-                                            onclick="canceluploadFileP3('pdf')">
+                                            onclick="cancelUploadFileP3('pdf')">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button>
                                 </div>
@@ -166,28 +166,28 @@
                                             <h3 id="p3_upload_pdf"><span class="label label-info"><i class="fa fa-upload"></i> File Upload </span></h3>
                                             <input id="p3_file_pdf"
                                                    accept=".pdf,.pot,.potm,.potx,.pps,.ppsm,.ppsx,.ppt,.pptm,.pptx"
-                                                   type="file" style="display:none;" onchange="showLoadpdfP3(this)">
+                                                   type="file" style="display:none;" onchange="showLoadPdfP3(this)">
                                         </label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="saveloadFilePdfP3" class="hidden">
+                            <div id="saveLoadFilePdfP3" class="hidden">
                                 <div class="row text-center">
                                     <i class="fa fa-file fa-5x thumbnail"></i>
                                 </div>
 
                                 <div class="row">
-                                    <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                    <form class="form-horizontal" method="post">
                                         <div class="form-group">
-                                            <label for="namepdfP3" class="col-sm-4 control-label">รายละเอียดไฟล์</label>
+                                            <label for="namePdfP3" class="col-sm-4 control-label">รายละเอียดไฟล์</label>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control" id="namepdfP3" name="namefile" placeholder="รายละเอียดภาพ">
+                                                <input type="text" class="form-control" id="namePdfP3" name="namefile" placeholder="รายละเอียดภาพ">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-4 col-sm-6">
-                                                <input class="hidden" name="fn" value="savepdfP3" >
+                                                <input class="hidden" name="fn" value="savePdfP3" >
                                                 <input class="hidden" name="phase_id" value="<?=$PHASE3['id'];?>" >
                                                 <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
                                                 <input class="hidden" name="typefile" value="pdf" >
@@ -203,7 +203,7 @@
                     <?php endif;?>
                 </div>
 
-                <div class="image-upload">
+                <div class="image-upload" hidden>
                     <h4 style="text-decoration: underline;">ภาพนำเสนอ</h4>
                     <div id="showImageP3" style="padding-top: 20px;">
 
@@ -231,7 +231,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <?php if($editP3): ?>
-                                                    <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                    <form method="post">
                                                         <input class="hidden" name="fn" value="deleteUpload">
                                                         <input class="hidden" name="typefile" value="image">
                                                         <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -253,7 +253,7 @@
 
                     </div>
                     <?PHP if($editP3): ?>
-                        <div id="uploadImageP3">
+                        <div id="upLoadImageP3">
 
                             <div id="loadFileImageP3" class="text-center">
                                 <div class="form-inline hide" id="p3_show_progressBar_image">
@@ -265,7 +265,7 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-danger btn-xs"
-                                            onclick="canceluploadFileP3('image')">
+                                            onclick="cancelUploadFileP3('image')">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button>
                                 </div>
@@ -273,13 +273,13 @@
                                     <div class="box-img-ready">
                                         <label style="cursor: pointer;" for="p3_file_image">
                                             <h3 id="p3_upload_image"><span class="label label-info"><i class="fa fa-upload"></i> Image Upload</span></h3>
-                                            <input id="p3_file_image" accept="image/*" type="file" style="display:none;" onchange="showLoadimageP3(this)">
+                                            <input id="p3_file_image" accept="image/*" type="file" style="display:none;" onchange="showLoadImageP3(this)">
                                         </label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="saveloadFileImageP3" class="hidden">
+                            <div id="saveLoadFileImageP3" class="hidden">
                                 <div class="row">
                                     <div class="col-xs-6 col-md-4 col-md-offset-4">
                                         <a href="#" class="thumbnail">
@@ -289,7 +289,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                    <form class="form-horizontal" method="post">
                                         <div class="form-group">
                                             <label for="nameimageP3" class="col-sm-4 control-label">รายละเอียดภาพ</label>
                                             <div class="col-sm-6">
@@ -298,7 +298,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-4 col-sm-6">
-                                                <input class="hidden" name="fn" value="saveimageP3" >
+                                                <input class="hidden" name="fn" value="saveImageP3" >
                                                 <input class="hidden" name="phase_id" value="<?=$PHASE3['id'];?>" >
                                                 <input class="hidden" name="user_id" value="<?=$_SESSION['id'];?>" >
                                                 <input class="hidden" name="typefile" value="img" >
@@ -317,7 +317,7 @@
 
                 </div>
 
-                <div class="video-upload">
+                <div class="video-upload" hidden>
                     <h4 style="text-decoration: underline;">วีดีโอ</h4> (.mp4)
                     <div id="showVideoP3" style="padding-top: 20px;">
 
@@ -350,7 +350,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <?php if($editP3): ?>
-                                                    <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                    <form method="post">
                                                         <input class="hidden" name="fn" value="deleteUpload">
                                                         <input class="hidden" name="typefile" value="video">
                                                         <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -372,7 +372,7 @@
 
                     </div>
                     <?PHP if($editP3): ?>
-                        <div id="uploadVideoP3">
+                        <div id="upLoadVideoP3">
 
                             <div id="loadFileVideoP3" class="text-center">
                                 <div class="form-inline hide" id="p3_show_progressBar_video">
@@ -384,7 +384,7 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-danger btn-xs"
-                                            onclick="canceluploadFileP3('video')">
+                                            onclick="cancelUploadFileP3('video')">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button>
                                 </div>
@@ -398,19 +398,20 @@
                                 </div>
                             </div>
 
-                            <div id="saveloadFileVideoP3" class="hidden">
+                            <div id="saveLoadFileVideoP3" class="hidden">
                                 <div class="row">
                                     <div class="col-xs-6 col-md-4 col-md-offset-4">
 
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe id="videoShowP3" class="embed-responsive-item" src="" ></iframe>
-                                        </div>
+                                        <video controls='1' loop='1' height="150px;">
+                                            <source id="videoShowP3" src="">
+                                            Your browser does not support HTML5 video tags.
+                                        </video>
 
                                     </div>
                                 </div>
 
                                 <div class="row" style="padding-top: 20px;">
-                                    <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                    <form class="form-horizontal" method="post">
                                         <div class="form-group">
                                             <label for="nameVideoP3" class="col-sm-4 control-label">รายละเอียดภาพ</label>
                                             <div class="col-sm-6">

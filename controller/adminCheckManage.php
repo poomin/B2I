@@ -55,13 +55,6 @@ $fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
 if($fn=='phase1'){
     $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $result = $MPP->addPhase($id,1);
-    if($result > 0){
-        $l = $MU->link('user-project-manage.php?id='.$id);
-        exit;
-    }else{
-        $l = $MU->link('user-project.php');
-        exit;
-    }
 }
 elseif($fn=='savePdf'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
@@ -179,13 +172,6 @@ elseif ($fn=='confirm1Student'){
 elseif($fn=='phase2'){
     $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $result = $MPP->addPhase($id,2);
-    if($result > 0){
-        $l = $MU->link('user-project-manage.php?id='.$id);
-        exit;
-    }else{
-        $l = $MU->link('user-project.php');
-        exit;
-    }
 }
 elseif($fn=='savePdfP2'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
@@ -302,13 +288,6 @@ elseif ($fn=='confirm2Student'){
 elseif($fn=='phase3'){
     $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $result = $MPP->addPhase($id,3);
-    if($result > 0){
-        $l = $MU->link('user-project-manage.php?id='.$id);
-        exit;
-    }else{
-        $l = $MU->link('user-project.php');
-        exit;
-    }
 }
 elseif($fn=='savePdfP3'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
@@ -385,6 +364,12 @@ elseif($fn=='editPhase1Result'){
     $result = $MPP->editResult($phase_id,$phase_result,$phase_detail);
     $_SESSION['success'] = 'Update Status Success.';
 }
+elseif($fn=='editConfirm1Result'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $phase_result = isset($_REQUEST['confirm1result'])?$_REQUEST['confirm1result']:'process';
+    $result = $MC->editResult($phase_id,$phase_result);
+    $_SESSION['success'] = 'Update Status Success.';
+}
 elseif($fn=='editPhase2Result'){
     $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
     $phase_result = isset($_REQUEST['phase2result'])?$_REQUEST['phase2result']:'process';
@@ -392,8 +377,19 @@ elseif($fn=='editPhase2Result'){
     $result = $MPP->editResult($phase_id,$phase_result,$phase_detail);
     $_SESSION['success'] = 'Update Status Success.';
 }
-
-
+elseif($fn=='editConfirm2Result'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $phase_result = isset($_REQUEST['confirm2result'])?$_REQUEST['confirm2result']:'process';
+    $result = $MC->editResult($phase_id,$phase_result);
+    $_SESSION['success'] = 'Update Status Success.';
+}
+elseif($fn=='editPhase3Result'){
+    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
+    $phase_result = isset($_REQUEST['phase3result'])?$_REQUEST['phase3result']:'process';
+    $phase_detail = isset($_REQUEST['phase3detail'])?$_REQUEST['phase3detail']:'';
+    $result = $MPP->editResult($phase_id,$phase_result,$phase_detail);
+    $_SESSION['success'] = 'Update Status Success.';
+}
 
 
 $result = $MP->getProjectById($id);

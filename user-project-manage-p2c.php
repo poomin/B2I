@@ -45,7 +45,7 @@
             <div class="text-center" style="padding-top: 50px; color: orangered">
                 <h3> รอการตรวจสอบจากคณะกรรมการ </h3>
             </div>
-        <?php elseif( (!isset($CP2['id']) || (isset($CP2['result'])&&$CP2['result']!='pass')) && $CASE>4): ?>
+        <?php elseif( (!isset($CP2['id'])) && $CASE>4): ?>
                 <div class="text-center" style="padding-top: 50px; color: red">
                     <h3> ไม่สามารถดำเนินการได้ </h3>
                 </div>
@@ -93,7 +93,7 @@
                             <textarea class="form-control" name="driver" id="inputDriver2" rows="3" required><?=$CP2['driver'];?></textarea>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" <?=($edit)?'':'hidden';?>>
                         <div class="col-sm-offset-2 col-sm-10">
                             <input type="text" name="cid" value="<?=$CP2['id'];?>" hidden>
                             <input type="text" name="fn" value="addConfirm2" hidden>
@@ -151,7 +151,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" <?=($edit)?'':'hidden';?>>
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <input type="text" name="fn" value="confirm2Teacher" hidden>
                                     <input type="text" name="cid" value="<?=$cId;?>" hidden>
@@ -220,7 +220,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" <?=($edit)?'':'hidden';?>>
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <input type="text" name="fn" value="confirm2Student" hidden>
                                     <input type="text" name="cid" value="<?=$cId;?>" hidden>

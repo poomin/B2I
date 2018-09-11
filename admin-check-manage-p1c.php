@@ -35,17 +35,13 @@
             <h3> ยังไม่เปิดยืนยันการเข้าอบรม </h3>
         </div>
     <?php else: ?>
-        <?php if(!isset($PHASE1['id']) || (isset($PHASE1['result'])&&$PHASE1['result']!='pass'&&$CASE<2)): ?>
+        <?php if(!isset($PHASE1['id'])): ?>
             <div class="text-center" style="padding-top: 50px; color: red">
                 <h3> ไม่สามารถดำเนินการได้ </h3>
             </div>
-        <?php elseif((isset($PHASE1['result'])&&$PHASE1['result']=='process') && $CASE==2): ?>
+        <?php elseif($PHASE1['result']=='process'): ?>
             <div class="text-center" style="padding-top: 50px; color: orangered">
                 <h3> รอการตรวจสอบจากคณะกรรมการ </h3>
-            </div>
-        <?php elseif( (!isset($CP1['id']) || (isset($CP1['result'])&&$CP1['result']!='pass')) && $CASE>2): ?>
-            <div class="text-center" style="padding-top: 50px; color: red">
-                <h3> ไม่สามารถดำเนินการได้ </h3>
             </div>
         <?php elseif ($createConfirm1): ?>
             <form class="text-center" style="padding-top: 50px;" method="post">

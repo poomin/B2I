@@ -191,6 +191,30 @@ class ModelProject extends  _PDO
         return $data_return;
     }
 
+    function getProjectByPhase($projectSetUp , $phase){
+        $this->connect();
+        $sql = "select b2i_project.* , b2i_project_phase.result from b2i_project_phase
+        left join b2i_project on b2i_project.id = b2i_project_phase.project_id
+        where b2i_project.projectsetup_id =:projectsetup_id and b2i_project_phase.phase =:phase ";
+        $params= array(':projectsetup_id'=> $projectSetUp , ':phase'=>$phase);
+        $project = $this->queryAll($sql,$params);
+
+        $this->close();
+
+        return $project;
+    }
+    function getProjectByConfirm($projectSetUp , $phase){
+        $this->connect();
+        $sql = "select b2i_project.* , b2i_project_confirm.result from b2i_project_confirm
+        left join b2i_project on b2i_project.id = b2i_project_confirm.project_id
+        where b2i_project.projectsetup_id =:projectsetup_id and b2i_project_confirm.confirm_phase =:phase ";
+        $params= array(':projectsetup_id'=> $projectSetUp , ':phase'=>$phase);
+        $project = $this->queryAll($sql,$params);
+
+        $this->close();
+
+        return $project;
+    }
 
 
     /* ----- function call ----- */

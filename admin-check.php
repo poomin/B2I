@@ -44,59 +44,231 @@ include "controller/adminCheck.php"
                     </div>
                     <hr>
 
-                    <div class="">
-                        <table id="thisdatatable" class="table table-striped table-bordered" style="width:100%">
-                            <thead>
-                            <tr>
-                                <th>โครงการ</th>
-                                <th>โรงเรียน</th>
-                                <th>ส่งเอกสารสมัคร</th>
-                                <th>ส่งเอกสารนำเสนอ</th>
-                                <th>จัดการ</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php foreach ($PROJECTS as $item): ?>
-                                <tr>
-                                    <td><?=$item['name']; ?></td>
-                                    <td><?=$item['schoolname']; ?></td>
-                                    <td class="text-center">
-                                        <?php
-                                            if($item['phase1result']=='none'){
-                                                echo '<p class="bg-info" style="padding-top: 5px; padding-bottom: 5px;">ยังไม่ส่งเอกสาร</p>';
-                                            }elseif($item['phase1result']=='process'){
-                                                echo '<p class="bg-primary" style="padding-top: 5px; padding-bottom: 5px;">กำลังดำเนินการ</p>';
-                                            }elseif($item['phase1result']=='wait'){
-                                                echo '<p class="bg-warning" style="padding-top: 5px; padding-bottom: 5px;">รอตรวจสอบ</p>';
-                                            }elseif($item['phase1result']=='fail'){
-                                                echo '<p class="bg-danger" style="padding-top: 5px; padding-bottom: 5px;">ไม่ผ่าน</p>';
-                                            }elseif($item['phase1result']=='pass'){
-                                                echo '<p class="bg-success" style="padding-top: 5px; padding-bottom: 5px;">ผ่าน</p>';
-                                            }
-                                        ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <?php
-                                        if($item['phase2result']=='none'){
-                                            echo '<p class="bg-info" style="padding-top: 5px; padding-bottom: 5px;">ยังไม่ส่งเอกสาร</p>';
-                                        }elseif($item['phase2result']=='process'){
-                                            echo '<p class="bg-primary" style="padding-top: 5px; padding-bottom: 5px;">กำลังดำเนินการ</p>';
-                                        }elseif($item['phase2result']=='wait'){
-                                            echo '<p class="bg-warning" style="padding-top: 5px; padding-bottom: 5px;">รอตรวจสอบ</p>';
-                                        }elseif($item['phase2result']=='fail'){
-                                            echo '<p class="bg-danger" style="padding-top: 5px; padding-bottom: 5px;">ไม่ผ่าน</p>';
-                                        }elseif($item['phase2result']=='pass'){
-                                            echo '<p class="bg-success" style="padding-top: 5px; padding-bottom: 5px;">ผ่าน</p>';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="admin-check-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> ตรวจ </a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                    <div>
+                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#phase1" aria-controls="phase1" role="tab" data-toggle="tab">เสนอแนวคิด (<?=count($PHASE1);?>)</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#confirm1" aria-controls="confirm1" role="tab" data-toggle="tab">เข้าอบรม (<?=count($CONFIRM1);?>)</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#phase2" aria-controls="phase2" role="tab" data-toggle="tab">ส่ง video (<?=count($PHASE2);?>)</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#confirm2" aria-controls="confirm2" role="tab" data-toggle="tab">เข้าร่วมรอบชิง (<?=count($CONFIRM2);?>)</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#phase3" aria-controls="phase3" role="tab" data-toggle="tab">เอกสารรอบชิง (<?=count($PHASE3);?>)</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content" style="padding-top: 20px; padding-bottom: 20px;">
+                            <div role="tabpanel" class="tab-pane active" id="phase1" style="min-height: 450px;">
+
+                                <table class="table table-striped table-bordered thisdatatable" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>โครงการ</th>
+                                        <th>โรงเรียน</th>
+                                        <th>ภาค</th>
+                                        <th>status</th>
+                                        <th>จัดการ</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($PHASE1 as $item): ?>
+                                        <tr>
+                                            <td><?=$item['name']; ?></td>
+                                            <td><?=$item['schoolname']; ?></td>
+                                            <td><?=$item['schoolregion']; ?></td>
+                                            <td class="text-center">
+                                                <?php
+                                                if($item['result']=='none'){
+                                                    echo '<p class="bg-info" style="padding-top: 5px; padding-bottom: 5px;">ยังไม่ส่งเอกสาร</p>';
+                                                }elseif($item['result']=='process'){
+                                                    echo '<p class="bg-primary" style="padding-top: 5px; padding-bottom: 5px;">กำลังดำเนินการ</p>';
+                                                }elseif($item['result']=='wait'){
+                                                    echo '<p class="bg-warning" style="padding-top: 5px; padding-bottom: 5px;">รอตรวจสอบ</p>';
+                                                }elseif($item['result']=='fail'){
+                                                    echo '<p class="bg-danger" style="padding-top: 5px; padding-bottom: 5px;">ไม่ผ่าน</p>';
+                                                }elseif($item['result']=='pass'){
+                                                    echo '<p class="bg-success" style="padding-top: 5px; padding-bottom: 5px;">ผ่าน</p>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="admin-check-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> ตรวจ </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="confirm1" style="min-height: 450px;">
+
+                                <table class="table table-striped table-bordered thisdatatable" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>โครงการ</th>
+                                        <th>โรงเรียน</th>
+                                        <th>ภาค</th>
+                                        <th>status</th>
+                                        <th>จัดการ</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($CONFIRM1 as $item): ?>
+                                        <tr>
+                                            <td><?=$item['name']; ?></td>
+                                            <td><?=$item['schoolname']; ?></td>
+                                            <td><?=$item['schoolregion']; ?></td>
+                                            <td class="text-center">
+                                                <?php
+                                                if($item['result']=='none'){
+                                                    echo '<p class="bg-info" style="padding-top: 5px; padding-bottom: 5px;">ยังไม่ส่งเอกสาร</p>';
+                                                }elseif($item['result']=='process'){
+                                                    echo '<p class="bg-primary" style="padding-top: 5px; padding-bottom: 5px;">กำลังดำเนินการ</p>';
+                                                }elseif($item['result']=='wait'){
+                                                    echo '<p class="bg-warning" style="padding-top: 5px; padding-bottom: 5px;">รอตรวจสอบ</p>';
+                                                }elseif($item['result']=='fail'){
+                                                    echo '<p class="bg-danger" style="padding-top: 5px; padding-bottom: 5px;">ไม่ผ่าน</p>';
+                                                }elseif($item['result']=='pass'){
+                                                    echo '<p class="bg-success" style="padding-top: 5px; padding-bottom: 5px;">ผ่าน</p>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="admin-check-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> ตรวจ </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="phase2" style="min-height: 450px;">
+                                <table class="table table-striped table-bordered thisdatatable" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>โครงการ</th>
+                                        <th>โรงเรียน</th>
+                                        <th>ภาค</th>
+                                        <th>status</th>
+                                        <th>จัดการ</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($PHASE2 as $item): ?>
+                                        <tr>
+                                            <td><?=$item['name']; ?></td>
+                                            <td><?=$item['schoolname']; ?></td>
+                                            <td><?=$item['schoolregion']; ?></td>
+                                            <td class="text-center">
+                                                <?php
+                                                if($item['result']=='none'){
+                                                    echo '<p class="bg-info" style="padding-top: 5px; padding-bottom: 5px;">ยังไม่ส่งเอกสาร</p>';
+                                                }elseif($item['result']=='process'){
+                                                    echo '<p class="bg-primary" style="padding-top: 5px; padding-bottom: 5px;">กำลังดำเนินการ</p>';
+                                                }elseif($item['result']=='wait'){
+                                                    echo '<p class="bg-warning" style="padding-top: 5px; padding-bottom: 5px;">รอตรวจสอบ</p>';
+                                                }elseif($item['result']=='fail'){
+                                                    echo '<p class="bg-danger" style="padding-top: 5px; padding-bottom: 5px;">ไม่ผ่าน</p>';
+                                                }elseif($item['result']=='pass'){
+                                                    echo '<p class="bg-success" style="padding-top: 5px; padding-bottom: 5px;">ผ่าน</p>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="admin-check-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> ตรวจ </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="confirm2" style="min-height: 450px;">
+                                <table class="table table-striped table-bordered thisdatatable" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>โครงการ</th>
+                                        <th>โรงเรียน</th>
+                                        <th>ภาค</th>
+                                        <th>status</th>
+                                        <th>จัดการ</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($CONFIRM2 as $item): ?>
+                                        <tr>
+                                            <td><?=$item['name']; ?></td>
+                                            <td><?=$item['schoolname']; ?></td>
+                                            <td><?=$item['schoolregion']; ?></td>
+                                            <td class="text-center">
+                                                <?php
+                                                if($item['result']=='none'){
+                                                    echo '<p class="bg-info" style="padding-top: 5px; padding-bottom: 5px;">ยังไม่ส่งเอกสาร</p>';
+                                                }elseif($item['result']=='process'){
+                                                    echo '<p class="bg-primary" style="padding-top: 5px; padding-bottom: 5px;">กำลังดำเนินการ</p>';
+                                                }elseif($item['result']=='wait'){
+                                                    echo '<p class="bg-warning" style="padding-top: 5px; padding-bottom: 5px;">รอตรวจสอบ</p>';
+                                                }elseif($item['result']=='fail'){
+                                                    echo '<p class="bg-danger" style="padding-top: 5px; padding-bottom: 5px;">ไม่ผ่าน</p>';
+                                                }elseif($item['result']=='pass'){
+                                                    echo '<p class="bg-success" style="padding-top: 5px; padding-bottom: 5px;">ผ่าน</p>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="admin-check-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> ตรวจ </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="phase3" style="min-height: 450px;">
+                                <p> <table class="table table-striped table-bordered thisdatatable" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>โครงการ</th>
+                                        <th>โรงเรียน</th>
+                                        <th>ภาค</th>
+                                        <th>status</th>
+                                        <th>จัดการ</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($PHASE3 as $item): ?>
+                                        <tr>
+                                            <td><?=$item['name']; ?></td>
+                                            <td><?=$item['schoolname']; ?></td>
+                                            <td><?=$item['schoolregion']; ?></td>
+                                            <td class="text-center">
+                                                <?php
+                                                if($item['result']=='none'){
+                                                    echo '<p class="bg-info" style="padding-top: 5px; padding-bottom: 5px;">ยังไม่ส่งเอกสาร</p>';
+                                                }elseif($item['result']=='process'){
+                                                    echo '<p class="bg-primary" style="padding-top: 5px; padding-bottom: 5px;">กำลังดำเนินการ</p>';
+                                                }elseif($item['result']=='wait'){
+                                                    echo '<p class="bg-warning" style="padding-top: 5px; padding-bottom: 5px;">รอตรวจสอบ</p>';
+                                                }elseif($item['result']=='fail'){
+                                                    echo '<p class="bg-danger" style="padding-top: 5px; padding-bottom: 5px;">ไม่ผ่าน</p>';
+                                                }elseif($item['result']=='pass'){
+                                                    echo '<p class="bg-success" style="padding-top: 5px; padding-bottom: 5px;">ผ่าน</p>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="admin-check-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> ตรวจ </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table></p>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -119,7 +291,7 @@ include "controller/adminCheck.php"
 <?php include "_datatablescript.php"; ?>
 <script>
     $(document).ready(function() {
-        $('#thisdatatable').DataTable();
+        $('.thisdatatable').DataTable();
     } );
 </script>
 

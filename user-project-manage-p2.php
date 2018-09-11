@@ -61,7 +61,7 @@
                 <?php endif;?>
 
 
-                <div class="file-upload">
+                <div class="file-upload" hidden>
                     <h4 style="text-decoration: underline;">เอกสารนำเสนอ</h4>
                     <div id="showFileP2" style="padding-top: 20px;">
                         <table class="thisdatatable table table-striped table-bordered" style="width:100%">
@@ -169,7 +169,7 @@
                     <?php endif;?>
                 </div>
 
-                <div class="image-upload">
+                <div class="image-upload" hidden>
                     <h4 style="text-decoration: underline;">ภาพนำเสนอ</h4>
                     <div id="showImageP2" style="padding-top: 20px;">
 

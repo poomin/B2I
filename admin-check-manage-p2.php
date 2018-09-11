@@ -3,7 +3,7 @@
     <?PHP
     $statusP2 = false;
     $createP2 = true;
-    $editP2 = false;
+    $editP2 = true;
     $statusFail = false;
 
     if(isset($projectSetup['phase2status']) && $projectSetup['phase2status']=='close' ){
@@ -13,7 +13,7 @@
         $editP2 = true;
     }
 
-    elseif(isset($PHASE1['result']) && $PHASE1['result']=='fail' ){
+    if(isset($PHASE1['result']) && $PHASE1['result']=='fail' ){
         $statusFail = true;
     }
 
@@ -34,10 +34,6 @@
 
     <?php else: ?>
         <?php if(!isset($CP1['id'])): ?>
-            <div class="text-center" style="padding-top: 50px; color: red">
-                <h3> ไม่สามารถดำเนินการได้ </h3>
-            </div>
-        <?php elseif( (!isset($PHASE2['id'])) && $CASE>3): ?>
             <div class="text-center" style="padding-top: 50px; color: red">
                 <h3> ไม่สามารถดำเนินการได้ </h3>
             </div>
@@ -93,7 +89,7 @@
                 <hr>
 
 
-                <div class="file-upload">
+                <div class="file-upload" hidden>
                     <h4 style="text-decoration: underline;">เอกสารนำเสนอ</h4>
                     <div id="showFileP2" style="padding-top: 20px;">
                         <table class="thisdatatable table table-striped table-bordered" style="width:100%">
@@ -121,7 +117,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <?php if($editP2): ?>
-                                                    <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                    <form method="post">
                                                         <input class="hidden" name="fn" value="deleteUpload">
                                                         <input class="hidden" name="typefile" value="file">
                                                         <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -176,7 +172,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                    <form class="form-horizontal" method="post">
                                         <div class="form-group">
                                             <label for="namePdfP2" class="col-sm-4 control-label">รายละเอียดไฟล์</label>
                                             <div class="col-sm-6">
@@ -201,7 +197,7 @@
                     <?php endif;?>
                 </div>
 
-                <div class="image-upload">
+                <div class="image-upload" hidden>
                     <h4 style="text-decoration: underline;">ภาพนำเสนอ</h4>
                     <div id="showImageP2" style="padding-top: 20px;">
 
@@ -229,7 +225,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <?php if($editP2): ?>
-                                                    <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                    <form method="post">
                                                         <input class="hidden" name="fn" value="deleteUpload">
                                                         <input class="hidden" name="typefile" value="image">
                                                         <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -287,7 +283,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                    <form class="form-horizontal" method="post">
                                         <div class="form-group">
                                             <label for="nameImageP2" class="col-sm-4 control-label">รายละเอียดภาพ</label>
                                             <div class="col-sm-6">
@@ -348,7 +344,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <?php if($editP2): ?>
-                                                    <form action="user-project-manage.php?id=<?=$id?>" method="post">
+                                                    <form method="post">
                                                         <input class="hidden" name="fn" value="deleteUpload">
                                                         <input class="hidden" name="typefile" value="video">
                                                         <input class="hidden" name="upload_id" value="<?=$item['id'];?>">
@@ -400,15 +396,17 @@
                                 <div class="row">
                                     <div class="col-xs-6 col-md-4 col-md-offset-4">
 
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe id="videoShowP2" class="embed-responsive-item" src="" ></iframe>
-                                        </div>
+
+                                        <video controls='1' loop='1' height="150px;">
+                                            <source id="videoShowP2" src="">
+                                            Your browser does not support HTML5 video tags.
+                                        </video>
 
                                     </div>
                                 </div>
 
                                 <div class="row" style="padding-top: 20px;">
-                                    <form class="form-horizontal" action="user-project-manage.php?id=<?=$PROJECT['id'];?>" method="post">
+                                    <form class="form-horizontal" method="post">
                                         <div class="form-group">
                                             <label for="nameVideoP2" class="col-sm-4 control-label">รายละเอียดภาพ</label>
                                             <div class="col-sm-6">

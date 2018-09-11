@@ -64,4 +64,22 @@ class ModelProjectConfirm extends  _PDO
         return $result;
     }
 
+    function editResult($phase_id , $phase_result){
+
+        //connect DB
+        $this->connect();
+        $sql = "UPDATE  b2i_project_confirm SET result=:result WHERE id=:id";
+        $params= array(
+            ':result'=> $phase_result,
+            ':id'=> $phase_id
+        );
+        $row_update = $this->update($sql,$params);
+
+        //close DB
+        $this->close();
+
+
+        return $row_update;
+    }
+
 }
