@@ -301,10 +301,12 @@
                                     <tr>
                                         <td class="text-center">
 
-                                            <video controls='1' loop='1' height="150px;">
-                                                <source src="<?=$item['path'];?>">
-                                                Your browser does not support HTML5 video tags.
-                                            </video>
+<!--                                            <video controls='1' loop='1' height="150px;">-->
+<!--                                                <source src="--><?//=$item['path'];?><!--">-->
+<!--                                                Your browser does not support HTML5 video tags.-->
+<!--                                            </video>-->
+                                            <iframe height="150px;" class="embed-responsive-item" src="<?=$item['path'];?>" ></iframe>
+
 
                                         </td>
                                         <td><?=$item['namefile'];?></td>
@@ -356,6 +358,12 @@
                                 </div>
                                 <div id="video">
                                     <div class="box-img-ready">
+
+                                        <label style="cursor: pointer;" for="upload_youtube" onclick="showLoadYoutubeP2();">
+                                            <h3><span class="label label-danger"><i class="fa fa-youtube"></i> Youtube Upload</span></h3>
+                                            <input id="upload_youtube" type="text" style="display:none;">
+                                        </label>
+
                                         <label style="cursor: pointer;" for="p2_file_video">
                                             <h3 id="p2_upload_video"><span class="label label-info"><i class="fa fa-upload"></i> Video Upload</span></h3>
                                             <input id="p2_file_video" accept="video/mp4" type="file" style="display:none;" onchange="showLoadVideoP2(this)">
@@ -681,5 +689,52 @@
         $("#p2_file_" + file).val("");
 
     }
-</script>
 
+    function showLoadYoutubeP2() {
+        $('#input_youtube').val('');
+        $('.moddalURLYoutubeP2').modal();
+    }
+    function addUrlYoutubeP2() {
+        var src = $('#input_youtube').val();
+        var src = cutUrlYoutube(src);
+        if(src=='no'){
+            alert("กรุณาตรวจสอบ URL");
+        }else{
+            $('#loadFileVideoP2').addClass('hidden');
+            $('#saveLoadFileVideoP2').removeClass('hidden');
+            $('#nameVideoP2').val('youtube');
+            $('#videoShowP2').attr('src',src);
+            $('#inputVideoP2').attr('value',src);
+        }
+    }
+    function cutUrlYoutube(str) {
+        var str2 = "embed";
+        if(str.indexOf(str2) != -1){
+            return str;
+        }else{
+            var cut = str.split('?v=');
+            if(cut.length >1){
+                return 'https://www.youtube.com/embed/'+cut['1'];
+            }else{
+                return 'no';
+            }
+        }
+    }
+</script>
+<!--    modal log phase 2 -->
+<div class="modal fade moddalURLYoutubeP2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalURLYoutubeP2">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myLargeModalURLYoutubeP2">URL Youtube</h4>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" id="input_youtube" type="text" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addUrlYoutubeP2();">บันทึก</button>
+            </div>
+        </div>
+    </div>
+</div>
