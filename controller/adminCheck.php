@@ -21,7 +21,7 @@ $result = $MPS->getProjectById($SETID);
 if(isset($result['id'])){
     $PROJECTSETUP = $result;
 
-    $result = $MP->getProjectByPhase($PROJECTSETUP['id'],1);
+    $result = $MP->getProjectByProjectSetUp($PROJECTSETUP['id']);
     if(count($result) > 0 ){
         $PHASE1 = $result;
     }

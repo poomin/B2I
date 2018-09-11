@@ -191,6 +191,17 @@ class ModelProject extends  _PDO
         return $data_return;
     }
 
+    function getProjectByProjectSetUp($projectSetUp){
+        $this->connect();
+        $sql = "select b2i_project.* , 'process' as result from b2i_project
+        where b2i_project.projectsetup_id =:projectsetup_id ";
+        $params= array(':projectsetup_id'=> $projectSetUp);
+        $project = $this->queryAll($sql,$params);
+
+        $this->close();
+
+        return $project;
+    }
     function getProjectByPhase($projectSetUp , $phase){
         $this->connect();
         $sql = "select b2i_project.* , b2i_project_phase.result from b2i_project_phase
