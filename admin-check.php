@@ -288,7 +288,6 @@ include "controller/adminCheck.php"
 </div>
 <!-- End of container Box -->
 
-
 <footer>
     <?php include '_footer.php'; ?>
 </footer>
