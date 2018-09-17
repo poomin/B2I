@@ -126,6 +126,7 @@ require_once __DIR__.'/controller/adminUserEdit.php'
                                 </select>
                             </div>
                         </div>
+
                         <div class="text-center">
                             <input class="hidden" name="id" value="<?=$USER['id'];?>">
                             <input class="hidden" name="fn" value="editUser">
