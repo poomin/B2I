@@ -122,6 +122,7 @@ require_once __DIR__.'/controller/adminUserEdit.php'
                                     <option value="ตะวันออก" <?=$USER['schoolregion']=='ตะวันออก'?'selected':'';?> >ตะวันออก</option>
                                     <option value="ตะวันตก" <?=$USER['schoolregion']=='ตะวันตก'?'selected':'';?> >ตะวันตก</option>
                                     <option value="ตะวันออกเฉียงเหนือ" <?=$USER['schoolregion']=='ตะวันออกเฉียงเหนือ'?'selected':'';?> >ตะวันออกเฉียงเหนือ</option>
+                                    <option value="ใต้" <?=$USER['schoolregion']=='ใต้'?'selected':'';?> >ใต้</option>
                                 </select>
                             </div>
                         </div>
