@@ -62,6 +62,8 @@ require_once __DIR__.'/controller/userProject.php';
                                 <th>โปรเจค</th>
                                 <th>โรงเรียน</th>
                                 <th>ภาค</th>
+                                <th>ขั้นตอน</th>
+                                <th>สถานะ</th>
                                 <th>จัดการ</th>
                             </tr>
                             </thead>
@@ -71,6 +73,28 @@ require_once __DIR__.'/controller/userProject.php';
                                 <td><?=$item['name']; ?></td>
                                 <td><?=$item['schoolname']; ?></td>
                                 <td><?=$item['schoolregion']; ?></td>
+                                <td><?=$item['status']; ?></td>
+                                <td>
+                                    <?php
+                                        $classAlert = "";
+                                        if($item['type']=='fail'){
+                                            $classAlert = 'alert-danger';
+                                        }
+                                        elseif ($item['type']=='pass'){
+                                            $classAlert = 'alert-success';
+                                        }
+                                        elseif ($item['type']=='wait'){
+                                            $classAlert = 'alert-warning';
+                                        }
+                                        elseif ($item['type']=='check'){
+                                            $classAlert = 'alert-info';
+                                        }
+                                    ?>
+                                    <div class="alert <?=$classAlert; ?>" role="alert">
+                                        <?=$item['message']; ?>
+                                    </div>
+
+                                </td>
                                 <td class="text-center">
                                     <a href="user-project-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i> จัดการโปรเจค </a>
                                 </td>

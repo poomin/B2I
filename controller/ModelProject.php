@@ -238,7 +238,6 @@ class ModelProject extends  _PDO
 
         return $project;
     }
-
     function deleteProject($project_id){
         $this->connect();
 
@@ -288,7 +287,6 @@ class ModelProject extends  _PDO
         return $result;
 
     }
-
 
     /* ----- function call ----- */
     function checkUserInProject($project_id , $user_id){

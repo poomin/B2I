@@ -13,7 +13,14 @@ $PROJECT = [];
 $result = $MP->getProjectByUserId($user_id);
 if(count($result)>0){
     $PROJECT = $result;
+    foreach ($PROJECT as $key=>$item){
+        $result = $MP->getProjectLastStatus($PROJECT[$key]['id']);
+        $PROJECT[$key]['type']=$result['type'];
+        $PROJECT[$key]['status']=$result['status'];
+        $PROJECT[$key]['message']=$result['message'];
+    }
 }
+
 
 
 
