@@ -9,7 +9,7 @@
     if(isset($projectSetup['phase2status']) && $projectSetup['phase2status']=='close' ){
         $statusP2 = true;
     }
-    elseif(isset($projectSetup['phase2status']) && $projectSetup['phase2status']=='process' ){
+    elseif(isset($projectSetup['phase2status']) && $projectSetup['phase2status']=='process' && isset($PHASE2['id']) && $PHASE2['result']=='process'  ){
         $editP2 = true;
     }
 
@@ -52,11 +52,11 @@
 
                 <?php if(isset($PHASE2['result'])&&$PHASE2['result']=='fail'): ?>
                     <div class="alert alert-danger" role="alert">
-                        <strong>ไม่ผ่าน </strong>
+                        <strong>ไม่ผ่าน </strong> <?= $PHASE2['detail']; ?>
                     </div>
                 <?php elseif (isset($PHASE2['result'])&& $PHASE2['result']=='pass'): ?>
                     <div class="alert alert-success" role="alert">
-                        <strong>ผ่าน </strong>
+                        <strong>ผ่าน </strong> <?= $PHASE2['detail']; ?>
                     </div>
                 <?php endif;?>
 
