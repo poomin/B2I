@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: EPOP
@@ -9,7 +8,6 @@
 require_once __DIR__.'/_PDO.php';
 class ModelProject extends  _PDO
 {
-
     function addProject($input){
         $projectsetup_id = isset($input['projectsetup_id'])?$input['projectsetup_id']:'';
         $name = isset($input['name'])?$input['name']:'';
@@ -17,9 +15,7 @@ class ModelProject extends  _PDO
         $schoolregion = isset($input['schoolregion'])?$input['schoolregion']:'';
         $detail = isset($input['detail'])?$input['detail']:'';
         $user_id = isset($input['user_id'])?$input['user_id']:'';
-
         $member = isset($input['member'])?$input['member']:'';
-
         //connect DB
         $this->connect();
         $sql = "INSERT INTO b2i_project (projectsetup_id,name,schoolname,schoolregion,detail) 
@@ -32,8 +28,6 @@ class ModelProject extends  _PDO
             ':detail'=> $detail
         );
         $lastId = $this->insert($sql,$params);
-
-
         //insert to member
         $sql = "INSERT INTO b2i_project_member (project_id,user_id,membertype) 
         VALUES (:project_id,:user_id,:membertype)";
@@ -44,7 +38,6 @@ class ModelProject extends  _PDO
             ':membertype'=> $membertype
         );
         $lastId2 = $this->insert($sql,$params);
-
         if($member!=''){
             $cut = explode("-",$member);
             foreach ($cut as $item){
@@ -56,15 +49,10 @@ class ModelProject extends  _PDO
                 $lastId2 = $this->insert($sql,$params);
             }
         }
-
-
         //close DB
         $this->close();
-
-
         return $lastId;
     }
-
     function editProject($input){
         $projectsetup_id = isset($input['projectsetup_id'])?$input['projectsetup_id']:'';
         $name = isset($input['name'])?$input['name']:'';
@@ -73,9 +61,7 @@ class ModelProject extends  _PDO
         $detail = isset($input['detail'])?$input['detail']:'';
         $user_id = isset($input['user_id'])?$input['user_id']:'';
         $id = isset($input['id'])?$input['id']:'';
-
         $member = isset($input['member'])?$input['member']:'';
-
         //connect DB
         $this->connect();
         $sql = "UPDATE  b2i_project SET projectsetup_id=:projectsetup_id,name=:name,schoolname=:schoolname,
@@ -89,12 +75,10 @@ class ModelProject extends  _PDO
             ':id'=> $id
         );
         $lastId = $this->update($sql,$params);
-
         //delete all member by project id
         $sql = "DELETE FROM b2i_project_member WHERE project_id=:project_id";
         $params= array(':project_id'=>$id);
         $lastId2 = $this->update($sql,$params);
-
         //insert to member
         $sql = "INSERT INTO b2i_project_member (project_id,user_id,membertype) 
         VALUES (:project_id,:user_id,:membertype)";
@@ -105,8 +89,6 @@ class ModelProject extends  _PDO
             ':membertype'=> $membertype
         );
         $lastId2 = $this->insert($sql,$params);
-
-
         if($member!=''){
             $cut = explode("-",$member);
             foreach ($cut as $item){
@@ -118,16 +100,10 @@ class ModelProject extends  _PDO
                 $lastId2 = $this->insert($sql,$params);
             }
         }
-
-
-
         //close DB
         $this->close();
-
-
         return 1;
     }
-
     function getProjectById($id){
         $this->connect();
         $sql = "select * from  b2i_project where id=:id";
@@ -136,7 +112,6 @@ class ModelProject extends  _PDO
         $this->close();
         return $result;
     }
-
     function getProjectByUserId($user_id){
         $this->connect();
         $sql = "select b2i_project.* from ( select project_id from b2i_project_member where user_id=:user_id ) as member 
@@ -146,19 +121,15 @@ class ModelProject extends  _PDO
         $this->close();
         return $result;
     }
-
     function getProjectBySetupId($setup_id){
         $this->connect();
         $sql = "select * from b2i_project where projectsetup_id=:setup_id ";
         $params= array(':setup_id'=> $setup_id);
         $project = $this->queryAll($sql,$params);
-
         $sql = "select * from b2i_project_phase ";
         $params= array();
         $phase = $this->queryAll($sql,$params);
-
         $this->close();
-
         $data_return =[];
         $arr_phase = [];
         foreach ($phase as $item){
@@ -169,14 +140,12 @@ class ModelProject extends  _PDO
                     'phase2result'=> 'none'
                 ];
             }
-
             if($item['phase']=='1'){
                 $arr_phase[$item['project_id']]['phase1result'] = $item['result'];
             }elseif($item['phase']=='2'){
                 $arr_phase[$item['project_id']]['phase2result'] = $item['result'];
             }
         }
-
         foreach ($project as $item){
             if(isset($arr_phase[$item['id']])){
                 $item['phase1result'] = $arr_phase[$item['id']]['phase1result'];
@@ -190,7 +159,6 @@ class ModelProject extends  _PDO
         }
         return $data_return;
     }
-
     function getProjectByProjectSetUp($projectSetUp){
         $this->connect();
         $project = [];
@@ -209,9 +177,7 @@ class ModelProject extends  _PDO
             }
             $project[]=$item;
         }
-
         $this->close();
-
         return $project;
     }
     function getProjectByPhase($projectSetUp , $phase){
@@ -221,9 +187,7 @@ class ModelProject extends  _PDO
         where b2i_project.projectsetup_id =:projectsetup_id and b2i_project_phase.phase =:phase ";
         $params= array(':projectsetup_id'=> $projectSetUp , ':phase'=>$phase);
         $project = $this->queryAll($sql,$params);
-
         $this->close();
-
         return $project;
     }
     function getProjectByConfirm($projectSetUp , $phase){
@@ -233,14 +197,11 @@ class ModelProject extends  _PDO
         where b2i_project.projectsetup_id =:projectsetup_id and b2i_project_confirm.confirm_phase =:phase ";
         $params= array(':projectsetup_id'=> $projectSetUp , ':phase'=>$phase);
         $project = $this->queryAll($sql,$params);
-
         $this->close();
-
         return $project;
     }
     function deleteProject($project_id){
         $this->connect();
-
         //delete confirm , confirm_member
         $sql = "select * from b2i_project_confirm where project_id=:project_id ";
         $params= array(':project_id'=> $project_id);
@@ -253,12 +214,10 @@ class ModelProject extends  _PDO
         $sql = "DELETE FROM b2i_project_confirm WHERE project_id=:project_id";
         $params= array(':project_id'=> $project_id);
         $result = $this->update($sql,$params);
-
         //project member
         $sql = "DELETE FROM b2i_project_member WHERE project_id=:project_id";
         $params= array(':project_id'=> $project_id);
         $result = $this->update($sql,$params);
-
         //phase
         $sql = "select * from b2i_project_phase where project_id=:project_id ";
         $params= array(':project_id'=> $project_id);
@@ -267,25 +226,18 @@ class ModelProject extends  _PDO
             $sql = "DELETE FROM b2i_project_phase_log WHERE phase_id=:phase_id";
             $params= array(':phase_id'=> $item['id']);
             $result = $this->update($sql,$params);
-
             $sql = "DELETE FROM b2i_project_phase_upload WHERE phase_id=:phase_id";
             $params= array(':phase_id'=> $item['id']);
             $result = $this->update($sql,$params);
-
         }
         $sql = "DELETE FROM b2i_project_phase where project_id=:project_id ";
         $params= array(':project_id'=> $project_id);
         $result = $this->update($sql,$params);
-
-
         $sql = "DELETE FROM b2i_project where id=:project_id ";
         $params= array(':project_id'=> $project_id);
         $result = $this->update($sql,$params);
-
         $this->close();
-
         return $result;
-
     }
 
     /* ----- function call ----- */
@@ -297,5 +249,4 @@ class ModelProject extends  _PDO
         $this->close();
         return isset($result);
     }
-
 }
