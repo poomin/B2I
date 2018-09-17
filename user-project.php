@@ -89,6 +89,9 @@ require_once __DIR__.'/controller/userProject.php';
                                         elseif ($item['type']=='check'){
                                             $classAlert = 'alert-info';
                                         }
+                                        elseif ($item['type']=='process'){
+                                            $classAlert = 'alert-info';
+                                        }
                                     ?>
                                     <div class="alert <?=$classAlert; ?>" role="alert">
                                         <?=$item['message']; ?>

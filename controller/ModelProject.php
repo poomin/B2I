@@ -343,7 +343,8 @@ class ModelProject extends  _PDO
                 }
                 else{
                     $sType='non';
-                    $sMessage='ไม่มีข้อมูล';
+                    $sMessage='-';
+                    $sStatus ='ไม่มีข้อมูล';
                 }
                 return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
             }
@@ -383,7 +384,8 @@ class ModelProject extends  _PDO
                 }
                 else{
                     $sType='non';
-                    $sMessage='ไม่มีข้อมูล';
+                    $sMessage='-';
+                    $sStatus ='ไม่มีข้อมูล';
                 }
                 return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
             }
@@ -420,7 +422,8 @@ class ModelProject extends  _PDO
                     }
                     else{
                         $sType='non';
-                        $sMessage='ไม่มีข้อมูล';
+                        $sMessage='-';
+                        $sStatus ='ไม่มีข้อมูล';
                     }
                     return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
                 }
@@ -454,7 +457,8 @@ class ModelProject extends  _PDO
                 }
                 else{
                     $sType='non';
-                    $sMessage='ไม่มีข้อมูล';
+                    $sMessage='-';
+                    $sStatus ='ไม่มีข้อมูล';
                 }
                 return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
             }
@@ -485,7 +489,8 @@ class ModelProject extends  _PDO
                 }
                 else{
                     $sType='non';
-                    $sMessage='ไม่มีข้อมูล';
+                    $sMessage='-';
+                    $sStatus ='ไม่มีข้อมูล';
                 }
                 return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
             }
@@ -513,7 +518,8 @@ class ModelProject extends  _PDO
                 }
                 else{
                     $sType='non';
-                    $sMessage='ไม่มีข้อมูล';
+                    $sMessage='-';
+                    $sStatus ='ไม่มีข้อมูล';
                 }
                 return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
             }
