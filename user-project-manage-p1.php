@@ -9,7 +9,7 @@
         $status = true;
     }
 
-    if(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process' ){
+    if(isset($projectSetup['phase1status']) && $projectSetup['phase1status']=='process' && isset($PHASE1['result']) && $PHASE1['result']=='process'  ){
         $edit = true;
     }
 
