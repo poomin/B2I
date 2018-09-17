@@ -240,6 +240,311 @@ class ModelProject extends  _PDO
         return $result;
     }
 
+    /* ----- user-project.php --*/
+    function getProjectLastStatus($project_id){
+        $this->connect();
+
+        $sql = 'select b2i_projectsetup.* from b2i_project 
+        left join b2i_projectsetup on b2i_project.projectsetup_id = b2i_projectsetup.id
+        where b2i_project.id=:project_id';
+        $params= array(':project_id'=> $project_id);
+        $projectSetup = $this->query($sql,$params);
+
+        $sql = 'select * from b2i_project_phase where project_id=:project_id';
+        $params= array(':project_id'=> $project_id);
+        $projectPhase = $this->queryAll($sql,$params);
+        $keyPhase = [];
+        $checkPhase = ['status'=>false,'phase'=>1];
+        foreach ($projectPhase as $item){
+            $keyPhase[$item['phase']] = $item['result'];
+            if($item['result']=='fail'){
+                $checkPhase = ['status'=>true,'phase'=>$item['phase']];
+            }
+        }
+
+        $sql = 'select * from b2i_project_confirm where project_id=:project_id';
+        $params= array(':project_id'=> $project_id);
+        $projectConfirm = $this->queryAll($sql,$params);
+        $keyConfirm = [];
+        $checkConfirm = ['status'=>false,'phase'=>1];
+        foreach ($projectConfirm as $item){
+            $keyConfirm[$item['confirm_phase']] = $item['result'];
+            if($item['result']=='fail'){
+                $checkConfirm = ['status'=>true,'phase'=>$item['confirm_phase']];
+            }
+        }
+
+
+        $this->close();
+
+
+        //check phase fail
+        if($checkPhase['status']){
+            $sStatus = 'เสนอแนวคิดสิ่งประดิษฐ์';
+            if($checkPhase['phase']==3){
+                $sStatus='ส่งเอกสารรอบชิง';
+            }
+            elseif ($checkPhase['phase']==2){
+                $sStatus='ส่งวีดีโอ';
+            }
+            return ['type'=>'fail' , 'status'=>$sStatus , 'message'=>'ไม่ผ่านการคัดเลือก'];
+        }
+
+        //check confirm fail
+        if($checkConfirm['status']){
+            $sStatus = 'ยืนยันเข้าร่วมอบรม';
+            if($checkConfirm['phase']==3){
+                $sStatus='ยืนยันเข้ารับรางวัล';
+            }
+            elseif ($checkConfirm['phase']==2){
+                $sStatus='ยืนยันเข้าร่วมรอบชิง';
+            }
+            return ['type'=>'fail' , 'status'=>$sStatus , 'message'=>'ไม่ผ่านการคัดเลือก'];
+        }
+
+        //phase , confirm check status
+        if(isset($projectSetup['id'])){
+            $pc = $this->fnActiveLast($keyPhase,$keyConfirm);
+            //confirm 3
+            if($projectSetup['phase3confirm']!='close'){
+                $sType = 'wait';
+                $sStatus = 'เข้าร่วมรับรางวัล';
+                $sMessage = 'รอการตรวจสอบจากคณะกรรมการ';
+                if(isset($keyConfirm[3])){
+                    $sType = $keyConfirm[3];
+                    if($sType=='process'){
+                        $sMessage='ยืนยัน/กรอกข้อมูล';
+                    }
+                    elseif ($sType=='fail'){
+                        $sMessage='ไม่ผ่านการคัดเลือก';
+                    }
+                    elseif ($sType=='pass'){
+                        $sMessage='ยืนยันเข้าร่วม';
+                    }
+                }
+                elseif (isset($keyPhase[3]) && $keyPhase[3]=='pass'){
+                    $sType='check';
+                    $sMessage='ดำเนินการ';
+                }
+                elseif ($pc=='p3'){
+                    $sStatus='ส่งเอกสารรอบชิง';
+                }
+                elseif ($pc=='c2'){
+                    $sStatus='ยืนยันเข้าร่วมรอบชิง';
+                }
+                elseif ($pc=='p2'){
+                    $sStatus='ส่งวีดีโอ';
+                }
+                elseif ($pc=='c1'){
+                    $sStatus='ยืนยันเข้าร่วมอบรม';
+                }
+                elseif ($pc=='p1'){
+                    $sStatus='เสนอแนวคิดสิ่งประดิษฐ์';
+                }
+                else{
+                    $sType='non';
+                    $sMessage='ไม่มีข้อมูล';
+                }
+                return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
+            }
+
+            //phase 3
+            elseif($projectSetup['phase3status']!='close'){
+                $sType = 'wait';
+                $sStatus = 'ส่งเอกสารรอบชิง';
+                $sMessage = 'รอการตรวจสอบจากคณะกรรมการ';
+                if(isset($keyPhase[3])){
+                    $sType = $keyPhase[3];
+                    if($sType=='process'){
+                        $sMessage='ดำเนินการ';
+                    }
+                    elseif ($sType=='fail'){
+                        $sMessage='ไม่ผ่านการคัดเลือก';
+                    }
+                    elseif ($sType=='pass'){
+                        $sMessage='ผ่านการคัดเลือก';
+                    }
+                }
+                elseif (isset($keyConfirm[2]) && $keyConfirm[2]=='pass'){
+                    $sType='check';
+                    $sMessage='ดำเนินการ';
+                }
+                elseif ($pc=='c2'){
+                    $sStatus='ยืนยันเข้าร่วมรอบชิง';
+                }
+                elseif ($pc=='p2'){
+                    $sStatus='ส่งวีดีโอ';
+                }
+                elseif ($pc=='c1'){
+                    $sStatus='ยืนยันเข้าร่วมอบรม';
+                }
+                elseif ($pc=='p1'){
+                    $sStatus='เสนอแนวคิดสิ่งประดิษฐ์';
+                }
+                else{
+                    $sType='non';
+                    $sMessage='ไม่มีข้อมูล';
+                }
+                return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
+            }
+
+            //confirm 2
+            elseif($projectSetup['phase2confirm']!='close'){
+                    $sType = 'wait';
+                    $sStatus = 'ยืนยันเข้าร่วมรอบชิง';
+                    $sMessage = 'รอการตรวจสอบจากคณะกรรมการ';
+                    if(isset($keyConfirm[2])){
+                        $sType = $keyConfirm[2];
+                        if($sType=='process'){
+                            $sMessage='ยืนยัน/กรอกข้อมูล';
+                        }
+                        elseif ($sType=='fail'){
+                            $sMessage='ไม่ผ่านการคัดเลือก';
+                        }
+                        elseif ($sType=='pass'){
+                            $sMessage='ยืนยันเข้าร่วม';
+                        }
+                    }
+                    elseif (isset($keyPhase[2]) && $keyPhase[2]=='pass'){
+                        $sType='check';
+                        $sMessage='ดำเนินการ';
+                    }
+                    elseif ($pc=='p2'){
+                        $sStatus='ส่งวีดีโอ';
+                    }
+                    elseif ($pc=='c1'){
+                        $sStatus='ยืนยันเข้าร่วมอบรม';
+                    }
+                    elseif ($pc=='p1'){
+                        $sStatus='เสนอแนวคิดสิ่งประดิษฐ์';
+                    }
+                    else{
+                        $sType='non';
+                        $sMessage='ไม่มีข้อมูล';
+                    }
+                    return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
+                }
+
+            //phase 2
+            elseif($projectSetup['phase2status']!='close'){
+                $sType = 'wait';
+                $sStatus = 'ส่งวีดีโอ';
+                $sMessage = 'รอการตรวจสอบจากคณะกรรมการ';
+                if(isset($keyPhase[2])){
+                    $sType = $keyPhase[2];
+                    if($sType=='process'){
+                        $sMessage='ดำเนินการ';
+                    }
+                    elseif ($sType=='fail'){
+                        $sMessage='ไม่ผ่านการคัดเลือก';
+                    }
+                    elseif ($sType=='pass'){
+                        $sMessage='ผ่านการคัดเลือก';
+                    }
+                }
+                elseif (isset($keyConfirm[1]) && $keyConfirm[1]=='pass'){
+                    $sType='check';
+                    $sMessage='ดำเนินการ';
+                }
+                elseif ($pc=='c1'){
+                    $sStatus='ยืนยันเข้าร่วมอบรม';
+                }
+                elseif ($pc=='p1'){
+                    $sStatus='เสนอแนวคิดสิ่งประดิษฐ์';
+                }
+                else{
+                    $sType='non';
+                    $sMessage='ไม่มีข้อมูล';
+                }
+                return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
+            }
+
+            //confirm 1
+            elseif($projectSetup['phase1confirm']!='close'){
+                $sType = 'wait';
+                $sStatus = 'ยืนยันเข้าร่วมอบรม';
+                $sMessage = 'รอการตรวจสอบจากคณะกรรมการ';
+                if(isset($keyConfirm[1])){
+                    $sType = $keyConfirm[1];
+                    if($sType=='process'){
+                        $sMessage='ยืนยัน/กรอกข้อมูล';
+                    }
+                    elseif ($sType=='fail'){
+                        $sMessage='ไม่ผ่านการคัดเลือก';
+                    }
+                    elseif ($sType=='pass'){
+                        $sMessage='ยืนยันเข้าร่วม';
+                    }
+                }
+                elseif (isset($keyPhase[1]) && $keyPhase[1]=='pass'){
+                    $sType='check';
+                    $sMessage='ดำเนินการ';
+                }
+                elseif ($pc=='p1'){
+                    $sStatus='เสนอแนวคิดสิ่งประดิษฐ์';
+                }
+                else{
+                    $sType='non';
+                    $sMessage='ไม่มีข้อมูล';
+                }
+                return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
+            }
+
+            //phase 1
+            elseif($projectSetup['phase1status']!='close'){
+                $sType = 'wait';
+                $sStatus = 'เสนอแนวคิดสิ่งประดิษฐ์';
+                $sMessage = 'รอการตรวจสอบจากคณะกรรมการ';
+                if(isset($keyPhase[1])){
+                    $sType = $keyPhase[1];
+                    if($sType=='process'){
+                        $sMessage='ดำเนินการ';
+                    }
+                    elseif ($sType=='fail'){
+                        $sMessage='ไม่ผ่านการคัดเลือก';
+                    }
+                    elseif ($sType=='pass'){
+                        $sMessage='ผ่านการคัดเลือก';
+                    }
+                }
+                elseif ($projectSetup['phase1status']=='process') {
+                    $sType = 'check';
+                    $sMessage = 'ดำเนินการ';
+                }
+                else{
+                    $sType='non';
+                    $sMessage='ไม่มีข้อมูล';
+                }
+                return ['type'=>$sType , 'status'=>$sStatus , 'message'=>$sMessage];
+            }
+        }
+        return ['type'=>'non' , 'status'=>'ไม่มีข้อมูล' , 'message'=>'-'];
+    }
+    //return c3,p3,c2,p2,c1,p1,p
+    function fnActiveLast($keyPhase,$keyConfirm){
+        $str = 'p';
+
+        if(isset($keyConfirm[3])){
+            $str='c3';
+        }
+        elseif (isset($keyPhase[3])){
+            $str='p3';
+        }
+        elseif(isset($keyConfirm[2])){
+            $str='c2';
+        }
+        elseif (isset($keyPhase[2])){
+            $str='p2';
+        }
+        elseif(isset($keyConfirm[1])){
+            $str='c1';
+        }
+        elseif (isset($keyPhase[1])){
+            $str='p1';
+        }
+        return $str;
+    }
+
     /* ----- function call ----- */
     function checkUserInProject($project_id , $user_id){
         $this->connect();
