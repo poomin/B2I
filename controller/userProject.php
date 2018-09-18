@@ -9,6 +9,13 @@ require_once __DIR__.'/ModelProject.php';
 $MP = new ModelProject();
 
 
+$fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
+if($fn=='deleteProject'){
+    $id = isset($_REQUEST['project_id'])?$_REQUEST['project_id']:'';
+    $result = $MP->deleteProject($id);
+}
+
+
 $PROJECT = [];
 $result = $MP->getProjectByUserId($user_id);
 if(count($result)>0){

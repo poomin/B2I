@@ -11,6 +11,7 @@ require_once __DIR__.'/_redirectUser.php';
 $m_nev = '';
 $m_li = 'project';
 $user_id = isset($_SESSION['id'])?$_SESSION['id']:'';
+$role = isset($_SESSION['role'])?$_SESSION['role']:'';
 require_once __DIR__.'/controller/userProject.php';
 ?>
 <!DOCTYPE html>
@@ -100,6 +101,15 @@ require_once __DIR__.'/controller/userProject.php';
                                 </td>
                                 <td class="text-center">
                                     <a href="user-project-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i> จัดการโปรเจค </a>
+
+                                    <?php if($role=='teacher'): ?>
+                                    <button class="btn btn-danger btn-sm" onclick="modalDeleteProject(this);"
+                                            attr_name = '<?=$item['name'];?>'
+                                            attr_id ='<?=$item['id'];?>'>
+                                        <i class="fa fa-remove"></i> ลบ
+                                    </button>
+                                    <?php endif; ?>
+
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -130,7 +140,45 @@ require_once __DIR__.'/controller/userProject.php';
     $(document).ready(function() {
         $('#thisdatatable').DataTable();
     } );
+
+    function modalDeleteProject(_this) {
+        var name = $(_this).attr('attr_name');
+        var id = $(_this).attr('attr_id');
+        $('#textDeleteProject').html(name);
+        $('#modalDeleteProjectId').val(id);
+
+        $('.modalDeleteProject').modal();
+    }
 </script>
+
+
+
+<!--    modal delete Project -->
+<div class="modal fade modalDeleteProject" tabindex="-1" role="dialog" aria-labelledby="myLargeModalDeleteProject">
+    <div class="modal-dialog modal-lg" role="document">
+        <form class="modal-content" method="post">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myLargeModalDeleteProject">ยืนยันการโครงการ</h4>
+            </div>
+            <div class="modal-body">
+                <p>ยืนยันการลบข้อมูล <strong id="textDeleteProject"> </strong></p>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="check" required> ยืนยันการลบโปรเจค
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input name="fn" value="deleteProject" type="text" hidden>
+                <input id="modalDeleteProjectId" name="project_id" value="" type="text" hidden>
+                <button type="submit" class="btn btn-danger">ยันยัน</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 </body>
 </html>
