@@ -45,18 +45,18 @@ $m_li = 'report';
                     <hr>
 
                     <div class="class-p1">
-                        <p><a id="ap1" href="admin-report-print.php?id=p1&value=" target="_blank"><h4>เสนอแนวคิดสิ่งประดิษฐ์ <i class="fa fa-print"></i></h4> </a></p>
+                        <p><h4><a id="link_ap1" href="admin-report-print.php?id=p1&value=" target="_blank">เสนอแนวคิดสิ่งประดิษฐ์ <i class="fa fa-print"></i> </a> </h4></p>
                         <p>
-                            <input type="checkbox" id="p1F" value="::fail" onchange="onCheckP1(this)"> โครงการที่ตกรอบ
+                            <input type="checkbox" id="p1F" value="::fail" onchange="onCheckP1(this);"> โครงการที่ตกรอบ
                         </p>
                         <p>
-                            <input type="checkbox" id="p1Pro" value="::process" onchange="onCheckP1(this)"> โครงการที่กำลังดำเนินการ
+                            <input type="checkbox" id="p1Pro" value="::process" onchange="onCheckP1(this);"> โครงการที่กำลังดำเนินการ
                         </p>
                         <p>
-                            <input type="checkbox" id="p1W" value="::wait" onchange="onCheckP1(this)"> โครงการที่รอตรวจสอบจากคณะกรรมการ
+                            <input type="checkbox" id="p1W" value="::wait" onchange="onCheckP1(this);"> โครงการที่รอตรวจสอบจากคณะกรรมการ
                         </p>
                         <p>
-                            <input type="checkbox" id="p1P" value="::pass" onchange="onCheckP1(this)"> โครงการที่ผ่านการคัดเลือก
+                            <input type="checkbox" id="p1P" value="::pass" onchange="onCheckP1(this);"> โครงการที่ผ่านการคัดเลือก
                         </p>
                         <hr>
                     </div>
@@ -65,7 +65,7 @@ $m_li = 'report';
                         <hr>
                     </div>
                     <div class="class-p2">
-                        <p><a id="ap2" href="admin-report-print.php?id=p2&value=" target="_blank"><h4>ส่ง video <i class="fa fa-print"></i></h4> </a></p>
+                        <p><h4><a id="ap2" href="admin-report-print.php?id=p2&value=" target="_blank">ส่ง video <i class="fa fa-print"></i> </a></h4></p>
                         <p>
                             <input type="checkbox" id="p2F" value="::fail" onchange="onCheckP2(this)"> โครงการที่ตกรอบ
                         </p>
@@ -99,16 +99,19 @@ $m_li = 'report';
 <?php include '_script.php'; ?>
 
 <script>
+
     function onCheckP1(res) {
-        var ap1 = $('#ap1').attr('href');
+        var ap1 = $('#link_ap1').attr('href');
         var val = $(res).val();
         if($(res).is(':checked')){
             ap1 = ap1 + val;
         }else {
             ap1 = ap1.replace(val,'');
         }
-        $('#ap1').attr('href',ap1);
+
+        $('#link_ap1').attr("href",ap1);
     }
+
     function onCheckP2(res) {
         var ap1 = $('#ap2').attr('href');
         var val = $(res).val();
@@ -119,6 +122,7 @@ $m_li = 'report';
         }
         $('#ap2').attr('href',ap1);
     }
+
 </script>
 
 </body>

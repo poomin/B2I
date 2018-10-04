@@ -143,12 +143,12 @@ where c.project_id =$id";
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">N</th>
+                <th scope="col">โครงการ</th>
                 <th scope="col">Status</th>
-                <th scope="col">S & A</th>
-                <th scope="col">R</th>
-                <th scope="col">F-L</th>
-                <th scope="col">S</th>
+                <th scope="col">โรงเรียน</th>
+                <th scope="col">ภาค</th>
+                <th scope="col">ชื่อ-สกุล</th>
+                <th scope="col">สถานะ</th>
             </tr>
             </thead>
             <tbody>
@@ -191,7 +191,7 @@ where c.project_id =$id";
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">N</th>
+                <th scope="col"></th>
                 <th scope="col">S & A</th>
                 <th scope="col">R</th>
                 <th scope="col">F-L</th>
