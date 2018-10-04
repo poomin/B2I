@@ -42,6 +42,9 @@ $role = $_SESSION['role'];
         <li class="<?= $m_li=='check'?'active':'';?>">
             <a href="admin-check.php"><i class="fa fa-edit fa-fw"></i> ตรวจโครงการ</a>
         </li>
+        <li class="<?= $m_li=='report'?'active':'';?>">
+            <a href="admin-report.php"><i class="fa fa-file-text fa-fw"></i> รายงาน</a>
+        </li>
         <li>
             <hr>
             <i class="fa fa-bookmark fa-fw"></i> ระเบียบโครงการ
