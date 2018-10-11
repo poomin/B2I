@@ -115,6 +115,10 @@
                         $shirts_size = $item['shirts_size'];
                         $phone = $item['phone'];
                         $food = $item['vegetarian_food'];
+
+                        $nt = $item['name_title'];
+                        $nth = $item['name_thai'];
+                        $sth = $item['surname_thai'];
                     ?>
                         <form class="form-horizontal" method="post">
                             <div class="form-group">
@@ -151,6 +155,32 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="text-center">
+                                <span class="text-danger">**กรุณากรอกข้อมูล ชื่อ-สกุล(ภาษาไทย)ให้ถูกต้องเพื่อใช้ทำ เกียรติบัตร,ฯลฯ</span>
+                            </div>
+                            <div class="form-group col-sm-11" style="padding-left: 50px;">
+                                <div class="col-sm-3">
+                                    <label class="label-control">คำนำหน้า</label>
+                                    <select class="form-control" name="name_title" required>
+                                        <option value="">กรุณาเลือก</option>
+                                        <option value="เด็กชาย" <?=($nt=='เด็กชาย'?'selected':'');?>>เด็กชาย</option>
+                                        <option value="เด็กหญิง" <?=($nt=='เด็กหญิง'?'selected':'');?> >เด็กหญิง</option>
+                                        <option value="นาย" <?=($nt=='นาย'?'selected':'');?> >นาย</option>
+                                        <option value="นางสาว" <?=($nt=='นางสาว'?'selected':'');?> >นางสาว</option>
+                                        <option value="นาง" <?=($nt=='นาง'?'selected':'');?> >นาง</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="label-control">ชื่อ</label>
+                                    <input class="form-control" type="text" name="name_thai" value="<?=$nth;?>" placeholder="ชื่อ" required>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="label-control">นามสกุล</label>
+                                    <input class="form-control" type="text" name="surname_thai" value="<?=$sth;?>" placeholder="นามสกุล" required>
+                                </div>
+                            </div>
+
                             <div class="form-group" <?=($edit)?'':'hidden';?>>
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <input type="text" name="fn" value="confirm2Teacher" hidden>
@@ -178,6 +208,11 @@
                         $phone = $item['phone'];
                         $food = $item['vegetarian_food'];
                         $room = $item['classroom'];
+
+                        $nt = $item['name_title'];
+                        $nth = $item['name_thai'];
+                        $sth = $item['surname_thai'];
+
                         ?>
                         <form class="form-horizontal" method="post">
                             <div class="form-group">
@@ -220,6 +255,32 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="text-center">
+                                <span class="text-danger">**กรุณากรอกข้อมูล ชื่อ-สกุล(ภาษาไทย)ให้ถูกต้องเพื่อใช้ทำ เกียรติบัตร,ฯลฯ</span>
+                            </div>
+                            <div class="form-group col-sm-11" style="padding-left: 50px;">
+                                <div class="col-sm-3">
+                                    <label class="label-control">คำนำหน้า</label>
+                                    <select class="form-control" name="name_title" required>
+                                        <option value="">กรุณาเลือก</option>
+                                        <option value="เด็กชาย" <?=($nt=='เด็กชาย'?'selected':'');?>>เด็กชาย</option>
+                                        <option value="เด็กหญิง" <?=($nt=='เด็กหญิง'?'selected':'');?> >เด็กหญิง</option>
+                                        <option value="นาย" <?=($nt=='นาย'?'selected':'');?> >นาย</option>
+                                        <option value="นางสาว" <?=($nt=='นางสาว'?'selected':'');?> >นางสาว</option>
+                                        <option value="นาง" <?=($nt=='นาง'?'selected':'');?> >นาง</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="label-control">ชื่อ</label>
+                                    <input class="form-control" type="text" name="name_thai" value="<?=$nth;?>" placeholder="ชื่อ" required>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="label-control">นามสกุล</label>
+                                    <input class="form-control" type="text" name="surname_thai" value="<?=$sth;?>" placeholder="นามสกุล" required>
+                                </div>
+                            </div>
+
                             <div class="form-group" <?=($edit)?'':'hidden';?>>
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <input type="text" name="fn" value="confirm2Student" hidden>

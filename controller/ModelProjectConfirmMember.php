@@ -41,15 +41,21 @@ class ModelProjectConfirmMember extends  _PDO
         $phone = isset($input['phone'])?$input['phone']:'';
         $vegetarian_food = isset($input['vegetarian_food'])?$input['vegetarian_food']:'';
 
+        $name_title = isset($input['name_title'])?$input['name_title']:'';
+        $name_thai = isset($input['name_thai'])?$input['name_thai']:'';
+        $surname_thai = isset($input['surname_thai'])?$input['surname_thai']:'';
 
         //connect DB
         $this->connect();
         $sql = "UPDATE b2i_project_confirm_member SET shirts_size=:shirts_size,phone=:phone,vegetarian_food=:vegetarian_food
-        WHERE confirm_id=:confirm_id AND user_id=:user_id";
+        ,name_title=:name_title ,name_thai=:name_thai ,surname_thai=:surname_thai WHERE confirm_id=:confirm_id AND user_id=:user_id";
         $params= array(
             ':shirts_size'=> $shirts_size,
             ':phone'=> $phone,
             ':vegetarian_food'=> $vegetarian_food,
+            ':name_title'=>$name_title,
+            ':name_thai'=>$name_thai,
+            ':surname_thai'=>$surname_thai,
             ':user_id'=> $user_id,
             ':confirm_id'=>$confirm_id
         );
@@ -69,16 +75,22 @@ class ModelProjectConfirmMember extends  _PDO
         $classroom = isset($input['classroom'])?$input['classroom']:'';
         $vegetarian_food = isset($input['vegetarian_food'])?$input['vegetarian_food']:'';
 
+        $name_title = isset($input['name_title'])?$input['name_title']:'';
+        $name_thai = isset($input['name_thai'])?$input['name_thai']:'';
+        $surname_thai = isset($input['surname_thai'])?$input['surname_thai']:'';
 
         //connect DB
         $this->connect();
         $sql = "UPDATE b2i_project_confirm_member SET shirts_size=:shirts_size,phone=:phone,vegetarian_food=:vegetarian_food,classroom=:classroom 
-        WHERE confirm_id=:confirm_id AND user_id=:user_id";
+         ,name_title=:name_title ,name_thai=:name_thai ,surname_thai=:surname_thai  WHERE confirm_id=:confirm_id AND user_id=:user_id";
         $params= array(
             ':shirts_size'=> $shirts_size,
             ':phone'=> $phone,
             ':vegetarian_food'=> $vegetarian_food,
             ':classroom'=>$classroom,
+            ':name_title'=>$name_title,
+            ':name_thai'=>$name_thai,
+            ':surname_thai'=>$surname_thai,
             ':user_id'=> $user_id,
             ':confirm_id'=>$confirm_id
         );
