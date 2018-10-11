@@ -260,12 +260,21 @@ elseif ($fn=='confirm2Teacher'){
     $shirts_size = isset($_REQUEST['shirts_size'])?$_REQUEST['shirts_size']:'';
     $phone = isset($_REQUEST['phone'])?$_REQUEST['phone']:'';
     $vegetarian_food = isset($_REQUEST['vegetarian_food'])?$_REQUEST['vegetarian_food']:'';
+
+    $name_title = isset($_REQUEST['name_title'])?$_REQUEST['name_title']:'';
+    $name_thai = isset($_REQUEST['name_thai'])?$_REQUEST['name_thai']:'';
+    $surname_thai = isset($_REQUEST['surname_thai'])?$_REQUEST['surname_thai']:'';
+
     $result = $MCM->editCMTeacher([
         'confirm_id'=>$confirm_id,
         'user_id'=>$user_id,
         'shirts_size'=>$shirts_size,
         'phone'=>$phone,
         'vegetarian_food'=>$vegetarian_food,
+
+        'name_title'=>$name_title,
+        'name_thai'=>$name_thai,
+        'surname_thai'=>$surname_thai
     ]);
 }
 elseif ($fn=='confirm2Student'){
@@ -275,13 +284,22 @@ elseif ($fn=='confirm2Student'){
     $phone = isset($_REQUEST['phone'])?$_REQUEST['phone']:'';
     $classroom = isset($_REQUEST['classroom'])?$_REQUEST['classroom']:'';
     $vegetarian_food = isset($_REQUEST['vegetarian_food'])?$_REQUEST['vegetarian_food']:'';
+
+    $name_title = isset($_REQUEST['name_title'])?$_REQUEST['name_title']:'';
+    $name_thai = isset($_REQUEST['name_thai'])?$_REQUEST['name_thai']:'';
+    $surname_thai = isset($_REQUEST['surname_thai'])?$_REQUEST['surname_thai']:'';
+
     $result = $MCM->editCMStudent([
         'confirm_id'=>$confirm_id,
         'user_id'=>$user_id,
         'shirts_size'=>$shirts_size,
         'phone'=>$phone,
         'classroom'=>$classroom,
-        'vegetarian_food'=>$vegetarian_food
+        'vegetarian_food'=>$vegetarian_food,
+
+        'name_title'=>$name_title,
+        'name_thai'=>$name_thai,
+        'surname_thai'=>$surname_thai
     ]);
 }
 

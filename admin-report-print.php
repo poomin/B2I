@@ -71,6 +71,7 @@ where m.project_id = $id";
     }
 
 }
+
 elseif($id=='c1' || $id=='c2'){
     if($id=='c1'){
         $phase = 1;
@@ -99,22 +100,30 @@ where phase.phase=$phase ";
         $address.= ($item['province']=='' || $item['province']=='-')?'':' จังหวัด'.$item['province'];
         $address.= ($item['code']=='' || $item['code']=='-')?'':' '.$item['code'];
 
-        $sql = "select u.name , u.surname , m.membertype , m.shirts_size , m.phone , m.classroom , m.vegetarian_food , c.driver ,c.check_in  from b2i_project_confirm c 
-left join b2i_project_confirm_member m on c.id = m.confirm_id
-left join b2i_user u on m.user_id = u.id
-where c.project_id =$id";
+        $sql = "select u.name , u.surname , m.membertype , m.shirts_size , m.phone , m.classroom ,
+        m.vegetarian_food , c.driver ,c.check_in, m.name_title,m.name_thai,m.surname_thai
+        from b2i_project_confirm c 
+        left join b2i_project_confirm_member m on c.id = m.confirm_id
+        left join b2i_user u on m.user_id = u.id
+        where c.project_id =$id AND c.confirm_phase='$phase'";
+
         $member = $MR->reportSql($sql);
 
-        $CONFIRM[] = [
-            'name'=> $name,
-            'schoolname' => $schoolname,
-            'address'=>$address,
-            'schoolregion'=> $schoolregion,
-            'driver'=> $member[0]['driver'],
-            'checkin'=>$member[0]['check_in'],
-            'member'=>$member
-        ];
+        if(count($member)>0){
+            $CONFIRM[] = [
+                'name'=> $name,
+                'schoolname' => $schoolname,
+                'address'=>$address,
+                'schoolregion'=> $schoolregion,
+                'driver'=> isset($member[0]['driver'])?$member[0]['driver']:'-',
+                'checkin'=> isset($member[0]['check_in'])?$member[0]['check_in']:'-',
+                'member'=>$member
+            ];
+        }
+
+
     }
+
 }
 
 
@@ -173,7 +182,7 @@ where c.project_id =$id";
 
                     <?php foreach ($item['member'] as $k=>$i): ?>
                         <td><?php echo $i['name'].' '.$i['surname']; ?></td>
-                        <td><?php echo $i['membertype']=='header'?'ที่ปรึกษาโครงการ':'นักเรียน/นักศึกษา'; ?></td>
+                        <td><?php echo $i['membertype']=='header'?'ครู':'นักเรียน'; ?></td>
                     </tr>
                     <tr class="<?php echo $trClass;?>">
                     <?php endforeach; ?>
@@ -191,17 +200,17 @@ where c.project_id =$id";
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col"></th>
-                <th scope="col">S & A</th>
-                <th scope="col">R</th>
-                <th scope="col">F-L</th>
-                <th scope="col">S</th>
+                <th scope="col">โครงการ</th>
+                <th scope="col">โรงเรียน</th>
+                <th scope="col">ภาค</th>
+                <th scope="col" style="width: 200px;">ชื่อ-สกุล</th>
+                <th scope="col">สถานะ</th>
                 <th scope="col">SIZE</th>
-                <th scope="col">F</th>
-                <th scope="col">C</th>
+                <th scope="col">มังสวิตัติ</th>
+                <th scope="col">ชั้น</th>
                 <th scope="col">Tel.</th>
                 <th scope="col">Check in</th>
-                <th scope="col">D.</th>
+                <th scope="col">พขร.</th>
             </tr>
             </thead>
             <tbody>
@@ -224,8 +233,10 @@ where c.project_id =$id";
 
 
                 <?php foreach ($item['member'] as $k=>$i): ?>
-                    <td><?php echo $i['name'].' '.$i['surname']; ?></td>
-                    <td><?php echo $i['membertype']=='header'?'ที่ปรึกษาโครงการ':'นักเรียน/นักศึกษา'; ?></td>
+                    <td><?php echo $i['name_title']==''?'คุณ':$i['name_title'];
+                            echo $i['name_thai']==''?$i['name']:$i['name_thai'];
+                            echo $i['surname_thai']==''?' '.$i['surname']:' '.$i['surname_thai']; ?></td>
+                    <td><?php echo $i['membertype']=='header'?'ครู':'นักเรียน'; ?></td>
                     <td><?php echo $i['shirts_size']; ?></td>
                     <td><?php echo $i['vegetarian_food']=='Y'?'ไม่ทาน':'ทาน'; ?></td>
                     <td><?php echo $i['classroom']; ?></td>
