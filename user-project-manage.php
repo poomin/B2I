@@ -137,7 +137,7 @@ require_once __DIR__.'/controller/userProjectManage.php';
                             <?php include  'user-project-manage-p1c.php';?>
 
                             <?php include  'user-project-manage-p2.php';?>
-                            <?php include  'user-project-manage-p2C.php';?>
+                            <?php include  'user-project-manage-p2c.php';?>
 
                             <?php include  'user-project-manage-p3.php';?>
 

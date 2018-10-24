@@ -131,7 +131,7 @@ include "controller/adminCheckManage.php"
                             <?php include  'admin-check-manage-p1c.php';?>
 
                             <?php include  'admin-check-manage-p2.php';?>
-                            <?php include  'admin-check-manage-p2C.php';?>
+                            <?php include  'admin-check-manage-p2c.php';?>
 
                             <?php include  'admin-check-manage-p3.php';?>
 
