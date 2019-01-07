@@ -42,6 +42,8 @@ include __DIR__."/controller/adminUser.php"
                     </div>
                     <hr>
 
+                    <?php require_once __DIR__.'/_alert.php'; ?>
+
                     <div>
                         <table id="thisdatatable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
@@ -52,7 +54,7 @@ include __DIR__."/controller/adminUser.php"
                                 <th>โรงเรียน</th>
                                 <th>ภาค</th>
                                 <th>สถานะ</th>
-                                <th>เพิ่ม</th>
+                                <th style="width: 18%;">เพิ่ม</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,11 +69,10 @@ include __DIR__."/controller/adminUser.php"
                                     <td class="text-center">
 
                                         <a href="admin-user-edit.php?id=<?=$item['id'];?>" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> แก้ไข </a>
-                                        <form class="form-group" method="post">
-                                            <input name="id" value="<?=$item['id'];?>" hidden>
-                                            <input name="fn" value="deleteUser" hidden>
-                                            <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-remove"></i> ลบ </button>
-                                        </form>
+
+                                        <div class="form-group">
+                                              <button class="btn btn-danger btn-sm" type="button" onclick="deleteConfirm('<?php echo $item['id'];?>','<?php echo $item['username'];?>');" <?= $role=='admin'?'':'disabled';?>><i class="fa fa-remove"></i> ลบ </button>
+                                        </div>
 
                                     </td>
                                 </tr>
@@ -97,11 +98,23 @@ include __DIR__."/controller/adminUser.php"
 <?php include '_script.php'; ?>
 <?php include '_datatablescript.php';?>
 
+<?php require_once __DIR__.'/_modalDeleteConfirm.php';?>
+
 <script>
     $(document).ready(function () {
         $('#thisdatatable').DataTable();
     });
+
+    function deleteConfirm(id,text) {
+        var fn_name = 'deleteUser';
+        var fn_text = text;
+        var fn_id = id;
+        setModalDelete(fn_name,fn_text,fn_id);
+    }
+
 </script>
+
+
 
 </body>
 </html>

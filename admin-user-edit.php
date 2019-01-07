@@ -38,22 +38,7 @@ require_once __DIR__.'/controller/adminUserEdit.php'
             <div class="col-xs-12 col-sm-9">
                 <div class="box-card" style="padding-left: 100px; padding-right: 100px">
 
-                    <?php if(isset($_SESSION['success'])): ?>
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong>Success. </strong> <?php echo $_SESSION['success']; ?>
-                        </div>
-                        <?php unset($_SESSION['success']);
-                    endif; ?>
-
-                    <?php if (isset($_SESSION['error'])): ?>
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            <strong>Warning!</strong> <?php echo $_SESSION['error']; ?>
-                        </div>
-                        <?php unset($_SESSION['error']);
-                    endif; ?>
+                    <?php require_once __DIR__.'/_alert.php'; ?>
 
 
                     <div class="text-center">
@@ -101,15 +86,24 @@ require_once __DIR__.'/controller/adminUserEdit.php'
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <label class="label-control">สถานะ</label> <br>
-                                <input name="role" type="radio" value="student" <?=$USER['role']=='student'?'checked':''?> disabled> นักเรียน / นักศึกษา <br>
-                                <input name="role" type="radio" value="teacher" <?=$USER['role']=='teacher'?'checked':''?> disabled> ครู / อาจารย์
+                                <input name="role" type="radio" value="student" <?=$USER['role']=='student'?'checked':''?> > นักเรียน / นักศึกษา <br>
+                                <input name="role" type="radio" value="teacher" <?=$USER['role']=='teacher'?'checked':''?> > ครู / อาจารย์ <br>
+                                <input name="role" type="radio" value="board" <?=$USER['role']=='board'?'checked':''?> > คณะกรรมการ <br>
+                                <input name="role" type="radio" value="company" <?=$USER['role']=='company'?'checked':''?> > ผู้ดูแลจากทางบริษัท <br>
+                                <input name="role" type="radio" value="admin" <?=$USER['role']=='admin'?'checked':''?> > Admin <br>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <label class="label-control">โรงเรียน / สถานศึกษา</label>
-                                <input class="form-control" type="text" name="schoolname" value="<?=$USER['schoolname'];?>">
+<!--                                <input class="form-control" type="text" name="schoolname" value="--><?//=$USER['schoolname'];?><!--">-->
+                                <select  name="schoolname" class="selectpicker form-control" data-live-search="true">
+                                    <option value=""></option>
+                                    <?php foreach ($SCHOOL as $item): ?>
+                                        <option value="<?=$item['school_name'];?>" <?php echo $item['school_name']==$USER['schoolname']?'selected':''; ?> ><?=$item['school_name'];?> <?= $item['province']!=''?'( '.$item['province'].' )':''; ?></option>
+                                    <?php endforeach;?>
+                                </select>
                             </div>
                         </div>
 
@@ -130,7 +124,7 @@ require_once __DIR__.'/controller/adminUserEdit.php'
                         <div class="text-center">
                             <input class="hidden" name="id" value="<?=$USER['id'];?>">
                             <input class="hidden" name="fn" value="editUser">
-                            <button type="submit" class="btn btn-lg sr-button btn-success">SEND</button>
+                            <button type="submit" class="btn btn-lg sr-button btn-success" <?= $role=='admin'?'':'disabled';?> >SEND</button>
                         </div>
 
                     </form>

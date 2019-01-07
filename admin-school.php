@@ -43,14 +43,16 @@ include __DIR__."/controller/adminSchool.php"
                     </div>
                     <hr>
 
+                    <?php require_once __DIR__.'/_alert.php';?>
+
                     <div>
                         <table id="thisdatatable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>โรงเรียน</th>
+                                <th style="width: 40%;">โรงเรียน</th>
                                 <th>ที่อยู่</th>
-                                <th>Action</th>
+                                <th style="width: 18%">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -76,11 +78,11 @@ include __DIR__."/controller/adminSchool.php"
                                                     attr_code = '<?=$item['code'];?>'
                                                     onclick="modalEditSchool(this)"><i class="fa fa-edit"></i> แก้ไข </button>
                                         </div>
-                                        <form class="form-group" method="post">
-                                            <input name="name" value="<?=$item['school_name'];?>" hidden>
-                                            <input name="fn" value="deleteSchool" hidden>
-                                            <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-remove"></i> ลบ </button>
-                                        </form>
+                                        <div class="form-group">
+                                            <button class="btn btn-danger btn-sm" type="button" <?= $role=='admin'?'':'disabled';?>
+                                                    onclick="deleteConfirm('<?=$item['school_name'];?>','<?=$item['school_name'];?>');">
+                                                <i class="fa fa-remove"></i> ลบ </button>
+                                        </div>
 
 
                                     </td>
@@ -129,6 +131,14 @@ include __DIR__."/controller/adminSchool.php"
         $('#id_name').val(name);
 
         $('#modalEditSchool').modal();
+    }
+
+    function deleteConfirm(id,text) {
+        var fn_name = 'deleteSchool';
+        var fn_text = 'โรงเรียน '+text;
+        var fn_id = id;
+        setModalDelete(fn_name,fn_text,fn_id);
+
     }
 
 </script>
@@ -254,6 +264,8 @@ include __DIR__."/controller/adminSchool.php"
         </form>
     </div>
 </div>
+
+<?php require_once __DIR__.'/_modalDeleteConfirm.php';?>
 
 
 

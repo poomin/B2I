@@ -48,7 +48,7 @@ $m_li = 'award';
                     </div>
 
                     <div class="text-center" style="padding-top: 20px;">
-                        <button type="submit" class="btn btn-lg sr-button btn-success" onclick="saveText()">SAVE</button>
+                        <button type="submit" class="btn btn-lg sr-button btn-success" onclick="saveText()" <?= $role=='admin'?'':'disabled';?> >SAVE</button>
                     </div>
 
                 </div>

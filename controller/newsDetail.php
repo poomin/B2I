@@ -5,8 +5,8 @@
  * Date: 31/5/2561
  * Time: 23:57
  */
-include_once __DIR__.'/ModelPost.php';
-include_once __DIR__.'/ModelComment.php';
+include_once __DIR__.'/../model/ModelPost.php';
+include_once __DIR__.'/../model/ModelComment.php';
 
 $MP = new ModelPost();
 $MC = new ModelComment();
@@ -14,24 +14,25 @@ $MC = new ModelComment();
 $NEWS = [];
 $COMMENTS = [];
 
+$id = $MP->input('id');
+$fn = $MP->input('fn');
 
-$fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
 if($fn=='addComment'){
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $post_id = isset($_REQUEST['post_id'])?$_REQUEST['post_id']:'';
-    $details = isset($_REQUEST['details'])?$_REQUEST['details']:'';
+    $user_id = $MC->input('user_id');
+    $post_id = $MC->input('post_id');
+    $details = $MC->input('details');
     $input = [
         'user_id'=> $user_id,
         'post_id'=> $post_id,
         'details'=> $details
     ];
-    $result = $MC->addComment($input);
+    $result = $MC->insertThis($input);
     $result = $MP->countAddCommentPost($post_id);
 
 }
 
-$id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-$result = $MP->getPostById($id);
+
+$result = $MP->selectThis(['id'=>$id]);
 if(isset($result['id'])){
     $NEWS=$result;
 
@@ -42,12 +43,4 @@ if(isset($result['id'])){
     if(count($result)>0){
         $COMMENTS = $result;
     }
-}
-
-
-
-
-$result = $MP->getTopPost(2);
-if(count($result) > 0){
-    $TOPNEWS = $result;
 }

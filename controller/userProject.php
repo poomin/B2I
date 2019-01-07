@@ -5,19 +5,19 @@
  * Date: 5/30/2018
  * Time: 2:16 PM
  */
-require_once __DIR__.'/ModelProject.php';
+require_once __DIR__.'/../model/ModelProject.php';
 $MP = new ModelProject();
 
 
-$fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
+$fn = $MP->input('fn');
 if($fn=='deleteProject'){
-    $id = isset($_REQUEST['project_id'])?$_REQUEST['project_id']:'';
-    $result = $MP->deleteProject($id);
+    $id = $MP->input('project_id');
+    $result = $MP->deleteThis(['id'=>$id]);
 }
 
 
 $PROJECT = [];
-$result = $MP->getProjectByUserId($user_id);
+$result = $MP->selectForUserProject($user_id,$SETID);
 if(count($result)>0){
     $PROJECT = $result;
     foreach ($PROJECT as $key=>$item){

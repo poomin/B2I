@@ -100,7 +100,7 @@ include "controller/adminCheck.php"
                                             <td class="text-center">
                                                 <a href="admin-check-manage.php?id=<?=$item['id'];?>" class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> ตรวจ </a>
 
-                                                <button class="btn btn-danger btn-sm" onclick="modalDeleteProject(this);"
+                                                <button class="btn btn-danger btn-sm" onclick="modalDeleteProject(this);" <?= $role=='admin'?'':'disabled';?>
                                                 attr_name = '<?=$item['name'];?>'
                                                 attr_id ='<?=$item['id'];?>'>
                                                     <i class="fa fa-remove"></i> ลบ

@@ -37,7 +37,7 @@ $m_li = 'news';
             <div class="col-xs-12 col-sm-9">
                 <div class="box-card">
                     <div class="text-left">
-                        <h3>ข่าว / ประกาศ </h3>
+                        <h3>ข่าว / ประกาศ / ผลงาน </h3>
                     </div>
                     <hr>
 
@@ -81,7 +81,7 @@ $m_li = 'news';
 
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <label class="label-control">หัวข้อข่าว/ประกาศ</label>
+                                <label class="label-control">หัวข้อข่าว/ประกาศ/ผลงานส่งเข้าประกวด</label>
                                 <input id="inputTitle" class="form-control" name="name" type="text" value="">
                             </div>
                         </div>
@@ -93,6 +93,7 @@ $m_li = 'news';
                                     <option value="news"> ข่าว </option>
                                     <option value="article"> บทความ </option>
                                     <option value="announce"> ประกาศ </option>
+                                    <option value="project"> ผลงานที่ส่งเข้าประกวด </option>
                                 </select>
                             </div>
                         </div>

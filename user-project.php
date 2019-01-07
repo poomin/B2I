@@ -10,6 +10,7 @@ require_once __DIR__.'/_redirectUser.php';
  */
 $m_nev = '';
 $m_li = 'project';
+
 $user_id = isset($_SESSION['id'])?$_SESSION['id']:'';
 $role = isset($_SESSION['role'])?$_SESSION['role']:'';
 require_once __DIR__.'/controller/userProject.php';

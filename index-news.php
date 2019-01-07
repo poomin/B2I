@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set("Asia/Bangkok");
 /**
  * Created by PhpStorm.
  * User: Gimo
@@ -22,34 +23,79 @@ include_once __DIR__.'/controller/news.php';
 <?php include '_menunev.php'; ?>
 <!-- End of Navigation Bar -->
 
-<!-- Principal Content Start -->
-<div id="blog">
+<!-- Header -->
+<div id="about">
+    <div class="row">
+        <div class="col-xs-12 intro">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img class="img-responsive" src="images/header-mini.jpg" alt="header picture">
+                </div>
+                <div class="carousel-menu">
+                    <ul class="nav nav-pills nav-justified">
+                        <li></li>
+                        <li class="lia <?= $type==''?'active':'';?>" onclick="activeMenuNevBar('');">
+                            <i class="fa fa-book fa-2x"></i> ทั้งหมด
+                        </li>
+                        <li class="lia <?= $type=='news'?'active':'';?>" onclick="activeMenuNevBar('news');">
+                            <i class="fa fa-newspaper-o sr-icons fa-2x"></i> ข่าว
+                        </li>
+                        <li class="lia <?= $type=='article'?'active':'';?>" onclick="activeMenuNevBar('article');">
+                            <i class="fa fa-pencil-square sr-icons fa-2x"></i> บทความ
+                        </li>
+                        <li class="lia <?= $type=='announce'?'active':'';?>" id="li3" onclick="activeMenuNevBar('announce');">
+                            <i class="fa fa-rss-square sr-icons fa-2x"></i> ประกาศ
+                        </li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="container">
         <div class="row">
 
             <!-- Blocks of Posts -->
             <div class="col-xs-12 col-sm-8 row">
+
                 <?php foreach ($NEWS as $item): ?>
-                    <div class="col-xs-12 col-sm-12">
-                    <div class="post">
-                        <div class="post-heading">
-                            <span><?=$item['createat'];?></span>
-                            <img class="img-responsive" src="<?=$item['path'];?>" alt="image" style="height: 400px;">
+
+                    <div class="box-card post" style="margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="post-heading">
+                                    <img src="<?=$item['path'];?>" class="img-fluid" style="height: 100px; width: 180px;"alt="img">
+                                </div>
+                            </div>
+                            <div class="col-sm-7" style="word-break: break-all;">
+                                <div class="post-body">
+                                    <h4><a href="index-news-detail.php?id=<?=$item['id'];?>"><strong><?=$item['title'];?></strong></a></h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class="post-body">
-                            <h3><a href="index-news-detail.php?id=<?=$item['id'];?>"><strong><?=$item['type'];?></strong></a></h3>
-                            <hr>
-                            <p> <?=$item['title'];?> </p>
-                        </div>
-                        <div class="post-footer">
-                            <a class="btn" href="index-news-detail.php?id=<?=$item['id'];?>">READ MORE...</a>
-                            <span>
-                                 <i class="fa fa-eye sr-icons"></i> <?=$item['view'];?>
-                                 <i class="fa fa-comments sr-icons"></i> <?=$item['comment'];?>
-                            </span>
+                        <div class="row" style="padding-top: 10px;">
+                            <div class="post-footer">
+                        <span>
+                            <i class="fa fa-calendar"></i> <?=date_format(date_create($item['createat']),"d/m/Y");?>
+                            <i class="fa fa-eye" style="padding-left: 10px;"></i> <?=$item['view'];?>
+                            <i class="fa fa-comments" style="padding-left: 10px;"></i> <?=$item['comment'];?>
+                            <i class="fa fa-pencil" style="padding-left: 10px;"></i>
+                            <?php
+                            $i_type = 'ประกาศ';
+                            if($item['type']=='news'){
+                                $i_type='ข่าว';
+                            }elseif($item['type']=='article'){
+                                $i_type='บทความ';
+                            }
+                            echo $i_type;
+                            ?>
+                        </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+
                 <?php endforeach;?>
 
                 <nav class="text-left">
@@ -73,37 +119,34 @@ include_once __DIR__.'/controller/news.php';
                        </span>
                     </div>
                 </form>
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h4>หัวข้อ</h4>
-                    </div>
-                    <div class="panel-body">
-                        <ul class="nav">
-                            <li class="<?= $type=='article'?'activeA':'';?>" ><a href="index-news.php?type=article">บทความ</a></li>
-                            <li class="<?= $type=='news'?'activeA':'';?>"><a href="index-news.php?type=news">ข่าว</a></li>
-                            <li class="<?= $type=='announce'?'activeA':'';?>"><a href="index-news.php?type=announce">ประกาศ</a></li>
-                            <li class="last <?= $type==''?'activeA':'';?>"><a href="index-news.php">ทั้งหมด</a></li>
-                        </ul>
-                    </div>
-                </div>
 
                 <h3>Top Posts</h3>
-                <hr>
 
                 <?php foreach ($TOPNEWS as $item): ?>
-                <div class="post">
-                    <div class="post-heading">
-                        <span><?=$item['createat'];?></span>
-                        <img class="img-responsive" src="<?=$item['path'];?>" alt="post's picture">
+                    <div class="post" style="margin-top: 10px;">
+                        <div class="post-heading">
+                            <a href="index-news-detail.php?id=<?=$item['id'];?>">
+                                <img class="img-responsive" src="<?=$item['path'];?>" alt="post's picture">
+                            </a>
+                        </div>
+                        <div class="post-body">
+                             <span>
+                                <i class="fa fa-calendar"></i> <?=date_format(date_create($item['createat']),"d/m/Y");?>
+                                 <i class="fa fa-eye" style="padding-left: 10px;"></i> <?=$item['view'];?>
+                                 <i class="fa fa-comments" style="padding-left: 10px;"></i> <?=$item['comment'];?>
+                                 <i class="fa fa-pencil" style="padding-left: 10px;"></i>
+                                 <?php
+                                 $i_type = 'ประกาศ';
+                                 if($item['type']=='news'){
+                                     $i_type='ข่าว';
+                                 }elseif($item['type']=='article'){
+                                     $i_type='บทความ';
+                                 }
+                                 echo $i_type;
+                                 ?>
+                             </span>
+                        </div>
                     </div>
-                    <div class="post-body">
-                 <span>
-                 <i class="fa fa-eye sr-icons"></i> <?=$item['view'];?>
-                 <i class="fa fa-comments sr-icons"></i> <?=$item['comment'];?>
-                 </span>
-                        <h4 class="text-left"><a href="index-news-detail.php?id=<?=$item['id'];?>"><strong><?=$item['type'];?></strong></a></h4>
-                    </div>
-                </div>
                 <?php endforeach;?>
 
             </div>
@@ -111,14 +154,24 @@ include_once __DIR__.'/controller/news.php';
 
         </div>
     </div>
+
 </div>
-<!-- End of Principal Content Start -->
+
+<!-- End of header -->
 
 
 <footer>
     <?php include '_footer.php'; ?>
 </footer>
 <?php include '_script.php';?>
+
+<script>
+    function activeMenuNevBar(index) {
+        var type = "?type="+index;
+        console.log(''+type);
+        window.open("index-news.php"+type , "_self");
+    }
+</script>
 
 </body>
 </html>

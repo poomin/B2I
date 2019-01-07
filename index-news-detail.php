@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set("Asia/Bangkok");
 /**
  * Created by PhpStorm.
  * User: Gimo
@@ -45,7 +46,7 @@ require_once __DIR__.'/controller/newsDetail.php'
                     </div>
                     <hr>
                     <ul class="list-inline">
-                        <li><?=$NEWS['createat']; ?> |</li>
+                        <li><?=date_format(date_create($NEWS['createat']),"d/m/Y H:m:s");?> |</li>
                         <li><a class="page-scroll" href="#form">COMMENT</a> |</li>
                         <li><i class="fa fa-eye sr-icons"></i> <?=$NEWS['view'];?></li>
                         <li><i class="fa fa-comments sr-icons"></i> <?=$NEWS['comment'];?></li>
@@ -63,7 +64,7 @@ require_once __DIR__.'/controller/newsDetail.php'
                 <div class="comment">
                     <h4><?=$item['name'];?> <?=$item['surname'];?></h4>
 
-                    <p class="time"><?=$item['createat'];?></p>
+                    <p class="time"><?=date_format(date_create($item['createat']),"d/m/Y H:m:s");?></p>
                     <hr>
                     <p><?=$item['details'];?></p>
                 </div>

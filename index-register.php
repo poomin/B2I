@@ -28,11 +28,14 @@ include_once __DIR__.'/controller/register.php';
 <div class="container" style="padding-bottom: 50px;">
 
     <div class="col-xs-12 col-sm-8 col-sm-push-2">
+
+        <?php require_once __DIR__.'/_alert.php';?>
+
         <div class="text-center">
             <h3>สมัครสมาชิก</h3>
         </div>
         <hr>
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="post">
 
             <div class="form-group">
                 <div class="col-xs-12">
@@ -54,11 +57,11 @@ include_once __DIR__.'/controller/register.php';
 
             <div class="form-group">
                 <div class="col-xs-6">
-                    <label class="label-control">First Name</label>
+                    <label class="label-control">ชื่อ</label>
                     <input class="form-control" type="text" name="name" required>
                 </div>
                 <div class="col-xs-6">
-                    <label class="label-control">Last Name</label>
+                    <label class="label-control">นามสกุล</label>
                     <input class="form-control" type="text" name="surname" required>
                 </div>
             </div>
@@ -87,7 +90,7 @@ include_once __DIR__.'/controller/register.php';
                         <select  name="schoolname" class="selectpicker form-control" data-live-search="true">
                             <option value=""></option>
                             <?php foreach ($SCHOOL as $item): ?>
-                                <option value="<?=$item['school_name'];?>"><?=$item['school_name'];?></option>
+                                <option value="<?=$item['school_name'];?>"><?=$item['school_name'];?> <?= $item['province']!=''?'( '.$item['province'].' )':''; ?></option>
                             <?php endforeach;?>
                         </select>
                     </div>

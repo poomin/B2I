@@ -5,32 +5,52 @@
  * Date: 31/5/2561
  * Time: 23:57
  */
-include_once __DIR__.'/ModelPost.php';
+include_once __DIR__.'/../model/ModelPost.php';
 $MP = new ModelPost();
 $NEWS = [];
 $TOPNEWS = [];
 $ALLPAGE = 1;
+$SHOW_LIST_SET = 10;
 
-$page= isset($_REQUEST['page'])?$_REQUEST['page']:1;
-$type = isset($_REQUEST['type'])?$_REQUEST['type']:'';
-$search = isset($_REQUEST['search'])?$_REQUEST['search']:'';
+$page= $MP->input('page',1);
+$type = $MP->input('type');
+$search = $MP->input('search');
+
 if($search!=''){
-    $result = $MP->getPostSearch($search);
+    $sql = " WHERE title LIKE '%$search%' ORDER BY id DESC LIMIT 20 ";
+    $result = $MP->selectAllSql($sql);
     if(count($result)>0){
         $NEWS=$result;
         $ALLPAGE = 1;
     }
 }else{
-    $result = $MP->getPostPage($page,$type);
+
+    $limit = ($page-1) * $SHOW_LIST_SET;
+    $limit = $limit>0?$limit:0;
+
+    $sql = "";
+    if($type!=''){
+        $sql = " WHERE `type` = '$type' ";
+    }
+    $sql = $sql." ORDER BY id DESC LIMIT $limit , $SHOW_LIST_SET ";
+
+    $result = $MP->selectAllSql($sql);
     if(count($result)>0){
         $NEWS=$result;
-        $countPage = $MP->getPostPageCount($type);
-        $ALLPAGE = intval($countPage/5);
-        $ALLPAGE = $countPage%5==0?$ALLPAGE:$ALLPAGE+1;
+
+        $sql = "";
+        if($type!=''){
+            $sql = " WHERE `type` = '$type' ";
+        }
+        $countPage = $MP->selectAllSql($sql);
+        $countPage = count($countPage);
+        $ALLPAGE = intval($countPage/$SHOW_LIST_SET);
+        $ALLPAGE = $countPage%$SHOW_LIST_SET==0?$ALLPAGE:$ALLPAGE+1;
     }
 }
 
-$result = $MP->getTopPost(2);
+$sql = "  ORDER BY view DESC LIMIT 3 ";
+$result = $MP->selectAllSql($sql);
 if(count($result) > 0){
     $TOPNEWS = $result;
 }

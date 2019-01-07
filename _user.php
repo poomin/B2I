@@ -13,7 +13,7 @@ $role = $_SESSION['role'];
     <li class="<?= $m_li=='profile'?'active':'';?>">
         <a href="user-profile.php"><i class="fa fa-user fa-fw"></i> แก้ไขข้อมูลส่วนตัว</a>
     </li>
-    <?php if ($role != 'admin'): ?>
+    <?php if ($role == 'teacher' || $role=='student' ): ?>
         <?php if($role == 'teacher'): ?>
             <li class="<?= $m_li=='team'?'active':'';?>">
                 <a href="user-team.php"><i class="fa fa-group fa-fw"></i> สร้างทีม/โครงการ</a>
@@ -22,7 +22,12 @@ $role = $_SESSION['role'];
         <li class="<?= $m_li=='project'?'active':'';?>">
             <a href="user-project.php"><i class="fa fa-edit fa-fw"></i> โครงการ</a>
         </li>
+        <li class="<?= $m_li=='history'?'active':'';?>">
+            <a href="user-project-history.php"><i class="fa fa-file-text fa-fw"></i> ประวัติโครงการเข้าร่วม</a>
+        </li>
+
     <?php else: ?>
+
         <li class="<?= $m_li=='school'?'active':'';?>">
             <a href="admin-school.php"><i class="fa fa-graduation-cap fa-fw"></i> จัดการโรงเรียน</a>
         </li>
@@ -30,14 +35,27 @@ $role = $_SESSION['role'];
             <a href="admin-user.php"><i class="fa fa-group fa-fw"></i> จัดการสมาชิก</a>
         </li>
         <li class="<?= $m_li=='news'?'active':'';?>">
-            <a href="admin-news.php"><i class="fa fa-bullhorn fa-fw"></i>ประกาศ/ข่าว</a>
+            <a href="admin-news.php"><i class="fa fa-bullhorn fa-fw"></i>ประกาศ/ข่าว/ผลงาน</a>
         </li>
+
+
+        <?php if ($role == 'admin'): ?>
         <li>
             <hr>
-            <i class="fa fa-bookmark fa-fw"></i> โครงการ
+            <h5><i class="fa fa-bookmark fa-fw"></i> จัดการโครงการ </h5>
+        </li>
+        <li class="<?= $m_li=='new'?'active':'';?>">
+            <a href="admin-project-new.php"><i class="fa fa-hacker-news fa-fw"></i> สร้างโครงการ</a>
         </li>
         <li class="<?= $m_li=='manage'?'active':'';?>">
             <a href="admin-project-manage.php"><i class="fa fa-wrench fa-fw"></i> ตั้งค่าโครงการ</a>
+        </li>
+        <?php endif; ?>
+
+
+        <li>
+            <hr>
+            <h5><i class="fa fa-bookmark fa-fw"></i> ผลงานส่งเข้าประกวด </h5>
         </li>
         <li class="<?= $m_li=='check'?'active':'';?>">
             <a href="admin-check.php"><i class="fa fa-edit fa-fw"></i> ตรวจโครงการ</a>
@@ -45,15 +63,14 @@ $role = $_SESSION['role'];
         <li class="<?= $m_li=='report'?'active':'';?>">
             <a href="admin-report.php"><i class="fa fa-file-text fa-fw"></i> รายงาน</a>
         </li>
+
+
         <li>
             <hr>
-            <i class="fa fa-bookmark fa-fw"></i> ระเบียบโครงการ
+            <h5><i class="fa fa-bookmark fa-fw"></i> ระเบียบโครงการ </h5>
         </li>
         <li class="<?= $m_li=='image'?'active':'';?>">
             <a href="admin-project-image.php"><i class="fa fa-image fa-fw"></i> ภาพ</a>
-        </li>
-        <li class="<?= $m_li=='project'?'active':'';?>">
-            <a href="admin-project.php"><i class="fa fa-newspaper-o fa-fw"></i> โครงการ</a>
         </li>
         <li class="<?= $m_li=='manager'?'active':'';?>">
             <a href="admin-project-manager.php"><i class="fa fa-street-view fa-fw"></i> ผู้รับผิดชอบโครงการ</a>

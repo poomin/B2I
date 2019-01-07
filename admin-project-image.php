@@ -72,7 +72,7 @@ include_once __DIR__.'/controller/adminProjectImage.php';
                                     <img src="<?=$item['path'];?>" alt="image">
                                     <div class="caption">
                                         <p><?=$item['namefile'];?></p>
-                                        <p class="text-right">
+                                        <p class="text-right" <?= $role=='admin'?'':'hidden';?> >
                                             <button class="btn btn-danger btn-xs" onclick="deleteImage('<?=$item['id'];?>')">
                                                 <i class="fa fa-trash"></i>
                                             </button>
@@ -104,7 +104,7 @@ include_once __DIR__.'/controller/adminProjectImage.php';
                             <div id="image">
                                 <input id="path_image" class="hide" type="text" name="path_image" value="<?= $path_image; ?>">
                                 <input id="name_image" class="hide" type="text" name="name_image" value="<?= $name_image; ?>">
-                                <div class="box-img-ready">
+                                <div class="box-img-ready" <?= $role=='admin'?'':'hidden';?>>
                                     <label style="cursor: pointer;" for="file_image">
                                         <h3 id="upload_image"><span class="label label-info"><i class="fa fa-upload"></i> Upload</span></h3>
                                         <input id="file_image" topic_id="<?= $topic_id ?>" accept="image/*" type="file" style="display:none;" onchange="showLoadImage(this)">

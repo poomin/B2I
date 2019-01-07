@@ -5,9 +5,10 @@
  * Date: 29/5/2561
  * Time: 18:45
  */
-require_once __DIR__.'/ModelUser.php';
-require_once __DIR__.'/ModelSchool.php';
+require_once __DIR__.'/../model/ModelUser.php';
+require_once __DIR__.'/../model/ModelSchool.php';
 $MS = new ModelSchool();
+$MU = new ModelUser();
 
 $fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
 if($fn=='addUser'){
@@ -21,7 +22,7 @@ if($fn=='addUser'){
     $role = isset($_REQUEST['role'])?$_REQUEST['role']:'';
     $input = [
         'username'=> $username,
-        'password'=> $password,
+        'password'=> md5($password),
         'email'=> $email,
         'name'=> $name,
         'surname'=> $surname,
@@ -29,13 +30,13 @@ if($fn=='addUser'){
         'schoolregion'=> $schoolregion,
         'role'=> $role
     ];
-    $MU = new ModelUser();
-    $result = $MU->addUser($input);
+    $result = $MU->insertThis($input);
     if($result>0){
         $l = $MU->link('index-login.php');
         exit;
     }else{
-
+        $_SESSION['E_STATUS'] = 'warning';
+        $_SESSION['E_MESSAGE'] = 'Please check Username duplicate !!';
     }
 }
 
@@ -47,18 +48,18 @@ elseif($fn=='insertSchool'){
     $province = isset($_REQUEST['province'])?$_REQUEST['province']:'';
     $code = isset($_REQUEST['code'])?$_REQUEST['code']:'';
     $input = [
-        'name'=>$name,
+        'school_name'=>$name,
         'address'=>$address,
         'subdistrict'=>$subdistrict,
         'district'=>$district,
         'province'=>$province,
         'code'=>$code
     ];
-    $result = $MS->addSchool($input);
+    $result = $MS->insertThis($input);
 }
 
 $SCHOOL = [];
-$result = $MS->getSchoolAll();
+$result = $MS->selectAllThis();
 if(count($result) > 0){
     $SCHOOL = $result;
 }

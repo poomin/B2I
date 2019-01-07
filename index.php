@@ -28,7 +28,7 @@ require_once __DIR__.'/controller/index.php'
         <div class="col-xs-12 intro">
             <div class="carousel-inner">
                 <div class="item active">
-                    <img class="img-responsive" src="images/header.jpg" alt="header picture">
+                    <img class="img-responsive" src="images/header-mini.jpg" alt="header picture">
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@ require_once __DIR__.'/controller/index.php'
 
                 <?php foreach ($IMAGE as $key=>$item): ?>
                 <div class="item <?= $key==0?'active':'';?>">
-                    <img src="<?=$item['path'];?>" alt="<?=$item['namefile'];?>">
+                    <img src="<?=$item['path'];?>" alt="<?=$item['namefile'];?>" style="max-width: 80%;">
                 </div>
                 <?php endforeach; ?>
 

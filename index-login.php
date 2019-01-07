@@ -30,7 +30,10 @@ include_once __DIR__.'/controller/login.php';
             <h3>เข้าสู่ระบบ</h3>
         </div>
         <hr>
-        <form class="form-horizontal">
+
+        <?php require_once __DIR__.'/_alert.php';?>
+
+        <form class="form-horizontal" method="post">
 
             <div class="form-group">
                 <div class="col-xs-12">
@@ -45,13 +48,6 @@ include_once __DIR__.'/controller/login.php';
                     <input class="form-control" type="password" name="password" required>
                 </div>
             </div>
-
-            <?php if(isset($_SESSION['error'])): ?>
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>Warning!</strong> <?=$_SESSION['error'];?>
-                </div>
-            <?php unset($_SESSION['error']); endif; ?>
 
             <div class="text-center">
                 <input class="hidden" name="fn" value="login">

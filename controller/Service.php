@@ -5,19 +5,21 @@
  * Date: 29/5/2561
  * Time: 15:16
  */
-require_once __DIR__.'/ModelProjectSetup.php';
 
 
 $fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
 
 //add detail project
 if($fn=='addDetailProject'){
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-    $detail = isset($_REQUEST['detail'])?$_REQUEST['detail']:'';
-    $text = isset($_REQUEST['text'])?$_REQUEST['text']:'';
-
+    require_once __DIR__.'/../model/ModelProjectSetup.php';
     $MPS = new ModelProjectSetup();
-    $result = $MPS->addDetailProject($id,$detail,$text);
+
+    $id = $MPS->input('id');
+    $detail = $MPS->input('detail');
+    $text = $MPS->input('text');
+
+    //$result = $MPS->addDetailProject($id,$detail,$text);
+    $result = $MPS->editThis(["$detail"=>$text],['id'=>$id]);
 
     if($result>0){
         echo json_encode([
@@ -37,9 +39,12 @@ if($fn=='addDetailProject'){
 
 }
 elseif($fn=='getProjectById'){
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+    require_once __DIR__.'/../model/ModelProjectSetup.php';
     $MPS = new ModelProjectSetup();
-    $result = $MPS->getProjectById($id);
+
+    $id = $MPS->input('id');
+    $result = $MPS->getProjectById($id);$MPS->selectThis(['id'=>$id]);
+
     if(count($result)>0){
         echo json_encode([
             'status'=> true,
@@ -74,22 +79,24 @@ elseif($fn=='deleteImageProjectSetup'){
 
 //post
 elseif($fn=='addPost'){
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $title = isset($_REQUEST['title'])?$_REQUEST['title']:'';
-    $detail = isset($_REQUEST['detail'])?$_REQUEST['detail']:'';
-    $type = isset($_REQUEST['type'])?$_REQUEST['type']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    include_once __DIR__.'/../model/ModelPost.php';
+    $MPS = new ModelPost();
+
+    $user_id = $MPS->input('user_id');
+    $title = $MPS->input('title');
+    $detail = $MPS->input('detail');
+    $type = $MPS->input('type');
+    $path = $MPS->input('path');
+
     $input= [
         'user_id'=> $user_id,
         'title'=> $title,
-        'detail'=> $detail,
+        'details'=> $detail,
         'type'=> $type,
         'path'=> $path
     ];
 
-    include_once __DIR__.'/ModelPost.php';
-    $MPS = new ModelPost();
-    $result = $MPS->addPost($input);
+    $result = $MPS->insertThis($input);
 
     if($result>0){
         echo json_encode([
@@ -109,24 +116,26 @@ elseif($fn=='addPost'){
 
 }
 elseif($fn=='editPost'){
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $title = isset($_REQUEST['title'])?$_REQUEST['title']:'';
-    $detail = isset($_REQUEST['detail'])?$_REQUEST['detail']:'';
-    $type = isset($_REQUEST['type'])?$_REQUEST['type']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+
+    include_once __DIR__.'/../model/ModelPost.php';
+    $MPS = new ModelPost();
+
+    $user_id = $MPS->input('user_id');
+    $title = $MPS->input('title');
+    $detail = $MPS->input('detail');
+    $type = $MPS->input('type');
+    $path = $MPS->input('path');
+    $id = $MPS->input('id');
     $input= [
         'user_id'=> $user_id,
         'title'=> $title,
-        'detail'=> $detail,
+        'details'=> $detail,
         'type'=> $type,
         'path'=> $path,
-        'id'=> $id
     ];
 
-    include_once __DIR__.'/ModelPost.php';
-    $MPS = new ModelPost();
-    $result = $MPS->editPost($input);
+
+    $result = $MPS->editThis($input,['id'=>$id]);
 
     if($result>0){
         echo json_encode([
@@ -147,10 +156,11 @@ elseif($fn=='editPost'){
 }
 elseif ($fn=='getPostById'){
 
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-    include_once __DIR__.'/ModelPost.php';
+    include_once __DIR__.'/../model/ModelPost.php';
     $MPS = new ModelPost();
-    $result = $MPS->getPostById($id);
+
+    $id = $MPS->input('id');
+    $result = $MPS->selectThis(['id'=>$id]);
 
     if($result>0){
         echo json_encode([

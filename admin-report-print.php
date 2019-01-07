@@ -6,13 +6,15 @@
  * Time: 2:33 PM
  */
 date_default_timezone_set("Asia/Bangkok");
-require_once __DIR__.'/controller/ModelReport.php';
+require_once __DIR__.'/model/ModelReport.php';
 $MR = new ModelReport();
 $PROJECT   = [];
+$CONFIRM = [];
 $HEADER = "";
 
-$id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-$value = isset($_REQUEST['value'])?$_REQUEST['value']:'';
+$id = $MR->input('id');
+$setid = $MR->input('setid');
+$value = $MR->input('value');
 $activePhase = '';
 if($id=='p1' || $id=='p2'){
     if($id=='p1'){
@@ -26,7 +28,7 @@ if($id=='p1' || $id=='p2'){
     $sql = "select pro.id, pro.name , pro.schoolname , pro.schoolregion , phase.result , school.* from b2i_project_phase as phase
 left join b2i_project as pro on pro.id = phase.project_id
 left join b2i_school as school on school.school_name = pro.schoolname
-where phase.phase=$phase ";
+where pro.projectsetup_id=$setid and phase.phase=$phase ";
     $cut = explode('::',$value);
     $conP = "";
     for($i=1;$i<count($cut);$i++){
@@ -84,7 +86,8 @@ elseif($id=='c1' || $id=='c2'){
     $sql = "select pro.id, pro.name , pro.schoolname , pro.schoolregion , phase.result , school.* from b2i_project_phase as phase
 left join b2i_project as pro on pro.id = phase.project_id
 left join b2i_school as school on school.school_name = pro.schoolname
-where phase.phase=$phase ";
+where pro.projectsetup_id=$setid and phase.phase=$phase ";
+
     $mThis = $MR->reportSql($sql);
     foreach ($mThis as $key=>$item){
         $id= $item['id'];

@@ -5,21 +5,24 @@
  * Date: 5/31/2018
  * Time: 2:44 PM
  */
-require_once __DIR__.'/ModelUser.php';
+require_once __DIR__.'/../model/ModelUser.php';
+require_once __DIR__.'/../model/ModelSchool.php';
+$MS = new ModelSchool();
+$MU = new ModelUser();
 
 $USER = [];
 
-$fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
-$id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+$fn = $MU->input('fn');
+$id = $MU->input('id');
 
 
 if($fn=='editUser'){
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-    $email = isset($_REQUEST['email'])?$_REQUEST['email']:'';
-    $name = isset($_REQUEST['name'])?$_REQUEST['name']:'';
-    $surname = isset($_REQUEST['surname'])?$_REQUEST['surname']:'';
-    $schoolname = isset($_REQUEST['schoolname'])?$_REQUEST['schoolname']:'';
-    $schoolregion = isset($_REQUEST['schoolregion'])?$_REQUEST['schoolregion']:'';
+    $email = $MU->input('email');
+    $name = $MU->input('name');
+    $surname = $MU->input('surname');
+    $schoolname = $MU->input('schoolname');
+    $schoolregion = $MU->input('schoolregion');
+    $role = $MU->input('role');
 
     $input = [
         'email'=> $email,
@@ -27,25 +30,31 @@ if($fn=='editUser'){
         'surname'=> $surname,
         'schoolname'=> $schoolname,
         'schoolregion'=> $schoolregion,
-        'id'=> $id
+        'role'=>$role
     ];
-    $MU = new ModelUser();
-    $result = $MU->editUser($input);
-    if($result > 0 ){
 
-        $_SESSION['success']="Edit User Success.";
+    $result = $MU->editThis($input,['id'=>$id]);
+    if($result > 0 ){
+        $_SESSION['E_STATUS'] = 'success';
+        $_SESSION['E_MESSAGE'] = 'Edit User Success.';
         $l = $MU->link('admin-user-edit.php?id='.$id);
         exit;
     }else{
-        $_SESSION['error']="Edit User Fail !!!!!";
+        $_SESSION['E_STATUS'] = 'warning';
+        $_SESSION['E_MESSAGE'] = 'Edit User Fail !!!!!';
         $l = $MU->link('admin-user-edit.php?id='.$id);
         exit;
     }
 
 }
 
-$MU = new ModelUser();
-$result = $MU->getUserById($id);
+$result = $MU->selectThis(['id'=>$id]);
 if(isset($result['id'])){
     $USER = $result;
+}
+
+$SCHOOL = [];
+$result = $MS->selectAllThis();
+if(count($result) > 0){
+    $SCHOOL = $result;
 }

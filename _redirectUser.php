@@ -6,7 +6,8 @@
  * Time: 12:20 PM
  */
 $SETID = 1;
-if(isset($_SESSION['id'])){
+if(isset($_SESSION['id']) && isset($_SESSION['SETID']) ){
+    $SETID = $_SESSION['SETID'];
 }else{
     header("Location: /index-login.php");
     exit;

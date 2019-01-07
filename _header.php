@@ -5,7 +5,7 @@
  * Date: 29/5/2561
  * Time: 11:31
  */
-$SETID = 1;
+
 //http://202.28.49.78/index.php
 //u: adminb2i
 //p: b2i2018
