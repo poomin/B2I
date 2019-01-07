@@ -40,7 +40,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
 
 
                     <div class="text-left">
-                        <h3>ข่าว / ประกาศ </h3>
+                        <h3>ข่าว / ประกาศ / ผลงาน </h3>
                     </div>
                     <hr>
 
@@ -82,7 +82,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
 
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <label class="label-control">หัวข้อข่าว/ประกาศ</label>
+                                <label class="label-control">หัวข้อข่าว/ประกาศ/ผลงาน</label>
                                 <input id="inputTitle" class="form-control" name="name" type="text" value="">
                             </div>
                         </div>
@@ -94,6 +94,7 @@ $POSTID = isset($_REQUEST['id'])?$_REQUEST['id']:'';
                                     <option value="news"> ข่าว </option>
                                     <option value="article"> บทความ </option>
                                     <option value="announce"> ประกาศ </option>
+                                    <option value="project"> ผลงานส่งเข้าประกาศ </option>
                                 </select>
                             </div>
                         </div>
