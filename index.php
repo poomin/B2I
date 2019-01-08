@@ -28,7 +28,7 @@ require_once __DIR__.'/controller/index.php'
         <div class="col-xs-12 intro">
             <div class="carousel-inner">
                 <div class="item active">
-                    <img class="img-responsive" src="images/header-mini.jpg" alt="header picture">
+                    <img class="img-responsive" src="<?php echo $img; ?>" alt="header picture">
                 </div>
             </div>
         </div>

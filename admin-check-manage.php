@@ -112,15 +112,15 @@ include "controller/adminCheckManage.php";
                             $a_icon = '';
                             $a_color = '';
                             $a_text = '';
-                            if($st==$a_h){
-                                $a_icon = 'fa-edit';
-                                $a_color = 'bg-warning text-warning';
-                                $a_text ='เปิดดำเนินการ';
-                            }
                             if(count($a_a)<=0){
                                 $a_icon = 'fa-close';
                                 $a_color = '';
                                 $a_text ='ไม่เปิดดำเนินการ';
+                                if($st==$a_h){
+                                    $a_icon = 'fa-edit';
+                                    $a_color = 'bg-warning text-warning';
+                                    $a_text ='เปิดดำเนินการ';
+                                }
                             }else{
                                 if($a_a['result']=='pass'){
                                     $a_icon = 'fa-check-square-o';

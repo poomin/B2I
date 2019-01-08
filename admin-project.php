@@ -44,10 +44,10 @@ require_once __DIR__."/controller/adminProject.php"
                     <hr>
 
                     <div class="row">
-                        <div class="col-xs-6 col-md-4 col-md-offset-4 text-center">
-                            ภาพที่ใช่ในการแสดงในแวป
+                        <div class="col-xs-8 col-md-8 col-md-offset-2 text-center">
+                            ภาพที่ใช่ในการแสดงในส่วนบนของแวป
                             <a href="#" class="thumbnail">
-                                <img id="imageShow" src="<?php echo $image; ?>" alt="image">
+                                <img id="imageShow" src="<?php echo $image; ?>" alt="image" style="height: 50px;">
                             </a>
                         </div>
                     </div>

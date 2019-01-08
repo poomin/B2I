@@ -6,6 +6,8 @@
  * Time: 23:57
  */
 include_once __DIR__.'/../model/ModelPost.php';
+include_once __DIR__.'/../model/ModelProjectSetup.php';
+$MPS = new ModelProjectSetup();
 $MP = new ModelPost();
 $NEWS = [];
 $TOPNEWS = [];
@@ -53,4 +55,10 @@ $sql = "  ORDER BY view DESC LIMIT 3 ";
 $result = $MP->selectAllSql($sql);
 if(count($result) > 0){
     $TOPNEWS = $result;
+}
+
+$result = $MPS->selectThis(['active'=>'Y']);
+$img = '/../images/header-mini.jpg';
+if(isset($result['id'])){
+    $img = '/..'.$result['image'];
 }
