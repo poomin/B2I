@@ -112,20 +112,83 @@ require_once __DIR__.'/controller/userProjectManage.php';
                     <div>
 
                         <!-- Nav tabs -->
+                        <?php
+                        function checkStatus($st,$a_h,$a_a){
+                            $a_icon = '';
+                            $a_color = '';
+                            $a_text = '';
+                            if(count($a_a)<=0){
+                                $a_icon = 'fa-close';
+                                $a_color = '';
+                                $a_text ='ไม่เปิดดำเนินการ';
+                                if($st==$a_h){
+                                    $a_icon = 'fa-edit';
+                                    $a_color = 'bg-warning text-warning';
+                                    $a_text ='เปิดดำเนินการ';
+                                }
+                            }else{
+                                if($a_a['result']=='pass'){
+                                    $a_icon = 'fa-check-square-o';
+                                    $a_color = 'bg-success text-success';
+                                    $a_text ='ผ่าน';
+                                }
+                                elseif($a_a['result']=='process'){
+                                    $a_icon = 'fa-edit';
+                                    $a_color = 'bg-warning text-warning';
+                                    $a_text ='กำลังดำเนินการ';
+                                }elseif ($st=='wait'){
+                                    $a_icon = 'fa-clock-o';
+                                    $a_color = 'bg-warning text-warning';
+                                    $a_text ='ผ่าน';
+                                }elseif ($st=='fail'){
+                                    $a_icon = 'fa-close';
+                                    $a_color = 'bg-danger text-danger';
+                                    $a_text ='ไม่ผ่าน';
+                                }
+                            }
+
+
+                            return ['text'=>$a_text,'color'=>$a_color,'icon'=>$a_icon];
+                        }
+
+                        $a_f1 = checkStatus($PHASEACTIVE,'p1',$PHASE1);
+                        $a_cf1 = checkStatus($PHASEACTIVE,'c1',$CP1);
+
+                        $a_f2 = checkStatus($PHASEACTIVE,'p2',$PHASE2);
+                        $a_cf2 = checkStatus($PHASEACTIVE,'c2',$CP2);
+
+                        $a_f3 = checkStatus($PHASEACTIVE,'p3',$PHASE3);
+
+                        ?>
                         <ul class="nav nav-tabs nav-justified" role="tablist">
                             <li role="presentation" class="<?=($PHASEACTIVE=='p1')?'active':'';?>">
+                                <div class="text-center <?=$a_f1['color'];?>">
+                                    <i class="fa <?=$a_f1['icon'];?>"></i> <?=$a_f1['text'];?>
+                                </div>
                                 <a href="#phase1" aria-controls="phase1" role="tab" data-toggle="tab">เสนอแนวคิดสิ่งประดิษฐ์</a>
                             </li>
                             <li role="presentation" class="<?=($PHASEACTIVE=='c1')?'active':'';?>">
+                                <div class="text-center <?=$a_cf1['color'];?>">
+                                    <i class="fa <?=$a_cf1['icon'];?>"></i> <?=$a_cf1['text'];?>
+                                </div>
                                 <a href="#confirm1" aria-controls="confirm1" role="tab" data-toggle="tab">ยืนยันเข้าอบรม</a>
                             </li>
                             <li role="presentation" class="<?=($PHASEACTIVE=='p2')?'active':'';?>">
+                                <div class="text-center <?=$a_f2['color'];?>">
+                                    <i class="fa <?=$a_f2['icon'];?>"></i> <?=$a_f2['text'];?>
+                                </div>
                                 <a href="#phase2" aria-controls="phase2" role="tab" data-toggle="tab">ส่ง video</a>
                             </li>
                             <li role="presentation" class="<?=($PHASEACTIVE=='c2')?'active':'';?>">
+                                <div class="text-center <?=$a_cf2['color'];?>">
+                                    <i class="fa <?=$a_cf2['icon'];?>"></i> <?=$a_cf2['text'];?>
+                                </div>
                                 <a href="#confirm2" aria-controls="confirm2" role="tab" data-toggle="tab">ยืนยันเข้าร่วมรอบชิง</a>
                             </li>
                             <li role="presentation" class="<?=($PHASEACTIVE=='p3')?'active':'';?>">
+                                <div class="text-center <?=$a_f3['color'];?>">
+                                    <i class="fa <?=$a_f3['icon'];?>"></i> <?=$a_f3['text'];?>
+                                </div>
                                 <a href="#phase3" aria-controls="phase3" role="tab" data-toggle="tab">ส่งเอกสารรอบชิง</a>
                             </li>
                         </ul>
