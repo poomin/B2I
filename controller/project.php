@@ -21,5 +21,7 @@ if(isset($result['id'])){
     $objective = $result['objective'];
     $criteria = $result['criteria'];
     $award = $result['award'];
-    $img = '/..'.$result['image'];
+    if($result['image']!=''){
+        $img = '/..'.$result['image'];
+    }
 }
