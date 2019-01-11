@@ -437,6 +437,25 @@ class ModelProject extends  _DBPDO
         return ['type'=>'non' , 'status'=>'ไม่มีข้อมูล' , 'message'=>'-'];
     }
 
+    /*
+     * user-team.php
+     */
+    function getProjectByUserId($user_id){
+        //set parameter
+        $this_db = $this->DB;
+        $this_p_member = $this->FK_PROJECT_MEMBER;
+
+        $this->connect();
+        $sql = "select pro.* from ( select project_id from $this_p_member where user_id=:user_id ) as member 
+                left join $this_db as pro on pro.id = member.project_id";
+        $params= array(':user_id'=> $user_id);
+        $result = $this->queryAll($sql,$params);
+        $this->close();
+        return $result;
+    }
+
+
+
 
 
     function addProject($input){
@@ -543,15 +562,7 @@ class ModelProject extends  _DBPDO
         $this->close();
         return $result;
     }
-    function getProjectByUserId($user_id){
-        $this->connect();
-        $sql = "select b2i_project.* from ( select project_id from b2i_project_member where user_id=:user_id ) as member 
-                left join b2i_project on b2i_project.id = member.project_id";
-        $params= array(':user_id'=> $user_id);
-        $result = $this->queryAll($sql,$params);
-        $this->close();
-        return $result;
-    }
+
     function getProjectBySetupId($setup_id){
         $this->connect();
         $sql = "select * from b2i_project where projectsetup_id=:setup_id ";
