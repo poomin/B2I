@@ -5,30 +5,30 @@
  * Date: 5/30/2018
  * Time: 2:16 PM
  */
-require_once __DIR__.'/ModelProject.php';
-require_once __DIR__.'/ModelProjectSetup.php';
-require_once __DIR__.'/ModelUser.php';
+require_once __DIR__.'/../model/ModelProject.php';
+require_once __DIR__.'/../model/ModelProjectSetup.php';
+require_once __DIR__.'/../model/ModelUser.php';
 $MP = new ModelProject();
 $MPS = new ModelProjectSetup();
 $MU = new ModelUser();
 
-$id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+$id = $MP->input('id');
 
 $projectSetup=[];
 $USER = [];
 $MEMBERS = [];
 $PROJECT = [];
 
-$fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
+$fn = $MP->input('fn');
 if($fn=='editProject'){
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $projectsetup_id = isset($_REQUEST['projectsetup_id'])?$_REQUEST['projectsetup_id']:'';
-    $name = isset($_REQUEST['name'])?$_REQUEST['name']:'';
-    $schoolname = isset($_REQUEST['schoolname'])?$_REQUEST['schoolname']:'';
-    $schoolregion = isset($_REQUEST['schoolregion'])?$_REQUEST['schoolregion']:'';
-    $detail = isset($_REQUEST['detail'])?$_REQUEST['detail']:'';
-    $member = isset($_REQUEST['member'])?$_REQUEST['member']:'';
+    $user_id = $MP->input('user_id');
+    $projectsetup_id = $MP->input('projectsetup_id');
+    $name = $MP->input('name');
+    $schoolname = $MP->input('schoolname');
+    $schoolregion = $MP->input('schoolregion');
+    $detail = $MP->input('detail');
+    $member = $MP->input('member');
+
     $input=[
         'projectsetup_id'=> $projectsetup_id,
         'name'=> $name,
@@ -36,10 +36,10 @@ if($fn=='editProject'){
         'schoolregion'=> $schoolregion,
         'detail'=> $detail,
         'user_id'=> $user_id,
-        'member'=> $member,
-        'id'=> $id,
+        'member'=> $member
     ];
-    $result = $MP->editProject($input);
+    $result = $MP->editThis($input,['id'=>$id]);
+
     if($result > 0){
         $_SESSION['success']=" Edit Project Success.";
         $l = $MU->link('user-team.php');
@@ -51,18 +51,19 @@ if($fn=='editProject'){
     }
 }
 
-$result = $MPS->getProjectById($SETID);
-if(isset($result['id'])){
-    $projectSetup=$result;
-}
-$result = $MU->getUserRole('student');
+$result = $MU->selectAllThis(['role'=>'student']);
 if(count($result)>0){
     $USER = $result;
 }
 
-$result = $MP->getProjectById($id);
+$result = $MP->selectThis(['id'=>$id]);
 if(isset($result['id'])){
     $PROJECT = $result;
+
+    $result = $MPS->selectThis(['id'=>$result['projectsetup_id']]);
+    if(isset($result['id'])){
+        $projectSetup=$result;
+    }
 
     $result = $MU->getUserByProjectId($id);
     if(count($result)>0){

@@ -10,8 +10,9 @@ require_once __DIR__.'/_DBPDO.php';
 class ModelUser extends  _DBPDO
 {
 
-
     public $DB = "b2i_user";
+    public $FK_PROJECT_MEMBER = "b2i_project_member";
+
 
     function insertThis($input){
         $this_db = $this->DB;
@@ -128,6 +129,23 @@ class ModelUser extends  _DBPDO
     }
 
 
+    //user-team-manage.php
+    function getUserByProjectId($project_id){
+        //set parameter
+        $this_db = $this->DB;
+        $this_p_member = $this->FK_PROJECT_MEMBER;
+
+        $this->connect();
+        $sql = "select u.* , membertype from (select * from $this_p_member where project_id=:project_id )as member 
+                left join $this_db as u on member.user_id = u.id";
+        $params= array(':project_id'=> $project_id);
+        $result = $this->queryAll($sql,$params);
+        $this->close();
+        return $result;
+    }
+
+
+    //------------  new ----------------------------
 
 
 
@@ -257,15 +275,7 @@ class ModelUser extends  _DBPDO
 
     }
 
-    function getUserByProjectId($project_id){
-        $this->connect();
-        $sql = "select b2i_user.* , membertype from (select * from b2i_project_member where project_id=:project_id )as member 
-                left join b2i_user on member.user_id = b2i_user.id";
-        $params= array(':project_id'=> $project_id);
-        $result = $this->queryAll($sql,$params);
-        $this->close();
-        return $result;
-    }
+
 
     function getUserRole($role='student'){
         $this->connect();
