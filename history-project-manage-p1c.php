@@ -3,7 +3,6 @@
 
     <?php
 
-
     $status = true;
     if(isset($CP1['result'])){
         $status = false;
