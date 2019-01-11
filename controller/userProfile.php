@@ -5,8 +5,9 @@
  * Date: 5/31/2018
  * Time: 2:44 PM
  */
-require_once __DIR__.'/ModelUser.php';
-require_once __DIR__.'/ModelSchool.php';
+require_once __DIR__.'/../model/ModelUser.php';
+require_once __DIR__.'/../model/ModelSchool.php';
+$MU = new ModelUser();
 $MS = new ModelSchool();
 
 
@@ -24,11 +25,9 @@ if($fn=='editUser'){
         'name'=> $name,
         'surname'=> $surname,
         'schoolname'=> $schoolname,
-        'schoolregion'=> $schoolregion,
-        'id'=> $id
+        'schoolregion'=> $schoolregion
     ];
-    $MU = new ModelUser();
-    $result = $MU->editUser($input);
+    $result = $MU->editThis($input,['id'=>$id]);
     if($result > 0 ){
         $_SESSION['email']= $email;
         $_SESSION['name']= $name;
@@ -48,14 +47,14 @@ if($fn=='editPassword'){
     $oldPassword = isset($_REQUEST['oldPassword'])?$_REQUEST['oldPassword']:'';
     $username = isset($_REQUEST['username'])?$_REQUEST['username']:'';
 
+    $oldPassword = md5($oldPassword);
+    $password = md5($password);
+
     $input = [
-        'id'=> $id,
         'username'=> $username,
         'password'=> $password,
-        'oldPassword'=> $oldPassword,
     ];
-    $MU = new ModelUser();
-    $result = $MU->editPassword($input);
+    $result = $MU->editThis($input,['id'=>$id,'password'=>$oldPassword]);
     if($result > 0 ){
         $_SESSION['username']= $username;
         $_SESSION['success']="Edit Username Password Success.";

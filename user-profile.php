@@ -60,7 +60,7 @@ require_once __DIR__.'/controller/userProfile.php'
                         <h3>ข้อมูลสมาชิก</h3>
                     </div>
                     <hr>
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" method="post">
 
                         <div class="form-group">
                             <div class="col-xs-12">
