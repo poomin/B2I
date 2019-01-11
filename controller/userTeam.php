@@ -10,7 +10,7 @@ $MP = new ModelProject();
 
 
 $PROJECT = [];
-$result = $MP->getProjectByUserId($user_id); $MP->selectAllThis(['']);
+$result = $MP->getProjectByUserId($user_id);
 if(count($result)>0){
     $PROJECT = $result;
 }
