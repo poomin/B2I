@@ -30,6 +30,11 @@ require_once __DIR__.'/controller/index.php'
                 <div class="item active">
                     <img class="img-responsive" src="<?php echo $img; ?>" alt="header picture">
                 </div>
+                <div class="carousel-menu">
+                    <ul class="nav nav-pills nav-justified">
+                        <li></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

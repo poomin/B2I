@@ -1,6 +1,5 @@
 <?php
 session_start();
-$SETID=1;
 /**
  * Created by PhpStorm.
  * User: Gimo
@@ -25,7 +24,24 @@ include_once __DIR__.'/controller/about.php'
 
 <!-- Principal Content Start -->
 <div id="about">
-    <div class="container" style="padding-top: 110px;">
+    <div class="row">
+        <div class="col-xs-12 intro">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img class="img-responsive" src="<?php echo $img; ?>" alt="header picture">
+                </div>
+                <div class="carousel-menu">
+                    <ul class="nav nav-pills nav-justified">
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container" style="padding-top: 10px;">
         <div class="row">
             <div class="box-about col-xs-12 col-sm-8 col-sm-push-2">
                 <i class="fa fa-phone-square sr-icons fa-4x"></i>
