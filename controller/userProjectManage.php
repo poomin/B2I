@@ -5,15 +5,18 @@
  * Date: 5/30/2018
  * Time: 2:16 PM
  */
-require_once __DIR__.'/ModelProject.php';
-require_once __DIR__.'/ModelProjectSetup.php';
-require_once __DIR__.'/ModelProjectPhase.php';
-require_once __DIR__.'/ModelProjectPhaseUpload.php';
-require_once __DIR__.'/ModelProjectPhaseLog.php';
-require_once __DIR__.'/ModelUser.php';
-require_once __DIR__.'/ModelProjectConfirm.php';
-require_once __DIR__.'/ModelProjectConfirmMember.php';
+require_once __DIR__.'/../model/ModelProject.php';
+require_once __DIR__.'/../model/ModelProjectMember.php';
+require_once __DIR__.'/../model/ModelProjectSetup.php';
+require_once __DIR__.'/../model/ModelProjectPhase.php';
+require_once __DIR__.'/../model/ModelProjectPhaseUpload.php';
+require_once __DIR__.'/../model/ModelProjectPhaseLog.php';
+require_once __DIR__.'/../model/ModelUser.php';
+require_once __DIR__.'/../model/ModelProjectConfirm.php';
+require_once __DIR__.'/../model/ModelProjectConfirmMember.php';
+
 $MP = new ModelProject();
+$MPM = new ModelProjectMember();
 $MPS = new ModelProjectSetup();
 $MPP = new ModelProjectPhase();
 $MPPU = new ModelProjectPhaseUpload();
@@ -22,7 +25,7 @@ $MU = new ModelUser();
 $MC = new ModelProjectConfirm();
 $MCM = new ModelProjectConfirmMember();
 
-$id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
+$id = $MP->input('id');
 $session_user_id = isset($_SESSION['id'])?$_SESSION['id']:0;
 
 
@@ -50,10 +53,14 @@ $LEADER = '-';
 $MEMBER = '-';
 $PHASEACTIVE = 'p1'; // p1=phase1 , c1 = confirm phase 1 , p2=phase2 , c2=confirm phase2 , p3=phase3 ,c3=confirm phase3
 $CASE = 1 ; //1=p1 , 2=c1 , 3=p2 , 4=c2 , 5=p3 , 6 =c3
-$fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
+$fn = $MP->input('fn');
 if($fn=='phase1'){
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-    $result = $MPP->addPhase($id,1);
+    $id = $MPP->input('id');
+    $input = [
+        'project_id'=>$id,
+        'phase'=> 1
+    ];
+    $result = $MPP->insertThis($input);
     if($result > 0){
         $l = $MU->link('user-project-manage.php?id='.$id);
         exit;
@@ -63,11 +70,11 @@ if($fn=='phase1'){
     }
 }
 elseif($fn=='savePdf'){
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $phase_id = $MPPU->input('phase_id');
+    $user_id = $MPPU->input('user_id');
+    $namefile = $MPPU->input('namefile');
+    $typefile = $MPPU->input('typefile');
+    $path = $MPPU->input('path');
     $input = [
         'phase_id'=> $phase_id,
         'user_id'=> $user_id,
@@ -75,18 +82,24 @@ elseif($fn=='savePdf'){
         'typefile'=> $typefile,
         'path'=> $path
     ];
-    $result = $MPPU->addUpload($input);
+    $result = $MPPU->insertThis($input);
 
     //add Log
-    $result = $LOG->addLog($phase_id,$user_id,'Upload File Name: '.$namefile);
+    $message = 'Upload File Name: '.$namefile;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
 
 }
 elseif($fn=='saveImage'){
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $phase_id = $MPPU->input('phase_id');
+    $user_id = $MPPU->input('user_id');
+    $namefile = $MPPU->input('namefile');
+    $typefile = $MPPU->input('typefile');
+    $path = $MPPU->input('path');
     $input = [
         'phase_id'=> $phase_id,
         'user_id'=> $user_id,
@@ -94,17 +107,24 @@ elseif($fn=='saveImage'){
         'typefile'=> $typefile,
         'path'=> $path
     ];
-    $result = $MPPU->addUpload($input);
+    $result = $MPPU->insertThis($input);
 
-    $result = $LOG->addLog($phase_id,$user_id,'Upload Image Name: '.$namefile);
+    //add Log
+    $message = 'Upload Image Name: '.$namefile;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
 
 }
 elseif($fn=='saveVideo'){
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $phase_id = $MPPU->input('phase_id');
+    $user_id = $MPPU->input('user_id');
+    $namefile = $MPPU->input('namefile');
+    $typefile = $MPPU->input('typefile');
+    $path = $MPPU->input('path');
     $input = [
         'phase_id'=> $phase_id,
         'user_id'=> $user_id,
@@ -112,21 +132,32 @@ elseif($fn=='saveVideo'){
         'typefile'=> $typefile,
         'path'=> $path
     ];
-    $result = $MPPU->addUpload($input);
+    $result = $MPPU->insertThis($input);
 
-    $result = $LOG->addLog($phase_id,$user_id,'Upload Video Name: '.$namefile);
+    //add Log
+    $message = 'Upload Video Name: '.$namefile;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
 
 }
 
 elseif ($fn=='confirm1'){
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-    $lastId = $MC->addConfirm(['project_id'=>$id,'phase'=>1]);
+    $id = $MC->input('id');
+    $input= [
+        'project_id'=>$id,
+        'phase'=>1
+    ];
+    $lastId = $MC->insertThis($input);
     if($lastId>0){
         $userInProject = $MU->getUserByProjectId($id);
         foreach ($userInProject as $item){
             $i_user_id = $item['id'];
             $i_membertype = $item['membertype'];
-            $result = $MCM->addCM([
+            $result = $MCM->insertThis([
                 'confirm_id'=>$lastId,
                 'user_id'=>$i_user_id,
                 'membertype'=>$i_membertype
@@ -135,49 +166,70 @@ elseif ($fn=='confirm1'){
     }
 }
 elseif ($fn=='addConfirm1'){
-    $confirm_id = isset($_REQUEST['cid'])?$_REQUEST['cid']:'';
-    $checkIn = isset($_REQUEST['check_in'])?$_REQUEST['check_in']:'';
+    $confirm_id = $MC->input('cid');
+    $checkIn = $MC->input('check_in');
+    $driver = $MC->input('driver');
     if($checkIn!=''){
         $cut = explode('/',$checkIn);
         $checkIn = $cut[2].'-'.$cut[1].'-'.$cut[0];
     }
-    $driver = isset($_REQUEST['driver'])?$_REQUEST['driver']:'';
-    $result = $MC->editConfirm(['check_in'=>$checkIn,'driver'=>$driver,'id'=>$confirm_id]);
+    $input=[
+        'check_in'=>$checkIn,
+        'driver'=>$driver,
+    ];
+    $condition=[
+        'id'=>$confirm_id
+    ];
+    $result = $MC->editThis($input,$condition);
 }
 elseif ($fn=='confirm1Teacher'){
-    $confirm_id = isset($_REQUEST['cid'])?$_REQUEST['cid']:'';
-    $user_id = isset($_REQUEST['uid'])?$_REQUEST['uid']:'';
-    $shirts_size = isset($_REQUEST['shirts_size'])?$_REQUEST['shirts_size']:'';
-    $phone = isset($_REQUEST['phone'])?$_REQUEST['phone']:'';
-    $vegetarian_food = isset($_REQUEST['vegetarian_food'])?$_REQUEST['vegetarian_food']:'';
-    $result = $MCM->editCMTeacher([
-        'confirm_id'=>$confirm_id,
-        'user_id'=>$user_id,
+    $confirm_id = $MCM->input('cid');
+    $user_id = $MCM->input('uid');
+    $shirts_size = $MCM->input('shirts_size');
+    $phone = $MCM->input('phone');
+    $vegetarian_food = $MCM->input('vegetarian_food');
+
+    $input=[
         'shirts_size'=>$shirts_size,
         'phone'=>$phone,
         'vegetarian_food'=>$vegetarian_food,
-    ]);
+    ];
+    $condition=[
+        'confirm_id'=>$confirm_id,
+        'user_id'=>$user_id
+    ];
+
+    $result = $MCM->editThis($input,$condition);
 }
 elseif ($fn=='confirm1Student'){
-    $confirm_id = isset($_REQUEST['cid'])?$_REQUEST['cid']:'';
-    $user_id = isset($_REQUEST['uid'])?$_REQUEST['uid']:'';
-    $shirts_size = isset($_REQUEST['shirts_size'])?$_REQUEST['shirts_size']:'';
-    $phone = isset($_REQUEST['phone'])?$_REQUEST['phone']:'';
-    $classroom = isset($_REQUEST['classroom'])?$_REQUEST['classroom']:'';
-    $vegetarian_food = isset($_REQUEST['vegetarian_food'])?$_REQUEST['vegetarian_food']:'';
-    $result = $MCM->editCMStudent([
-        'confirm_id'=>$confirm_id,
-        'user_id'=>$user_id,
+    $confirm_id = $MCM->input('cid');
+    $user_id = $MCM->input('uid');
+    $shirts_size = $MCM->input('shirts_size');
+    $phone = $MCM->input('phone');
+    $classroom = $MCM->input('classroom');
+    $vegetarian_food = $MCM->input('vegetarian_food');
+
+    $input=[
         'shirts_size'=>$shirts_size,
         'phone'=>$phone,
         'classroom'=>$classroom,
-        'vegetarian_food'=>$vegetarian_food
-    ]);
+        'vegetarian_food'=>$vegetarian_food,
+    ];
+    $condition=[
+        'confirm_id'=>$confirm_id,
+        'user_id'=>$user_id
+    ];
+
+    $result = $MCM->editThis($input,$condition);
 }
 
 elseif($fn=='phase2'){
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-    $result = $MPP->addPhase($id,2);
+    $id = $MPP->input('id');
+    $input = [
+        'project_id'=>$id,
+        'phase'=> 2
+    ];
+    $result = $MPP->insertThis($input);
     if($result > 0){
         $l = $MU->link('user-project-manage.php?id='.$id);
         exit;
@@ -187,11 +239,11 @@ elseif($fn=='phase2'){
     }
 }
 elseif($fn=='savePdfP2'){
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $phase_id = $MPPU->input('phase_id');
+    $user_id = $MPPU->input('user_id');
+    $namefile = $MPPU->input('namefile');
+    $typefile = $MPPU->input('typefile');
+    $path = $MPPU->input('path');
     $input = [
         'phase_id'=> $phase_id,
         'user_id'=> $user_id,
@@ -199,17 +251,25 @@ elseif($fn=='savePdfP2'){
         'typefile'=> $typefile,
         'path'=> $path
     ];
-    $result = $MPPU->addUpload($input);
+    $result = $MPPU->insertThis($input);
 
-    $result = $LOG->addLog($phase_id,$user_id,'Upload File Name: '.$namefile);
+    //add Log
+    $message = 'Upload File Name: '.$namefile;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
+
 
 }
 elseif($fn=='saveImageP2'){
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $phase_id = $MPPU->input('phase_id');
+    $user_id = $MPPU->input('user_id');
+    $namefile = $MPPU->input('namefile');
+    $typefile = $MPPU->input('typefile');
+    $path = $MPPU->input('path');
     $input = [
         'phase_id'=> $phase_id,
         'user_id'=> $user_id,
@@ -217,17 +277,24 @@ elseif($fn=='saveImageP2'){
         'typefile'=> $typefile,
         'path'=> $path
     ];
-    $result = $MPPU->addUpload($input);
+    $result = $MPPU->insertThis($input);
 
-    $result = $LOG->addLog($phase_id,$user_id,'Upload Image Name: '.$namefile);
+    //add Log
+    $message = 'Upload Image Name: '.$namefile;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
 
 }
 elseif($fn=='saveVideoP2'){
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $phase_id = $MPPU->input('phase_id');
+    $user_id = $MPPU->input('user_id');
+    $namefile = $MPPU->input('namefile');
+    $typefile = $MPPU->input('typefile');
+    $path = $MPPU->input('path');
     $input = [
         'phase_id'=> $phase_id,
         'user_id'=> $user_id,
@@ -235,21 +302,32 @@ elseif($fn=='saveVideoP2'){
         'typefile'=> $typefile,
         'path'=> $path
     ];
-    $result = $MPPU->addUpload($input);
+    $result = $MPPU->insertThis($input);
 
-    $result = $LOG->addLog($phase_id,$user_id,'Upload Video Name: '.$namefile);
+    //add Log
+    $message = 'Upload Video Name: '.$namefile;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
 
 }
 
 elseif ($fn=='confirm2'){
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-    $lastId = $MC->addConfirm(['project_id'=>$id,'phase'=>2]);
+    $id = $MC->input('id');
+    $input= [
+        'project_id'=>$id,
+        'phase'=>2
+    ];
+    $lastId = $MC->insertThis($input);
     if($lastId>0){
         $userInProject = $MU->getUserByProjectId($id);
         foreach ($userInProject as $item){
             $i_user_id = $item['id'];
             $i_membertype = $item['membertype'];
-            $result = $MCM->addCM([
+            $result = $MCM->insertThis([
                 'confirm_id'=>$lastId,
                 'user_id'=>$i_user_id,
                 'membertype'=>$i_membertype
@@ -258,53 +336,62 @@ elseif ($fn=='confirm2'){
     }
 }
 elseif ($fn=='addConfirm2'){
-    $confirm_id = isset($_REQUEST['cid'])?$_REQUEST['cid']:'';
-    $checkIn = isset($_REQUEST['check_in'])?$_REQUEST['check_in']:'';
+    $confirm_id = $MC->input('cid');
+    $checkIn = $MC->input('check_in');
+    $driver = $MC->input('driver');
     if($checkIn!=''){
         $cut = explode('/',$checkIn);
         $checkIn = $cut[2].'-'.$cut[1].'-'.$cut[0];
     }
-    $driver = isset($_REQUEST['driver'])?$_REQUEST['driver']:'';
-    $result = $MC->editConfirm(['check_in'=>$checkIn,'driver'=>$driver,'id'=>$confirm_id]);
+    $input=[
+        'check_in'=>$checkIn,
+        'driver'=>$driver,
+    ];
+    $condition=[
+        'id'=>$confirm_id
+    ];
+    $result = $MC->editThis($input,$condition);
+
 }
 elseif ($fn=='confirm2Teacher'){
-    $confirm_id = isset($_REQUEST['cid'])?$_REQUEST['cid']:'';
-    $user_id = isset($_REQUEST['uid'])?$_REQUEST['uid']:'';
-    $shirts_size = isset($_REQUEST['shirts_size'])?$_REQUEST['shirts_size']:'';
-    $phone = isset($_REQUEST['phone'])?$_REQUEST['phone']:'';
-    $vegetarian_food = isset($_REQUEST['vegetarian_food'])?$_REQUEST['vegetarian_food']:'';
+    $confirm_id = $MCM->input('cid');
+    $user_id = $MCM->input('uid');
+    $shirts_size = $MCM->input('shirts_size');
+    $phone = $MCM->input('phone');
+    $vegetarian_food = $MCM->input('vegetarian_food');
 
-    $name_title = isset($_REQUEST['name_title'])?$_REQUEST['name_title']:'';
-    $name_thai = isset($_REQUEST['name_thai'])?$_REQUEST['name_thai']:'';
-    $surname_thai = isset($_REQUEST['surname_thai'])?$_REQUEST['surname_thai']:'';
-
-    $result = $MCM->editCMTeacher([
-        'confirm_id'=>$confirm_id,
-        'user_id'=>$user_id,
+    $name_title = $MCM->input('name_title');
+    $name_thai = $MCM->input('name_thai');
+    $surname_thai = $MCM->input('surname_thai');
+    $input=[
         'shirts_size'=>$shirts_size,
         'phone'=>$phone,
         'vegetarian_food'=>$vegetarian_food,
-
         'name_title'=>$name_title,
         'name_thai'=>$name_thai,
         'surname_thai'=>$surname_thai
-    ]);
+    ];
+    $condition=[
+        'confirm_id'=>$confirm_id,
+        'user_id'=>$user_id
+    ];
+
+    $result = $MCM->editThis($input,$condition);
 }
 elseif ($fn=='confirm2Student'){
-    $confirm_id = isset($_REQUEST['cid'])?$_REQUEST['cid']:'';
-    $user_id = isset($_REQUEST['uid'])?$_REQUEST['uid']:'';
-    $shirts_size = isset($_REQUEST['shirts_size'])?$_REQUEST['shirts_size']:'';
-    $phone = isset($_REQUEST['phone'])?$_REQUEST['phone']:'';
-    $classroom = isset($_REQUEST['classroom'])?$_REQUEST['classroom']:'';
-    $vegetarian_food = isset($_REQUEST['vegetarian_food'])?$_REQUEST['vegetarian_food']:'';
+    $confirm_id = $MCM->input('cid');
+    $user_id = $MCM->input('uid');
+    $shirts_size = $MCM->input('shirts_size');
+    $phone = $MCM->input('phone');
+    $classroom = $MCM->input('classroom');
+    $vegetarian_food = $MCM->input('vegetarian_food');
 
-    $name_title = isset($_REQUEST['name_title'])?$_REQUEST['name_title']:'';
-    $name_thai = isset($_REQUEST['name_thai'])?$_REQUEST['name_thai']:'';
-    $surname_thai = isset($_REQUEST['surname_thai'])?$_REQUEST['surname_thai']:'';
 
-    $result = $MCM->editCMStudent([
-        'confirm_id'=>$confirm_id,
-        'user_id'=>$user_id,
+    $name_title = $MCM->input('name_title');
+    $name_thai = $MCM->input('name_thai');
+    $surname_thai = $MCM->input('surname_thai');
+
+    $input=[
         'shirts_size'=>$shirts_size,
         'phone'=>$phone,
         'classroom'=>$classroom,
@@ -313,12 +400,24 @@ elseif ($fn=='confirm2Student'){
         'name_title'=>$name_title,
         'name_thai'=>$name_thai,
         'surname_thai'=>$surname_thai
-    ]);
+
+    ];
+    $condition=[
+        'confirm_id'=>$confirm_id,
+        'user_id'=>$user_id
+    ];
+
+    $result = $MCM->editThis($input,$condition);
+
 }
 
 elseif($fn=='phase3'){
-    $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
-    $result = $MPP->addPhase($id,3);
+    $id = $MPP->input('id');
+    $input = [
+        'project_id'=>$id,
+        'phase'=> 3
+    ];
+    $result = $MPP->insertThis($input);
     if($result > 0){
         $l = $MU->link('user-project-manage.php?id='.$id);
         exit;
@@ -326,13 +425,14 @@ elseif($fn=='phase3'){
         $l = $MU->link('user-project.php');
         exit;
     }
+
 }
 elseif($fn=='savePdfP3'){
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $phase_id = $MPPU->input('phase_id');
+    $user_id = $MPPU->input('user_id');
+    $namefile = $MPPU->input('namefile');
+    $typefile = $MPPU->input('typefile');
+    $path = $MPPU->input('path');
     $input = [
         'phase_id'=> $phase_id,
         'user_id'=> $user_id,
@@ -340,17 +440,24 @@ elseif($fn=='savePdfP3'){
         'typefile'=> $typefile,
         'path'=> $path
     ];
-    $result = $MPPU->addUpload($input);
+    $result = $MPPU->insertThis($input);
 
-    $result = $LOG->addLog($phase_id,$user_id,'Upload File Name: '.$namefile);
+    //add Log
+    $message = 'Upload File Name: '.$namefile;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
 
 }
 elseif($fn=='saveImageP3'){
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $phase_id = $MPPU->input('phase_id');
+    $user_id = $MPPU->input('user_id');
+    $namefile = $MPPU->input('namefile');
+    $typefile = $MPPU->input('typefile');
+    $path = $MPPU->input('path');
     $input = [
         'phase_id'=> $phase_id,
         'user_id'=> $user_id,
@@ -358,17 +465,23 @@ elseif($fn=='saveImageP3'){
         'typefile'=> $typefile,
         'path'=> $path
     ];
-    $result = $MPPU->addUpload($input);
+    $result = $MPPU->insertThis($input);
 
-    $result = $LOG->addLog($phase_id,$user_id,'Upload Image Name: '.$namefile);
-
+    //add Log
+    $message = 'Upload Image Name: '.$namefile;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
 }
 elseif($fn=='saveVideoP3'){
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
-    $namefile = isset($_REQUEST['namefile'])?$_REQUEST['namefile']:'';
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $path = isset($_REQUEST['path'])?$_REQUEST['path']:'';
+    $phase_id = $MPPU->input('phase_id');
+    $user_id = $MPPU->input('user_id');
+    $namefile = $MPPU->input('namefile');
+    $typefile = $MPPU->input('typefile');
+    $path = $MPPU->input('path');
     $input = [
         'phase_id'=> $phase_id,
         'user_id'=> $user_id,
@@ -376,32 +489,48 @@ elseif($fn=='saveVideoP3'){
         'typefile'=> $typefile,
         'path'=> $path
     ];
-    $result = $MPPU->addUpload($input);
+    $result = $MPPU->insertThis($input);
 
-    $result = $LOG->addLog($phase_id,$user_id,'Upload Video Name: '.$namefile);
+    //add Log
+    $message = 'Upload Video Name: '.$namefile;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
 
 }
 
 
 elseif ($fn=='deleteUpload'){
-    $typefile = isset($_REQUEST['typefile'])?$_REQUEST['typefile']:'';
-    $upload_id = isset($_REQUEST['upload_id'])?$_REQUEST['upload_id']:'';
-    $phase_id = isset($_REQUEST['phase_id'])?$_REQUEST['phase_id']:'';
-    $name = isset($_REQUEST['name'])?$_REQUEST['name']:'';
-    $user_id = isset($_REQUEST['user_id'])?$_REQUEST['user_id']:'';
+    $typefile = $MPPU->input('typefile');
+    $upload_id = $MPPU->input('upload_id');
+    $phase_id = $MPPU->input('phase_id');
+    $name = $MPPU->input('name');
+    $user_id = $MPPU->input('user_id');
 
-    $result = $MPPU->deleteUploadById($upload_id);
-    $result = $LOG->addLog($phase_id,$user_id,'Delete '.$typefile.' Name: '.$name);
+    $result = $MPPU->deleteThis(['id'=>$id]);
+
+    //add Log
+    $message = 'Delete '.$typefile.' Name: '.$name;
+    $input=[
+        'phase_id'=>$phase_id,
+        'user_id'=>$user_id,
+        'message'=>$message
+    ];
+    $result = $LOG->insertThis($input);
 }
 
 
-$result = $MP->getProjectById($id);
-$check = $MP->checkUserInProject($id,$session_user_id);
+$result = $MP->selectThis(['id'=>$id]);
+$check = $MPM->selectThis(['project_id'=>$id,'user_id'=>$session_user_id]);
+$check = isset($check);
 
 if(isset($result['id']) && $check ){
     $PROJECT = $result;
 
-    $result = $MPS->getProjectById($result['projectsetup_id']);
+    $result = $MPS->selectThis(['id'=>$result['projectsetup_id']]);
     if(isset($result['id'])){
         $projectSetup= $result;
 
@@ -435,11 +564,12 @@ if(isset($result['id']) && $check ){
 
     }
 
-    $result = $MPP->getPhase($id,1);
+    $result = $MPP->selectThis(['project_id'=>$id,'phase'=>1]);
     if(isset($result['id'])){
         $PHASE1 = $result;
 
-        $result = $MPPU->getByPhaseId($PHASE1['id']);
+        $sql = " where phase_id=".$PHASE1['id']." ORDER BY id ";
+        $result = $MPPU->selectAllSql($sql);
         if(count($result)>0){
             $PHASEUPLOAD = $result;
         }
@@ -450,7 +580,7 @@ if(isset($result['id']) && $check ){
         }
 
     }
-    $result = $MC->getConfirmId($id,1);
+    $result = $MC->selectThis(['project_id'=>$id,'confirm_phase'=>1]);
     if(isset($result['id'])){
         $CP1 = $result;
 
@@ -461,11 +591,13 @@ if(isset($result['id']) && $check ){
 
     }
 
-    $result = $MPP->getPhase($id,2);
+
+    $result = $MPP->selectThis(['project_id'=>$id,'phase'=>2]);
     if(isset($result['id'])){
         $PHASE2 = $result;
 
-        $result = $MPPU->getByPhaseId($PHASE2['id']);
+        $sql = " where phase_id=".$PHASE2['id']." ORDER BY id ";
+        $result = $MPPU->selectAllSql($sql);
         if(count($result)>0){
             $P2UPLOAD = $result;
         }
@@ -475,7 +607,7 @@ if(isset($result['id']) && $check ){
         }
 
     }
-    $result = $MC->getConfirmId($id,2);
+    $result = $MC->selectThis(['project_id'=>$id,'confirm_phase'=>2]);
     if(isset($result['id'])){
         $CP2 = $result;
 
@@ -486,11 +618,12 @@ if(isset($result['id']) && $check ){
 
     }
 
-    $result = $MPP->getPhase($id,3);
+    $result = $MPP->selectThis(['project_id'=>$id,'phase'=>3]);
     if(isset($result['id'])){
         $PHASE3 = $result;
 
-        $result = $MPPU->getByPhaseId($PHASE3['id']);
+        $sql = " where phase_id=".$PHASE3['id']." ORDER BY id ";
+        $result = $MPPU->selectAllSql($sql);
         if(count($result)>0){
             $P3UPLOAD = $result;
         }

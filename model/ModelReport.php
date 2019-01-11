@@ -6,7 +6,7 @@
  * Date: 29/5/2561
  * Time: 18:45
  */
-require_once __DIR__.'/../model/_DBPDO.php';
+require_once __DIR__.'/_DBPDO.php';
 class ModelReport extends  _DBPDO
 {
 
