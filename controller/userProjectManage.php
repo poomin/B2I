@@ -149,7 +149,7 @@ elseif ($fn=='confirm1'){
     $id = $MC->input('id');
     $input= [
         'project_id'=>$id,
-        'phase'=>1
+        'confirm_phase'=>1
     ];
     $lastId = $MC->insertThis($input);
     if($lastId>0){
@@ -319,7 +319,7 @@ elseif ($fn=='confirm2'){
     $id = $MC->input('id');
     $input= [
         'project_id'=>$id,
-        'phase'=>2
+        'confirm_phase'=>2
     ];
     $lastId = $MC->insertThis($input);
     if($lastId>0){
