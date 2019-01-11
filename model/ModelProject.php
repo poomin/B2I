@@ -139,6 +139,31 @@ class ModelProject extends  _DBPDO
     }
 
     /*
+     * history-project.php
+     */
+    function selectForHistoryProject($user_id){
+        //set parameter
+        $this_db = $this->DB;
+        $this_p_setup = $this->FK_PROJECTSETUP;
+        $this_p_member = $this->FK_PROJECT_MEMBER;
+
+        //connect DB
+        $this->connect();
+        $sql = "select p.id , p.name , s.name as title from $this_p_member m 
+                left join $this_db p on m.project_id = p.id
+                left join $this_p_setup s on s.id = p.projectsetup_id
+                where m.user_id = :user_id";
+        $params= array(':user_id'=> $user_id);
+        $result = $this->queryAll($sql,$params);
+
+        //close DB
+        $this->close();
+
+        return $result;
+    }
+
+
+    /*
      * get status last
      */
     function getProjectLastStatus($project_id){

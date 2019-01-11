@@ -23,7 +23,7 @@ $role = $_SESSION['role'];
             <a href="user-project.php"><i class="fa fa-edit fa-fw"></i> โครงการ</a>
         </li>
         <li class="<?= $m_li=='history'?'active':'';?>">
-            <a href="user-project-history.php"><i class="fa fa-file-text fa-fw"></i> ประวัติโครงการเข้าร่วม</a>
+            <a href="history-project.php"><i class="fa fa-file-text fa-fw"></i> ประวัติโครงการเข้าร่วม</a>
         </li>
 
     <?php else: ?>
