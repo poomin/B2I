@@ -60,5 +60,7 @@ if(count($result) > 0){
 $result = $MPS->selectThis(['active'=>'Y']);
 $img = '/../images/header-mini.jpg';
 if(isset($result['id'])){
-    $img = '/..'.$result['image'];
+    if($result['image']!=''){
+        $img = '/..'.$result['image'];
+    }
 }

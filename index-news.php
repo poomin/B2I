@@ -46,6 +46,9 @@ include_once __DIR__.'/controller/news.php';
                         <li class="lia <?= $type=='announce'?'active':'';?>" id="li3" onclick="activeMenuNevBar('announce');">
                             <i class="fa fa-rss-square sr-icons fa-2x"></i> ประกาศ
                         </li>
+                        <li class="lia <?= $type=='project'?'active':'';?>" onclick="activeMenuNevBar('project');">
+                            <i class="fa fa-graduation-cap sr-icons fa-2x"></i> ผลงาน
+                        </li>
                         <li></li>
                     </ul>
                 </div>
@@ -88,6 +91,8 @@ include_once __DIR__.'/controller/news.php';
                                 $i_type='ข่าว';
                             }elseif($item['type']=='article'){
                                 $i_type='บทความ';
+                            }elseif ($item['type']=='project'){
+                                $i_type='ผลงานส่งเข้าประกวด';
                             }
                             echo $i_type;
                             ?>
@@ -141,6 +146,8 @@ include_once __DIR__.'/controller/news.php';
                                      $i_type='ข่าว';
                                  }elseif($item['type']=='article'){
                                      $i_type='บทความ';
+                                 }elseif ($item['type']=='project'){
+                                     $i_type='ผลงานส่งเข้าประกวด';
                                  }
                                  echo $i_type;
                                  ?>
