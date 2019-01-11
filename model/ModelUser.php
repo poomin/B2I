@@ -276,7 +276,6 @@ class ModelUser extends  _DBPDO
     }
 
 
-
     function getUserRole($role='student'){
         $this->connect();
         $sql = "select * from b2i_user WHERE role=:role";
