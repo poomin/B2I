@@ -9,7 +9,7 @@ require_once __DIR__.'/_redirectUser.php';
  * Time: 11:30
  */
 $m_nev = '';
-$m_li = 'project';
+$m_li = 'history';
 
 require_once __DIR__.'/controller/historyProjectManage.php';
 
@@ -42,15 +42,6 @@ require_once __DIR__.'/controller/historyProjectManage.php';
             <div class="col-xs-12 col-sm-9">
                 <div class="box-card" style="min-height: 300px;">
 
-                    <!--  alert status update -->
-                    <?php if(isset($_SESSION['error'])): ?>
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong>Warning!</strong> <?php echo $_SESSION['error']; ?>
-                    </div>
-                    <?php unset($_SESSION['error']); endif; ?>
-                    <!-- End alert status update -->
-
                     <!-- header project -->
                     <div class="header-project">
                         <div class="form-inline">
@@ -67,6 +58,11 @@ require_once __DIR__.'/controller/historyProjectManage.php';
                         <hr>
 
                         <div class="form-horizontal" id="show_detail_project" hidden>
+
+                            <div class="col-sm-offset-4">
+                                <h3><?=$PROJECTSETUPNAME;?></h3>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">โครงการ:</label>
                                 <div class="col-sm-8">
@@ -120,11 +116,11 @@ require_once __DIR__.'/controller/historyProjectManage.php';
                             if(count($a_a)<=0){
                                 $a_icon = 'fa-close';
                                 $a_color = '';
-                                $a_text ='ไม่เปิดดำเนินการ';
+                                $a_text ='ปิดดำเนินการ';
                                 if($st==$a_h){
                                     $a_icon = 'fa-edit';
                                     $a_color = 'bg-warning text-warning';
-                                    $a_text ='เปิดดำเนินการ';
+                                    $a_text ='ปิดดำเนินการ';
                                 }
                             }else{
                                 if($a_a['result']=='pass'){
@@ -135,7 +131,7 @@ require_once __DIR__.'/controller/historyProjectManage.php';
                                 elseif($a_a['result']=='process'){
                                     $a_icon = 'fa-edit';
                                     $a_color = 'bg-warning text-warning';
-                                    $a_text ='กำลังดำเนินการ';
+                                    $a_text ='ปิดดำเนินการ';
                                 }elseif ($st=='wait'){
                                     $a_icon = 'fa-clock-o';
                                     $a_color = 'bg-warning text-warning';
@@ -161,31 +157,31 @@ require_once __DIR__.'/controller/historyProjectManage.php';
 
                         ?>
                         <ul class="nav nav-tabs nav-justified" role="tablist">
-                            <li role="presentation" class="<?=($PHASEACTIVE=='p1')?'active':'';?>">
+                            <li role="presentation" class="active">
                                 <div class="text-center <?=$a_f1['color'];?>">
                                     <i class="fa <?=$a_f1['icon'];?>"></i> <?=$a_f1['text'];?>
                                 </div>
                                 <a href="#phase1" aria-controls="phase1" role="tab" data-toggle="tab">เสนอแนวคิดสิ่งประดิษฐ์</a>
                             </li>
-                            <li role="presentation" class="<?=($PHASEACTIVE=='c1')?'active':'';?>">
+                            <li role="presentation" class="">
                                 <div class="text-center <?=$a_cf1['color'];?>">
                                     <i class="fa <?=$a_cf1['icon'];?>"></i> <?=$a_cf1['text'];?>
                                 </div>
                                 <a href="#confirm1" aria-controls="confirm1" role="tab" data-toggle="tab">ยืนยันเข้าอบรม</a>
                             </li>
-                            <li role="presentation" class="<?=($PHASEACTIVE=='p2')?'active':'';?>">
+                            <li role="presentation" class="">
                                 <div class="text-center <?=$a_f2['color'];?>">
                                     <i class="fa <?=$a_f2['icon'];?>"></i> <?=$a_f2['text'];?>
                                 </div>
                                 <a href="#phase2" aria-controls="phase2" role="tab" data-toggle="tab">ส่ง video</a>
                             </li>
-                            <li role="presentation" class="<?=($PHASEACTIVE=='c2')?'active':'';?>">
+                            <li role="presentation" class="">
                                 <div class="text-center <?=$a_cf2['color'];?>">
                                     <i class="fa <?=$a_cf2['icon'];?>"></i> <?=$a_cf2['text'];?>
                                 </div>
                                 <a href="#confirm2" aria-controls="confirm2" role="tab" data-toggle="tab">ยืนยันเข้าร่วมรอบชิง</a>
                             </li>
-                            <li role="presentation" class="<?=($PHASEACTIVE=='p3')?'active':'';?>">
+                            <li role="presentation" class="">
                                 <div class="text-center <?=$a_f3['color'];?>">
                                     <i class="fa <?=$a_f3['icon'];?>"></i> <?=$a_f3['text'];?>
                                 </div>

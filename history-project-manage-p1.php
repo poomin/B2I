@@ -16,7 +16,7 @@
         <div style="padding-top: 20px; padding-bottom: 10px;">
             <?php
                 $p1_alert = "alert-warning";
-                $p1_detail = $PHASE1['detail'];;
+                $p1_detail = $PHASE1['detail'];
                 $p1_strong = "สิ้นสุดโครงการ";
                 if($PHASE1['result']=='fail'){
                     $p1_alert = "alert-danger";
